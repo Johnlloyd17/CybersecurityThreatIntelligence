@@ -1,0 +1,70 @@
+{
+  "known_targets": {
+    "domain": "scanme.nmap.org",
+    "url": "https://example.com",
+    "ip": "8.8.8.8"
+  },
+  "module_matrix": [
+    {
+      "slug": "nmap",
+      "query_type": "domain",
+      "query_value": "scanme.nmap.org"
+    },
+    {
+      "slug": "port-scanner-tcp",
+      "query_type": "domain",
+      "query_value": "scanme.nmap.org"
+    },
+    {
+      "slug": "nuclei",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    },
+    {
+      "slug": "dnstwist",
+      "query_type": "domain",
+      "query_value": "example.com"
+    },
+    {
+      "slug": "trufflehog",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    },
+    {
+      "slug": "wappalyzer",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    },
+    {
+      "slug": "retire-js",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    },
+    {
+      "slug": "testssl",
+      "query_type": "domain",
+      "query_value": "badssl.com"
+    },
+    {
+      "slug": "cmseek",
+      "query_type": "url",
+      "query_value": "https://wordpress.com"
+    },
+    {
+      "slug": "snallygaster",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    },
+    {
+      "slug": "cross-referencer",
+      "query_type": "domain",
+      "query_value": "example.com"
+    },
+    {
+      "slug": "web-spider",
+      "query_type": "url",
+      "query_value": "https://example.com"
+    }
+  ]
+}
+

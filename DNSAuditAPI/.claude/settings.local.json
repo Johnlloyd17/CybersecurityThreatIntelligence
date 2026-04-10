@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:dnsaudit.io)",
+      "WebFetch(domain:www.breachsense.com)",
+      "WebSearch",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(php -r \"echo bin2hex\\(random_bytes\\(32\\)\\);\")",
+      "WebFetch(domain:news.ycombinator.com)",
+      "WebFetch(domain:leonelson.com)"
+    ]
+  }
+}

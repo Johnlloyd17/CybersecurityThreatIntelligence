@@ -1,0 +1,57 @@
+{
+  "rule_name": "ALL_CLEAR",
+  "severity": "info",
+  "title": "No significant threats detected for {{query_value}}",
+  "detail": "{{success_count}} out of {{success_count}} successful results remained at low risk.",
+  "collections": {
+    "success_results": {
+      "from": "results",
+      "filters": {
+        "success": true
+      }
+    },
+    "high_scores": {
+      "from": "success_results",
+      "filters": {
+        "score_gte": 75
+      }
+    },
+    "medium_scores": {
+      "from": "success_results",
+      "filters": {
+        "score_gte": 40,
+        "score_lte": 74
+      }
+    }
+  },
+  "when": [
+    {
+      "collection": "success_results",
+      "aggregate": "count",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "collection": "high_scores",
+      "aggregate": "count",
+      "operator": "==",
+      "value": 0
+    },
+    {
+      "collection": "medium_scores",
+      "aggregate": "count",
+      "operator": "==",
+      "value": 0
+    }
+  ],
+  "context": {
+    "success_count": {
+      "collection": "success_results",
+      "aggregate": "count"
+    }
+  },
+  "links": {
+    "collection": "success_results",
+    "limit": 10
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "name": "SpiderFoot-Style Cross-Source Threshold",
+    "description": "{{entity}} was flagged by {{count}} high-risk results across {{source_count}} distinct sources.",
+    "risk": "high",
+    "author": "CTI Platform",
+    "url": "internal://correlations/10_spiderfoot_style_threshold"
+  },
+  "collections": [
+    {
+      "id": 1,
+      "field": "risk_score",
+      "method": "gte",
+      "value": 70
+    },
+    {
+      "id": 2,
+      "collect_from": 1,
+      "field": "api_source",
+      "method": "present",
+      "value": true
+    }
+  ],
+  "aggregation": {
+    "field": "query_value"
+  },
+  "analysis": {
+    "method": "threshold",
+    "minimum": 2
+  },
+  "headline": "Finding: {{entity}} flagged by {{count}} corroborating high-risk results"
+}

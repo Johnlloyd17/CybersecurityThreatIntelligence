@@ -1,0 +1,43 @@
+{
+  "rule_name": "MULTI_SOURCE_HIGH_RISK",
+  "severity": "high",
+  "title": "Multiple sources flagged {{query_value}} as high risk",
+  "detail": "{{high_count}} results from {{distinct_source_count}} source(s) returned score >= 75 for this {{query_type}}.",
+  "collections": {
+    "success_results": {
+      "from": "results",
+      "filters": {
+        "success": true
+      }
+    },
+    "high_scores": {
+      "from": "success_results",
+      "filters": {
+        "score_gte": 75
+      }
+    }
+  },
+  "when": [
+    {
+      "collection": "high_scores",
+      "aggregate": "count",
+      "operator": ">=",
+      "value": 3
+    }
+  ],
+  "context": {
+    "high_count": {
+      "collection": "high_scores",
+      "aggregate": "count"
+    },
+    "distinct_source_count": {
+      "collection": "high_scores",
+      "aggregate": "distinct_count",
+      "field": "api_source"
+    }
+  },
+  "links": {
+    "collection": "high_scores",
+    "limit": 10
+  }
+}

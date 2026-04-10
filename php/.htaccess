@@ -1,0 +1,24 @@
+# =============================================================================
+#  CTI — php/ DIRECTORY ACCESS GUARD
+#
+#  Every file in this directory is a server-side include intended to be
+#  required/included by PHP pages, NEVER requested directly via a URL.
+#
+#  This .htaccess ensures that a browser hitting:
+#    http://localhost/CybersecurityThreatIntelligence/php/config.php
+#    http://localhost/CybersecurityThreatIntelligence/php/db.php
+#    http://localhost/CybersecurityThreatIntelligence/php/security-headers.php
+#    http://localhost/CybersecurityThreatIntelligence/php/InputSanitizer.php
+#    http://localhost/CybersecurityThreatIntelligence/php/RateLimiter.php
+#  receives a 403 Forbidden instead of having sensitive code / credentials
+#  exposed or executed in isolation.
+#
+#  EXCEPTION: php/api/ is a publicly-accessible sub-directory that hosts
+#  REST API endpoints. It has its own .htaccess granting access.
+# =============================================================================
+
+# Block direct access to all files in THIS directory
+# (php/api/ sub-directory has its own .htaccess that overrides this)
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>

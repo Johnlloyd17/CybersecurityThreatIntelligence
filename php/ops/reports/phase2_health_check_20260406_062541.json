@@ -1,0 +1,235 @@
+{
+    "generated_at_utc": "2026-04-06T06:25:41+00:00",
+    "configured_only": true,
+    "strict_mode": false,
+    "summary": {
+        "healthy": 0,
+        "degraded": 0,
+        "down": 7,
+        "unknown": 0,
+        "missing": 1,
+        "skipped": 12
+    },
+    "results": [
+        {
+            "canonical": "greynoise",
+            "slug": "greynoise",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "urlscan",
+            "slug": "urlscan",
+            "status": "down",
+            "error": "cURL error (7): Failed to connect to urlscan.io port 443 after 2 ms: Couldn't connect to server",
+            "latency_ms": 3,
+            "requires_key": true,
+            "has_key": true,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "alienvault-otx",
+            "slug": "alienvault",
+            "status": "down",
+            "error": "cURL error (7): Failed to connect to otx.alienvault.com port 443 after 2 ms: Couldn't connect to server",
+            "latency_ms": 3,
+            "requires_key": true,
+            "has_key": true,
+            "is_enabled": true,
+            "note": "Mapped to platform slug \"alienvault\"."
+        },
+        {
+            "canonical": "securitytrails",
+            "slug": "securitytrails",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "censys",
+            "slug": "censys",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "hybrid-analysis",
+            "slug": "hybrid-analysis",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "malwarebazaar",
+            "slug": "abuse-ch",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": "Mapped to platform slug \"abuse-ch\" (MalwareBazaar/ThreatFox endpoint family)."
+        },
+        {
+            "canonical": "threatfox",
+            "slug": "threatfox",
+            "status": "down",
+            "error": "cURL error (7): Failed to connect to threatfox-api.abuse.ch port 443 after 2 ms: Couldn't connect to server",
+            "latency_ms": 3,
+            "requires_key": false,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "ipinfo",
+            "slug": "ipinfo",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "hunter-io",
+            "slug": "hunter",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": "Mapped to platform slug \"hunter\"."
+        },
+        {
+            "canonical": "haveibeenpwned",
+            "slug": "haveibeenpwned",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "whoisxml",
+            "slug": "whoisxml",
+            "status": "missing",
+            "error": "Module slug not found in api_configs.",
+            "latency_ms": 0,
+            "requires_key": null,
+            "has_key": null,
+            "is_enabled": null,
+            "note": ""
+        },
+        {
+            "canonical": "binaryedge",
+            "slug": "binaryedge",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "fullhunt",
+            "slug": "fullhunt",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "leakix",
+            "slug": "leakix",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "networksdb",
+            "slug": "networksdb",
+            "status": "skipped",
+            "error": "Skipped because requires_key=1 and key is not configured.",
+            "latency_ms": 0,
+            "requires_key": true,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "threatminer",
+            "slug": "threatminer",
+            "status": "down",
+            "error": "cURL error (7): Failed to connect to api.threatminer.org port 443 after 4 ms: Couldn't connect to server",
+            "latency_ms": 6,
+            "requires_key": false,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "threatcrowd",
+            "slug": "threatcrowd",
+            "status": "down",
+            "error": "cURL error (6): Could not resolve host: www.threatcrowd.org",
+            "latency_ms": 697,
+            "requires_key": false,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        },
+        {
+            "canonical": "crtsh",
+            "slug": "crt-sh",
+            "status": "down",
+            "error": "cURL error (7): Failed to connect to crt.sh port 443 after 2 ms: Couldn't connect to server",
+            "latency_ms": 3,
+            "requires_key": false,
+            "has_key": false,
+            "is_enabled": true,
+            "note": "Mapped to platform slug \"crt-sh\"."
+        },
+        {
+            "canonical": "dnsgrep",
+            "slug": "dnsgrep",
+            "status": "down",
+            "error": "Service may be unavailable: cURL error (7): Failed to connect to www.dnsgrep.cn port 443 after 3 ms: Couldn't connect to server",
+            "latency_ms": 3,
+            "requires_key": false,
+            "has_key": false,
+            "is_enabled": true,
+            "note": ""
+        }
+    ]
+}

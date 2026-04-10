@@ -1,0 +1,1089 @@
+{
+    "generated_at_utc": "2026-04-06T06:24:59+00:00",
+    "profile_path": "C:\\xampp\\htdocs\\CybersecurityThreatIntelligence\\php\\ops\\phase5_rate_limits_profile.json",
+    "apply_mode": true,
+    "summary": {
+        "selected": 179,
+        "evaluated": 179,
+        "unchanged": 146,
+        "would_update": 0,
+        "updated": 33,
+        "unresolved": 0
+    },
+    "results": [
+        {
+            "slug": "abstractapi",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "abuse-ch",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "abuseipdb",
+            "status": "unchanged",
+            "current_rate_limit": 10,
+            "target_rate_limit": 10
+        },
+        {
+            "slug": "abusix",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "account-finder",
+            "status": "updated",
+            "current_rate_limit": 25,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "adblock-check",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "ahmia",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "alienvault",
+            "status": "unchanged",
+            "current_rate_limit": 12,
+            "target_rate_limit": 12
+        },
+        {
+            "slug": "alienvault-ip-rep",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "apivoid",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "archive-org",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "azure-blob-finder",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "bad-packets",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "base64-decoder",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "binary-string-extractor",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "binaryedge",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "bing",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "bing-shared-ips",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "bitcoin-whos-who",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "bitcoinabuse",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "blocklist-de",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "botscout",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "botvrij",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "builtwith",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "c99",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "censys",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "certspotter",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "chaos",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "cins-army",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "circl-lu",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "cleantalk",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "clearbit",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "cmseek",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "coinblocker",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "commoncrawl",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "company-name-extractor",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "country-name-extractor",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "crobat",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "cross-referencer",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "crt-sh",
+            "status": "unchanged",
+            "current_rate_limit": 12,
+            "target_rate_limit": 12
+        },
+        {
+            "slug": "crxcavator",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "custom-threat-feed",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "cybercrime-tracker",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "darksearch",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "dehashed",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "dns-bruteforce",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "dns-lookaside",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "dns-raw",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "dns-resolver",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "dns-zone-transfer",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "dnsdb",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "dnsgrep",
+            "status": "unchanged",
+            "current_rate_limit": 12,
+            "target_rate_limit": 12
+        },
+        {
+            "slug": "dnstwist",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "do-space-finder",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "dronebl",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "duckduckgo",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "emailcrawlr",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "emailrep",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "emerging-threats",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "etherscan",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "file-metadata-extractor",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "flickr",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "focsec",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "fortiguard",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "fraudguard",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "fullcontact",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "fullhunt",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "gcs-finder",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "github",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "google",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "google-maps",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "google-safebrowsing",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "grayhat-warfare",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "greensnow",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "grep-app",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "greynoise",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "hackertarget",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "haveibeenpwned",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "host-io",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "human-name-extractor",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "hunter",
+            "status": "unchanged",
+            "current_rate_limit": 2,
+            "target_rate_limit": 2
+        },
+        {
+            "slug": "hybrid-analysis",
+            "status": "unchanged",
+            "current_rate_limit": 4,
+            "target_rate_limit": 4
+        },
+        {
+            "slug": "iknowwhatyoudownload",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "intelligencex",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "interesting-file-finder",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "ipapi",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "ipinfo",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "ipqualityscore",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "ipregistry",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "ipstack",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "isc-sans",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "jsonwhois",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "junk-file-finder",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "koodous",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "leak-lookup",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "leakix",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "maltiverse",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "malwarepatrol",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "metadefender",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "mnemonic-pdns",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "multiproxy",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "nameapi",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "nbtscan",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "networksdb",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "neutrinoapi",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "nmap",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "nuclei",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "numverify",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "onesixtyone",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "onion-link",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "onionsearchengine",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "onyphe",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "open-pdns",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "opencorporates",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "opennic",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "openphish",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "pastebin",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "pgp-keyservers",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "phishstats",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "phishtank",
+            "status": "unchanged",
+            "current_rate_limit": 60,
+            "target_rate_limit": 60
+        },
+        {
+            "slug": "port-scanner-tcp",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "project-honeypot",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "pulsedive",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "recon-dev",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "retire-js",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "riddler",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "riskiq",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "robtex",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "s3-finder",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "scylla",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "searchcode",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "securitytrails",
+            "status": "unchanged",
+            "current_rate_limit": 5,
+            "target_rate_limit": 5
+        },
+        {
+            "slug": "seon",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "shodan",
+            "status": "unchanged",
+            "current_rate_limit": 1,
+            "target_rate_limit": 1
+        },
+        {
+            "slug": "snallygaster",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "snov",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "social-links",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "social-media-finder",
+            "status": "updated",
+            "current_rate_limit": 25,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "sorbs",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "spamcop",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "spamhaus-zen",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "spur",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "spyonweb",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "spyse",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "ssl-analyzer",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "stackoverflow",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "steven-black-hosts",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "surbl",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "talos-intelligence",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "testssl",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "textmagic",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "threatcrowd",
+            "status": "unchanged",
+            "current_rate_limit": 12,
+            "target_rate_limit": 12
+        },
+        {
+            "slug": "threatfox",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "threatminer",
+            "status": "unchanged",
+            "current_rate_limit": 12,
+            "target_rate_limit": 12
+        },
+        {
+            "slug": "tld-searcher",
+            "status": "updated",
+            "current_rate_limit": 40,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "tor-exit-nodes",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "torch",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "trashpanda",
+            "status": "unchanged",
+            "current_rate_limit": 20,
+            "target_rate_limit": 20
+        },
+        {
+            "slug": "trufflehog",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "twilio",
+            "status": "unchanged",
+            "current_rate_limit": 25,
+            "target_rate_limit": 25
+        },
+        {
+            "slug": "uceprotect",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "urlscan",
+            "status": "unchanged",
+            "current_rate_limit": 8,
+            "target_rate_limit": 8
+        },
+        {
+            "slug": "viewdns",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "virustotal",
+            "status": "unchanged",
+            "current_rate_limit": 4,
+            "target_rate_limit": 4
+        },
+        {
+            "slug": "voipbl",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "vxvault",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "wafw00f",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "wappalyzer",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "web-spider",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "whatcms",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "whatweb",
+            "status": "updated",
+            "current_rate_limit": 60,
+            "target_rate_limit": 240
+        },
+        {
+            "slug": "whoisology",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "whoxy",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "wigle",
+            "status": "unchanged",
+            "current_rate_limit": 35,
+            "target_rate_limit": 35
+        },
+        {
+            "slug": "wikileaks",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "wikipedia-edits",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        },
+        {
+            "slug": "xforce-exchange",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "zetalytics",
+            "status": "unchanged",
+            "current_rate_limit": 40,
+            "target_rate_limit": 40
+        },
+        {
+            "slug": "zone-h",
+            "status": "unchanged",
+            "current_rate_limit": 30,
+            "target_rate_limit": 30
+        }
+    ]
+}

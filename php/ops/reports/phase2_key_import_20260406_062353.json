@@ -1,0 +1,155 @@
+{
+    "generated_at_utc": "2026-04-06T06:23:53+00:00",
+    "manifest_path": "C:\\xampp\\htdocs\\CybersecurityThreatIntelligence\\php\\ops\\phase2_key_manifest.example.json",
+    "apply_mode": false,
+    "summary": {
+        "items_total": 20,
+        "missing_slug": 1,
+        "invalid_entry": 0,
+        "skipped_no_key": 19,
+        "would_update": 0,
+        "updated": 0
+    },
+    "results": [
+        {
+            "index": 0,
+            "canonical": "greynoise",
+            "slug": "greynoise",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 1,
+            "canonical": "urlscan",
+            "slug": "urlscan",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 2,
+            "canonical": "alienvault-otx",
+            "slug": "alienvault",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 3,
+            "canonical": "securitytrails",
+            "slug": "securitytrails",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 4,
+            "canonical": "censys",
+            "slug": "censys",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 5,
+            "canonical": "hybrid-analysis",
+            "slug": "hybrid-analysis",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 6,
+            "canonical": "malwarebazaar",
+            "slug": "abuse-ch",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 7,
+            "canonical": "threatfox",
+            "slug": "threatfox",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 8,
+            "canonical": "ipinfo",
+            "slug": "ipinfo",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 9,
+            "canonical": "hunter-io",
+            "slug": "hunter",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 10,
+            "canonical": "haveibeenpwned",
+            "slug": "haveibeenpwned",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 11,
+            "canonical": "whoisxml",
+            "slug": "whoisxml",
+            "status": "missing",
+            "reason": "Slug not found in api_configs."
+        },
+        {
+            "index": 12,
+            "canonical": "binaryedge",
+            "slug": "binaryedge",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 13,
+            "canonical": "fullhunt",
+            "slug": "fullhunt",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 14,
+            "canonical": "leakix",
+            "slug": "leakix",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 15,
+            "canonical": "networksdb",
+            "slug": "networksdb",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 16,
+            "canonical": "threatminer",
+            "slug": "threatminer",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 17,
+            "canonical": "threatcrowd",
+            "slug": "threatcrowd",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 18,
+            "canonical": "crtsh",
+            "slug": "crt-sh",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        },
+        {
+            "index": 19,
+            "canonical": "dnsgrep",
+            "slug": "dnsgrep",
+            "status": "skipped",
+            "reason": "No usable API key value in manifest entry."
+        }
+    ]
+}

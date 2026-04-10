@@ -1,0 +1,51 @@
+{
+  "rule_name": "ENRICHMENT_DISCOVERY",
+  "severity": "info",
+  "title": "Enrichment discovered {{enriched_value_count}} associated entity(ies) for {{query_value}}",
+  "detail": "Entities: {{enriched_values}}. Total enrichment results: {{enriched_result_count}}",
+  "collections": {
+    "success_results": {
+      "from": "results",
+      "filters": {
+        "success": true
+      }
+    },
+    "enriched_results": {
+      "from": "success_results",
+      "filters": {
+        "enrichment_pass_gte": 1,
+        "has_enriched_from": true
+      }
+    }
+  },
+  "when": [
+    {
+      "collection": "enriched_results",
+      "aggregate": "count",
+      "operator": ">=",
+      "value": 1
+    }
+  ],
+  "context": {
+    "enriched_value_count": {
+      "collection": "enriched_results",
+      "aggregate": "distinct_count",
+      "field": "enriched_from"
+    },
+    "enriched_values": {
+      "collection": "enriched_results",
+      "aggregate": "distinct_join_field",
+      "field": "enriched_from",
+      "separator": ", ",
+      "limit": 20
+    },
+    "enriched_result_count": {
+      "collection": "enriched_results",
+      "aggregate": "count"
+    }
+  },
+  "links": {
+    "collection": "enriched_results",
+    "limit": 20
+  }
+}

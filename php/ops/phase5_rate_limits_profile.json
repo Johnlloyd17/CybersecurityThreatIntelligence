@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "profile_name": "phase5-production-baseline",
+    "description": "Conservative baseline to reduce provider throttling and stabilize long-running scans.",
+    "updated_utc": "2026-04-06T00:00:00Z"
+  },
+  "min_rate": 1,
+  "max_rate": 300,
+  "defaults": {
+    "requires_key": 30,
+    "no_key": 60,
+    "local": 240
+  },
+  "category_defaults": {
+    "network": 40,
+    "dns": 40,
+    "threat": 40,
+    "infra": 35,
+    "identity": 25,
+    "leaks": 20,
+    "osint": 30,
+    "blocklist": 30
+  },
+  "overrides": {
+    "virustotal": 4,
+    "shodan": 1,
+    "abuseipdb": 10,
+    "greynoise": 5,
+    "urlscan": 8,
+    "alienvault": 12,
+    "securitytrails": 5,
+    "censys": 5,
+    "hybrid-analysis": 4,
+    "abuse-ch": 20,
+    "threatfox": 20,
+    "ipinfo": 30,
+    "hunter": 2,
+    "haveibeenpwned": 5,
+    "whoisxml": 5,
+    "binaryedge": 5,
+    "fullhunt": 5,
+    "leakix": 5,
+    "networksdb": 5,
+    "threatminer": 12,
+    "threatcrowd": 12,
+    "crt-sh": 12,
+    "dnsgrep": 12
+  }
+}

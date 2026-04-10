@@ -1,0 +1,713 @@
+/* =============================================================================
+   CTI PLATFORM — LANDING PAGE STYLES
+   assets/css/landing.css
+   ============================================================================= */
+
+/* ── Hero ──────────────────────────────────────────────────────────────────── */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero { padding-top: 5rem; padding-bottom: 0; }
+}
+
+/* Radial glow in hero background */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -15%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(232, 23, 58, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+    }
+}
+
+.hero-tag {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.hero-tag .label {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+}
+
+@media (min-width: 480px) {
+    .hero-tag .label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+    }
+}
+
+.hero-content h1 {
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+}
+
+.hero-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.hero-sub {
+    font-size: 0.9rem;
+    color: var(--muted-fg);
+    max-width: 100%;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+    .hero-sub {
+        font-size: 1rem;
+        max-width: 540px;
+    }
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 479px) {
+    .hero-actions {
+        flex-direction: column;
+    }
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.hero-terminal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid var(--border);
+    clip-path: var(--chamfer-sm);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+@media (min-width: 480px) {
+    .hero-terminal { max-width: 420px; }
+}
+
+.hero-typewriter {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 480px) {
+    .hero-typewriter { font-size: 0.9rem; }
+}
+
+/* Hero HUD Panel */
+.hero-hud {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .hero-hud {
+        display: block;
+    }
+}
+
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.hud-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.hud-stat {
+    text-align: center;
+}
+
+.hud-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--muted);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--destructive));
+    box-shadow: 0 0 8px rgba(0, 200, 255, 0.4);
+    transition: width 1s ease;
+}
+
+/* ── Section Headers ───────────────────────────────────────────────────────── */
+.section-header {
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-desc {
+    color: var(--muted-fg);
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+    .section-desc {
+        max-width: 600px;
+        font-size: 1rem;
+    }
+}
+
+/* ── Feature Cards ─────────────────────────────────────────────────────────── */
+.feature-icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    color: var(--accent);
+    clip-path: var(--chamfer-sm);
+    transition: all 200ms ease;
+}
+
+.card:hover .feature-icon {
+    border-color: currentColor;
+    filter: drop-shadow(0 0 6px currentColor);
+}
+
+.card h3 {
+    margin-bottom: 0.75rem;
+}
+
+.card p {
+    color: var(--muted-fg);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* ── API Integration Cards ─────────────────────────────────────────────────── */
+.api-card-body {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.api-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid currentColor;
+    clip-path: var(--chamfer-sm);
+    flex-shrink: 0;
+}
+
+.api-meta {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── How It Works Steps ────────────────────────────────────────────────────── */
+.steps {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 900;
+    line-height: 1;
+    min-width: 3rem;
+    text-align: center;
+    text-shadow: 0 0 10px currentColor;
+}
+
+@media (min-width: 768px) {
+    .step { gap: 1.5rem; }
+    .step-number {
+        font-size: 2.5rem;
+        min-width: 4rem;
+    }
+}
+
+.step-content h3 {
+    margin-bottom: 0.5rem;
+}
+
+.step-content p {
+    color: var(--muted-fg);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.step-connector {
+    width: 2px;
+    height: 2.5rem;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin-left: 2rem;
+}
+
+/* ── Stats Bar ─────────────────────────────────────────────────────────────── */
+.stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    clip-path: var(--chamfer);
+    text-align: center;
+}
+
+.stat-divider {
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .stats-bar { padding: 2rem 1.5rem; }
+}
+
+@media (min-width: 768px) {
+    .stats-bar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2.5rem;
+    }
+
+    .stat-divider {
+        display: block;
+        width: 1px;
+        height: 3rem;
+        background: var(--border);
+    }
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── Login Section ─────────────────────────────────────────────────────────── */
+.login-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .login-wrapper {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+}
+
+.login-info h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.login-info > p {
+    color: var(--muted-fg);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.login-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.login-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+/* Login Card */
+.login-card {
+    padding: 1.25rem;
+}
+
+@media (min-width: 480px) {
+    .login-card { padding: 2rem; }
+}
+
+.login-card-header {
+    margin-bottom: 1.5rem;
+}
+
+.login-card-header h3 {
+    margin-top: 0.25rem;
+}
+
+.login-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.login-cred {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--muted-fg);
+    background: var(--bg);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+.footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 2rem 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .footer { padding: 3rem 0 1.5rem; }
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+    }
+}
+
+.footer-brand p {
+    color: var(--muted-fg);
+    font-size: 0.8rem;
+    max-width: 280px;
+}
+
+.footer-heading {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--fg);
+    margin-bottom: 1rem;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-col a {
+    color: var(--muted-fg);
+    font-size: 0.8rem;
+}
+
+.footer-col a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (max-width: 479px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+}
+
+/* ── Mobile Menu ───────────────────────────────────────────────────────────── */
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+}
+
+.mobile-menu a {
+    font-family: var(--font-accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-fg);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    display: block;
+}
+
+.mobile-menu a:hover {
+    color: var(--accent);
+}
+
+/* Override .btn styles inside mobile menu so it looks like the other links */
+.mobile-menu a.btn {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    clip-path: none;
+    color: var(--muted-fg);
+    padding: 0.75rem 0;
+    justify-content: flex-start;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    box-shadow: none;
+    min-height: unset;
+    width: 100%;
+}
+
+.mobile-menu a.btn:hover {
+    background: transparent;
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: none;
+}
+
+.mobile-menu-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 0.25rem;
+}
+
+.mobile-menu-theme .label {
+    color: var(--muted-fg);
+}
+
+@media (min-width: 1024px) {
+    .mobile-menu {
+        display: none !important;
+    }
+}
+
+/* ── Mobile Overflow Fix for Skew Transforms ────────────────────────────── */
+@media (max-width: 767px) {
+    .skew-container {
+        transform: none !important;
+    }
+    .skew-container > * {
+        transform: none !important;
+    }
+}
+
+/* ── Section header responsive ───────────────────────────────────────────── */
+@media (max-width: 479px) {
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .hero-tag {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content h1 {
+        margin-bottom: 1rem;
+    }
+}
+
+/* ── Login info responsive ───────────────────────────────────────────────── */
+@media (max-width: 479px) {
+    .login-info > p {
+        font-size: 0.82rem;
+        margin-bottom: 1.5rem;
+    }
+    .login-feature {
+        font-size: 0.8rem;
+    }
+    .step-connector {
+        margin-left: 1.5rem;
+    }
+}
+
+/* ── API card responsive ─────────────────────────────────────────────────── */
+@media (max-width: 479px) {
+    .api-meta {
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+    }
+}
+
+/* ── Grid card content safety ───────────────────────────────────────────────── */
+.card p,
+.card-terminal p,
+.card-holo p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Flex row inside API cards wraps on tiny screens */
+@media (max-width: 359px) {
+    .flex.items-center.gap-3.mb-4 {
+        flex-wrap: wrap;
+    }
+}
+
+/* ── Section header text safe ───────────────────────────────────────────────── */
+.section-header h2,
+.section-header h3 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* ── Login features list ────────────────────────────────────────────────────── */
+@media (max-width: 479px) {
+    .login-features {
+        gap: 0.6rem;
+    }
+    .login-feature span:last-child {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* ── Back to Top Button ────────────────────────────────────────────────────── */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    color: var(--accent);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.15);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+}
+
+@media (max-width: 479px) {
+    .back-to-top {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 40px;
+        height: 40px;
+    }
+}

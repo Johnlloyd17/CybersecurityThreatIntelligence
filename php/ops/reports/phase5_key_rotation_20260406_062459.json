@@ -1,0 +1,1339 @@
+{
+    "generated_at_utc": "2026-04-06T06:24:59+00:00",
+    "apply_mode": true,
+    "audit_only": false,
+    "rotation_days": 90,
+    "due_window_days": 14,
+    "owner_contact": "secops@local",
+    "seed_summary": {
+        "considered": 82,
+        "skipped_missing_key": 0,
+        "would_insert": 0,
+        "inserted": 0,
+        "would_update": 0,
+        "updated": 0
+    },
+    "seed_results": [
+        {
+            "slug": "abstractapi",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "abuse-ch",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "abuseipdb",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "abusix",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "alienvault",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "apivoid",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "bad-packets",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "binaryedge",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "bing",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "bing-shared-ips",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "bitcoin-whos-who",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "bitcoinabuse",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "builtwith",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "c99",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "censys",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "certspotter",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "chaos",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "circl-lu",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "clearbit",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "custom-threat-feed",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "dehashed",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "dnsdb",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "emailcrawlr",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "emailrep",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "etherscan",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "focsec",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "fraudguard",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "fullcontact",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "fullhunt",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "google",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "google-maps",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "google-safebrowsing",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "grayhat-warfare",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "greynoise",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "haveibeenpwned",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "host-io",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "hunter",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "hybrid-analysis",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "iknowwhatyoudownload",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "intelligencex",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "ipapi",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "ipinfo",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "ipqualityscore",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "ipregistry",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "ipstack",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "jsonwhois",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "leak-lookup",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "leakix",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "malwarepatrol",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "metadefender",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "nameapi",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "networksdb",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "neutrinoapi",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "numverify",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "onyphe",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "pastebin",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "project-honeypot",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "pulsedive",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "recon-dev",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "riddler",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "riskiq",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "securitytrails",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "seon",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "shodan",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "snov",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "social-links",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "social-media-finder",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "spur",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "spyonweb",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "spyse",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "textmagic",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "trashpanda",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "twilio",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "urlscan",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "viewdns",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "virustotal",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "whatcms",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "whoisology",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "whoxy",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "wigle",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "xforce-exchange",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        },
+        {
+            "slug": "zetalytics",
+            "status": "unchanged",
+            "rotation_days": 90,
+            "next_rotation_due": "2026-07-05"
+        }
+    ],
+    "audit_summary": {
+        "active_rows": 82,
+        "overdue": 0,
+        "due_soon": 0,
+        "ok": 82,
+        "unset": 0
+    },
+    "audit_results": [
+        {
+            "slug": "abstractapi",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "abuse-ch",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": true
+        },
+        {
+            "slug": "abuseipdb",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": true
+        },
+        {
+            "slug": "abusix",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "alienvault",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": true
+        },
+        {
+            "slug": "apivoid",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": true
+        },
+        {
+            "slug": "bad-packets",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "binaryedge",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "bing",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "bing-shared-ips",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "bitcoin-whos-who",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "bitcoinabuse",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "builtwith",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "c99",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "censys",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "certspotter",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "chaos",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "circl-lu",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "clearbit",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "custom-threat-feed",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "dehashed",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "dnsdb",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "emailcrawlr",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "emailrep",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "etherscan",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "focsec",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": true
+        },
+        {
+            "slug": "fraudguard",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "fullcontact",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "fullhunt",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "google",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "google-maps",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "google-safebrowsing",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "grayhat-warfare",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "greynoise",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "haveibeenpwned",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": true
+        },
+        {
+            "slug": "host-io",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "hunter",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "hybrid-analysis",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "iknowwhatyoudownload",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "intelligencex",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "ipapi",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "ipinfo",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "ipqualityscore",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "ipregistry",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "ipstack",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "jsonwhois",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "leak-lookup",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "leakix",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "malwarepatrol",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "metadefender",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "nameapi",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "networksdb",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "neutrinoapi",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "numverify",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "onyphe",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "pastebin",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "project-honeypot",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "pulsedive",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "recon-dev",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "riddler",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "riskiq",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "securitytrails",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "seon",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "shodan",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": true
+        },
+        {
+            "slug": "snov",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "social-links",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "social-media-finder",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "spur",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "spyonweb",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "spyse",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "textmagic",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "trashpanda",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "twilio",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "urlscan",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": false
+        },
+        {
+            "slug": "viewdns",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "virustotal",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": true,
+            "module_enabled": true
+        },
+        {
+            "slug": "whatcms",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "whoisology",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "whoxy",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "wigle",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "xforce-exchange",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        },
+        {
+            "slug": "zetalytics",
+            "status": "ok",
+            "next_rotation_due": "2026-07-05",
+            "days_to_due": 90,
+            "rotation_days": 90,
+            "owner_contact": "secops@local",
+            "has_key": false,
+            "module_enabled": false
+        }
+    ]
+}

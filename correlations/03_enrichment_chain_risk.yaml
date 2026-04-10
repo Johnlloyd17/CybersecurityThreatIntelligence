@@ -1,0 +1,48 @@
+{
+  "rule_name": "ENRICHMENT_CHAIN_RISK",
+  "severity": "high",
+  "title": "Enrichment discovered malicious associated entities for {{query_value}}",
+  "detail": "High-risk sub-entities found via enrichment: {{malicious_entities}}",
+  "collections": {
+    "success_results": {
+      "from": "results",
+      "filters": {
+        "success": true
+      }
+    },
+    "enriched_results": {
+      "from": "success_results",
+      "filters": {
+        "enrichment_pass_gte": 1,
+        "has_enriched_from": true
+      }
+    },
+    "enriched_high_scores": {
+      "from": "enriched_results",
+      "filters": {
+        "score_gte": 75
+      }
+    }
+  },
+  "when": [
+    {
+      "collection": "enriched_high_scores",
+      "aggregate": "count",
+      "operator": ">=",
+      "value": 1
+    }
+  ],
+  "context": {
+    "malicious_entities": {
+      "collection": "enriched_high_scores",
+      "aggregate": "join_template",
+      "template": "{{enriched_from}} ({{api_name}}: score {{risk_score}})",
+      "separator": "; ",
+      "limit": 10
+    }
+  },
+  "links": {
+    "collection": "enriched_high_scores",
+    "limit": 10
+  }
+}

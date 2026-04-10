@@ -1,0 +1,25 @@
+{
+  "rule_name": "HIGH_RISK_SINGLE_SOURCE",
+  "severity": "medium",
+  "emit": "per_item",
+  "collection": "high_scores",
+  "title": "{{api_name}} flagged {{query_value}} as high risk",
+  "detail": "Score: {{risk_score}}/100. {{result_summary}}",
+  "collections": {
+    "success_results": {
+      "from": "results",
+      "filters": {
+        "success": true
+      }
+    },
+    "high_scores": {
+      "from": "success_results",
+      "filters": {
+        "score_gte": 75
+      }
+    }
+  },
+  "links": {
+    "collection": "item"
+  }
+}

@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+node_modules
+vendor
+tools
+tmp
+*.log
+*.zip
+*.tar
+*.tar.gz

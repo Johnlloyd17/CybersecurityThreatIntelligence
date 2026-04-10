@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "description": "Top-20 API key manifest template for Phase 2 import script.",
+    "updated_utc": "2026-04-06T00:00:00Z"
+  },
+  "keys": [
+    { "canonical": "greynoise", "slug": "greynoise", "api_key": "REPLACE_WITH_GREYNOISE_KEY", "is_enabled": true },
+    { "canonical": "urlscan", "slug": "urlscan", "api_key": "REPLACE_WITH_URLSCAN_KEY", "is_enabled": true },
+    { "canonical": "alienvault-otx", "slug": "alienvault", "api_key": "REPLACE_WITH_ALIENVAULT_OTX_KEY", "is_enabled": true },
+    { "canonical": "securitytrails", "slug": "securitytrails", "api_key": "REPLACE_WITH_SECURITYTRAILS_KEY", "is_enabled": true },
+    { "canonical": "censys", "slug": "censys", "api_key": "REPLACE_WITH_CENSYS_KEY", "is_enabled": true },
+    { "canonical": "hybrid-analysis", "slug": "hybrid-analysis", "api_key": "REPLACE_WITH_HYBRID_ANALYSIS_KEY", "is_enabled": true },
+    { "canonical": "malwarebazaar", "slug": "abuse-ch", "api_key": "REPLACE_WITH_ABUSE_CH_KEY_IF_REQUIRED", "is_enabled": true },
+    { "canonical": "threatfox", "slug": "threatfox", "api_key": "REPLACE_WITH_THREATFOX_KEY_IF_REQUIRED", "is_enabled": true },
+    { "canonical": "ipinfo", "slug": "ipinfo", "api_key": "REPLACE_WITH_IPINFO_KEY", "is_enabled": true },
+    { "canonical": "hunter-io", "slug": "hunter", "api_key": "REPLACE_WITH_HUNTER_KEY", "is_enabled": true },
+    { "canonical": "haveibeenpwned", "slug": "haveibeenpwned", "api_key": "REPLACE_WITH_HIBP_KEY", "is_enabled": true },
+    { "canonical": "whoisxml", "slug": "whoisxml", "api_key": "REPLACE_WITH_WHOISXML_KEY", "is_enabled": true },
+    { "canonical": "binaryedge", "slug": "binaryedge", "api_key": "REPLACE_WITH_BINARYEDGE_KEY", "is_enabled": true },
+    { "canonical": "fullhunt", "slug": "fullhunt", "api_key": "REPLACE_WITH_FULLHUNT_KEY", "is_enabled": true },
+    { "canonical": "leakix", "slug": "leakix", "api_key": "REPLACE_WITH_LEAKIX_KEY", "is_enabled": true },
+    { "canonical": "networksdb", "slug": "networksdb", "api_key": "REPLACE_WITH_NETWORKSDB_KEY", "is_enabled": true },
+    { "canonical": "threatminer", "slug": "threatminer", "api_key": "", "is_enabled": true },
+    { "canonical": "threatcrowd", "slug": "threatcrowd", "api_key": "", "is_enabled": true },
+    { "canonical": "crtsh", "slug": "crt-sh", "api_key": "", "is_enabled": true },
+    { "canonical": "dnsgrep", "slug": "dnsgrep", "api_key": "", "is_enabled": true }
+  ]
+}

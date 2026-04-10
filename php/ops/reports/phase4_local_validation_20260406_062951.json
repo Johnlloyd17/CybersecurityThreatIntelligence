@@ -1,0 +1,157 @@
+{
+    "generated_at_utc": "2026-04-06T06:29:51+00:00",
+    "config_path": "C:\\xampp\\htdocs\\CybersecurityThreatIntelligence\\php\\ops\\phase4_targets.json",
+    "summary": {
+        "total": 12,
+        "passed": 5,
+        "failed": 7,
+        "missing": 0,
+        "skipped": 0
+    },
+    "results": [
+        {
+            "slug": "nmap",
+            "query_type": "domain",
+            "query_value": "scanme.nmap.org",
+            "status": "passed",
+            "elapsed_ms": 1091,
+            "result_count": 1,
+            "success_count": 1,
+            "best_score": 0,
+            "best_severity": "info",
+            "error_preview": ""
+        },
+        {
+            "slug": "port-scanner-tcp",
+            "query_type": "domain",
+            "query_value": "scanme.nmap.org",
+            "status": "failed",
+            "elapsed_ms": 198,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "count(): Argument #1 ($value) must be of type Countable|array, string given"
+        },
+        {
+            "slug": "nuclei",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "passed",
+            "elapsed_ms": 345,
+            "result_count": 1,
+            "success_count": 1,
+            "best_score": 0,
+            "best_severity": "info",
+            "error_preview": ""
+        },
+        {
+            "slug": "dnstwist",
+            "query_type": "domain",
+            "query_value": "example.com",
+            "status": "passed",
+            "elapsed_ms": 239569,
+            "result_count": 1,
+            "success_count": 1,
+            "best_score": 85,
+            "best_severity": "high",
+            "error_preview": ""
+        },
+        {
+            "slug": "trufflehog",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "failed",
+            "elapsed_ms": 483,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "Failed to fetch target: cURL error (7): Failed to connect to example.com port 443 after 2 ms: Couldn't connect to server"
+        },
+        {
+            "slug": "wappalyzer",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "failed",
+            "elapsed_ms": 197,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "Failed to fetch: Failed to connect to example.com port 443 after 6 ms: Couldn't connect to server"
+        },
+        {
+            "slug": "retire-js",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "failed",
+            "elapsed_ms": 458,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "cURL error (7): Failed to connect to example.com port 443 after 3 ms: Couldn't connect to server"
+        },
+        {
+            "slug": "testssl",
+            "query_type": "domain",
+            "query_value": "badssl.com",
+            "status": "failed",
+            "elapsed_ms": 1363,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "SSL connection failed: An attempt was made to access a socket in a way forbidden by its access permissions"
+        },
+        {
+            "slug": "cmseek",
+            "query_type": "url",
+            "query_value": "https://wordpress.com",
+            "status": "failed",
+            "elapsed_ms": 779,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "cURL error (7): Failed to connect to wordpress.com port 443 after 2 ms: Couldn't connect to server"
+        },
+        {
+            "slug": "snallygaster",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "failed",
+            "elapsed_ms": 1,
+            "result_count": 1,
+            "success_count": 0,
+            "best_score": 0,
+            "best_severity": "unknown",
+            "error_preview": "Module does not support query type 'url'"
+        },
+        {
+            "slug": "cross-referencer",
+            "query_type": "domain",
+            "query_value": "example.com",
+            "status": "passed",
+            "elapsed_ms": 166,
+            "result_count": 1,
+            "success_count": 1,
+            "best_score": 0,
+            "best_severity": "info",
+            "error_preview": ""
+        },
+        {
+            "slug": "web-spider",
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "status": "passed",
+            "elapsed_ms": 288,
+            "result_count": 1,
+            "success_count": 1,
+            "best_score": 0,
+            "best_severity": "info",
+            "error_preview": ""
+        }
+    ]
+}

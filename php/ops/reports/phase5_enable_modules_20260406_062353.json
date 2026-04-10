@@ -1,0 +1,912 @@
+{
+    "generated_at_utc": "2026-04-06T06:23:53+00:00",
+    "apply_mode": false,
+    "force_all": false,
+    "allow_missing_key": false,
+    "allow_empty_base_url": false,
+    "summary": {
+        "selected": 179,
+        "already_enabled": 36,
+        "eligible_disabled": 28,
+        "would_enable": 28,
+        "enabled": 0,
+        "skipped": 115
+    },
+    "results": [
+        {
+            "slug": "abstractapi",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "abuse-ch",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "abuseipdb",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "abusix",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "account-finder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "adblock-check",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "ahmia",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "alienvault",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "alienvault-ip-rep",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "apivoid",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "archive-org",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "azure-blob-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bad-packets",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "base64-decoder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "binary-string-extractor",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "binaryedge",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "bing",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "bing-shared-ips",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "bitcoin-whos-who",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "bitcoinabuse",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "blocklist-de",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "botscout",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "botvrij",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "builtwith",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "c99",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "censys",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "certspotter",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "chaos",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "cins-army",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "circl-lu",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "cleantalk",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "clearbit",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "cmseek",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "coinblocker",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "commoncrawl",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "company-name-extractor",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "country-name-extractor",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "crobat",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "cross-referencer",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "crt-sh",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "crxcavator",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "custom-threat-feed",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "cybercrime-tracker",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "darksearch",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dehashed",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "dns-bruteforce",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dns-lookaside",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dns-raw",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dns-resolver",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dns-zone-transfer",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dnsdb",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "dnsgrep",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "dnstwist",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "do-space-finder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "dronebl",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "duckduckgo",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "emailcrawlr",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "emailrep",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "emerging-threats",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "etherscan",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "file-metadata-extractor",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "flickr",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "focsec",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "fortiguard",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "fraudguard",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "fullcontact",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "fullhunt",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "gcs-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "github",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "google",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "google-maps",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "google-safebrowsing",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "grayhat-warfare",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "greensnow",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "grep-app",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "greynoise",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "hackertarget",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "haveibeenpwned",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "host-io",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "human-name-extractor",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "hunter",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "hybrid-analysis",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "iknowwhatyoudownload",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "intelligencex",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "interesting-file-finder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "ipapi",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "ipinfo",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "ipqualityscore",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "ipregistry",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "ipstack",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "isc-sans",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "jsonwhois",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "junk-file-finder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "koodous",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "leak-lookup",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "leakix",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "maltiverse",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "malwarepatrol",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "metadefender",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "mnemonic-pdns",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "multiproxy",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "nameapi",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "nbtscan",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "networksdb",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "neutrinoapi",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "nmap",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "nuclei",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "numverify",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "onesixtyone",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "onion-link",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onionsearchengine",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onyphe",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "open-pdns",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "opencorporates",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "opennic",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "openphish",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "pastebin",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "pgp-keyservers",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "phishstats",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "phishtank",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "port-scanner-tcp",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "project-honeypot",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "pulsedive",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "recon-dev",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "retire-js",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "riddler",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "riskiq",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "robtex",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "s3-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "scylla",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "searchcode",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "securitytrails",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "seon",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "shodan",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "snallygaster",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "snov",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "social-links",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "social-media-finder",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "sorbs",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "spamcop",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "spamhaus-zen",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "spur",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "spyonweb",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "spyse",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "ssl-analyzer",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "stackoverflow",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "steven-black-hosts",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "surbl",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "talos-intelligence",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "testssl",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "textmagic",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "threatcrowd",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "threatfox",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "threatminer",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "tld-searcher",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "tor-exit-nodes",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "torch",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "trashpanda",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "trufflehog",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "twilio",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "uceprotect",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "urlscan",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "viewdns",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "virustotal",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "voipbl",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "vxvault",
+            "status": "would_enable",
+            "reason": ""
+        },
+        {
+            "slug": "wafw00f",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "wappalyzer",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "web-spider",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "whatcms",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "whatweb",
+            "status": "skipped",
+            "reason": "Empty base_url."
+        },
+        {
+            "slug": "whoisology",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "whoxy",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "wigle",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "wikileaks",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wikipedia-edits",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "xforce-exchange",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "zetalytics",
+            "status": "skipped",
+            "reason": "Requires API key but no key configured."
+        },
+        {
+            "slug": "zone-h",
+            "status": "already_enabled",
+            "reason": ""
+        }
+    ]
+}

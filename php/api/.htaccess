@@ -1,0 +1,11 @@
+# =============================================================================
+#  CTI — php/api/ ACCESS OVERRIDE
+#
+#  This sub-directory contains publicly-accessible REST API endpoints.
+#  The parent php/.htaccess blocks all .php files; this override
+#  re-enables access for php/api/ only.
+# =============================================================================
+
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>

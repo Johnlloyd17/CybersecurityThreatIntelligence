@@ -1,0 +1,225 @@
+{
+    "generated_at_utc": "2026-04-06T06:25:46+00:00",
+    "configured_only": true,
+    "include_disabled": false,
+    "batch_type": "domain",
+    "summary": {
+        "total_targets": 20,
+        "executed_individual": 7,
+        "individual_passed": 0,
+        "individual_failed": 7,
+        "individual_skipped": 12,
+        "individual_missing": 1,
+        "batch_status": "skipped"
+    },
+    "individual": [
+        {
+            "canonical": "greynoise",
+            "slug": "greynoise",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "ip",
+            "query_value": "8.8.8.8"
+        },
+        {
+            "canonical": "urlscan",
+            "slug": "urlscan",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 1877,
+            "query_type": "url",
+            "query_value": "https://example.com",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (7): Failed to connect to urlscan.io port 443 after 2 ms: Couldn't connect to server"
+        },
+        {
+            "canonical": "alienvault-otx",
+            "slug": "alienvault",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 531,
+            "query_type": "ip",
+            "query_value": "8.8.8.8",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (7): Failed to connect to otx.alienvault.com port 443 after 2 ms: Couldn't connect to server"
+        },
+        {
+            "canonical": "securitytrails",
+            "slug": "securitytrails",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "domain",
+            "query_value": "example.com"
+        },
+        {
+            "canonical": "censys",
+            "slug": "censys",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "ip",
+            "query_value": "8.8.8.8"
+        },
+        {
+            "canonical": "hybrid-analysis",
+            "slug": "hybrid-analysis",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "hash",
+            "query_value": "44d88612fea8a8f36de82e1278abb02f"
+        },
+        {
+            "canonical": "malwarebazaar",
+            "slug": "abuse-ch",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "hash",
+            "query_value": "44d88612fea8a8f36de82e1278abb02f"
+        },
+        {
+            "canonical": "threatfox",
+            "slug": "threatfox",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 475,
+            "query_type": "ip",
+            "query_value": "8.8.8.8",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (7): Failed to connect to threatfox-api.abuse.ch port 443 after 1 ms: Couldn't connect to server"
+        },
+        {
+            "canonical": "ipinfo",
+            "slug": "ipinfo",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "ip",
+            "query_value": "8.8.8.8"
+        },
+        {
+            "canonical": "hunter-io",
+            "slug": "hunter",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "email",
+            "query_value": "test@example.com"
+        },
+        {
+            "canonical": "haveibeenpwned",
+            "slug": "haveibeenpwned",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "email",
+            "query_value": "test@example.com"
+        },
+        {
+            "canonical": "whoisxml",
+            "slug": "whoisxml",
+            "status": "missing",
+            "executed": false,
+            "reason": "Module slug not found in api_configs."
+        },
+        {
+            "canonical": "binaryedge",
+            "slug": "binaryedge",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "ip",
+            "query_value": "8.8.8.8"
+        },
+        {
+            "canonical": "fullhunt",
+            "slug": "fullhunt",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "domain",
+            "query_value": "example.com"
+        },
+        {
+            "canonical": "leakix",
+            "slug": "leakix",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "domain",
+            "query_value": "example.com"
+        },
+        {
+            "canonical": "networksdb",
+            "slug": "networksdb",
+            "status": "skipped",
+            "executed": false,
+            "reason": "Module requires key but key is not configured.",
+            "query_type": "ip",
+            "query_value": "8.8.8.8"
+        },
+        {
+            "canonical": "threatminer",
+            "slug": "threatminer",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 450,
+            "query_type": "ip",
+            "query_value": "8.8.8.8",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (7): Failed to connect to api.threatminer.org port 443 after 2 ms: Couldn't connect to server"
+        },
+        {
+            "canonical": "threatcrowd",
+            "slug": "threatcrowd",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 727,
+            "query_type": "ip",
+            "query_value": "8.8.8.8",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (6): Could not resolve host: www.threatcrowd.org"
+        },
+        {
+            "canonical": "crtsh",
+            "slug": "crt-sh",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 457,
+            "query_type": "domain",
+            "query_value": "example.com",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "cURL error (7): Failed to connect to crt.sh port 443 after 1 ms: Couldn't connect to server"
+        },
+        {
+            "canonical": "dnsgrep",
+            "slug": "dnsgrep",
+            "status": "failed",
+            "executed": true,
+            "elapsed_ms": 756,
+            "query_type": "domain",
+            "query_value": "example.com",
+            "result_count": 1,
+            "success_count": 0,
+            "reason": "Service may be unavailable: cURL error (7): Failed to connect to www.dnsgrep.cn port 443 after 2 ms: Couldn't connect to server"
+        }
+    ],
+    "batch": {
+        "executed": false,
+        "status": "skipped",
+        "reason": "Need at least 2 eligible modules for batch test.",
+        "query_type": "domain",
+        "query_value": "example.com",
+        "requested_modules": [],
+        "module_results": []
+    }
+}

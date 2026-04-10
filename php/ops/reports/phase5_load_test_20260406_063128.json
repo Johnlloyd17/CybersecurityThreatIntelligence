@@ -1,0 +1,41 @@
+{
+    "generated_at_utc": "2026-04-06T06:31:28+00:00",
+    "query_type": "domain",
+    "query_value": "localhost",
+    "configured_only": true,
+    "include_disabled": false,
+    "selected_modules": [
+        "cross-referencer",
+        "dns-resolver",
+        "nmap",
+        "port-scanner-tcp"
+    ],
+    "summary": {
+        "iterations": 1,
+        "module_count": 4,
+        "total_possible_module_passes": 4,
+        "total_module_passes": 3,
+        "overall_success_rate": 75,
+        "latency_min_ms": 34952,
+        "latency_avg_ms": 34952,
+        "latency_p50_ms": 34952,
+        "latency_p95_ms": 34952,
+        "latency_max_ms": 34952
+    },
+    "iterations": [
+        {
+            "iteration": 1,
+            "elapsed_ms": 34952,
+            "result_count": 4,
+            "passed_modules": 3,
+            "failed_modules": 1,
+            "success_rate": 75,
+            "failed_module_preview": [
+                {
+                    "slug": "port-scanner-tcp",
+                    "error_preview": "count(): Argument #1 ($value) must be of type Countable|array, string given"
+                }
+            ]
+        }
+    ]
+}

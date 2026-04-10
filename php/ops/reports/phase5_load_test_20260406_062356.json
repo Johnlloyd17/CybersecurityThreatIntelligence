@@ -1,0 +1,88 @@
+{
+    "generated_at_utc": "2026-04-06T06:23:56+00:00",
+    "query_type": "domain",
+    "query_value": "localhost",
+    "configured_only": true,
+    "include_disabled": false,
+    "selected_modules": [
+        "adblock-check",
+        "ahmia",
+        "alienvault",
+        "apivoid",
+        "archive-org"
+    ],
+    "summary": {
+        "iterations": 2,
+        "module_count": 5,
+        "total_possible_module_passes": 10,
+        "total_module_passes": 0,
+        "overall_success_rate": 0,
+        "latency_min_ms": 1011,
+        "latency_avg_ms": 1359,
+        "latency_p50_ms": 1358.5,
+        "latency_p95_ms": 1671.25,
+        "latency_max_ms": 1706
+    },
+    "iterations": [
+        {
+            "iteration": 1,
+            "elapsed_ms": 1706,
+            "result_count": 5,
+            "passed_modules": 0,
+            "failed_modules": 5,
+            "success_rate": 0,
+            "failed_module_preview": [
+                {
+                    "slug": "adblock-check",
+                    "error_preview": "Class \"BaseApiModule\" not found"
+                },
+                {
+                    "slug": "ahmia",
+                    "error_preview": "cURL error (7): Failed to connect to ahmia.fi port 443 after 1 ms: Couldn't connect to server"
+                },
+                {
+                    "slug": "alienvault",
+                    "error_preview": "cURL error (7): Failed to connect to otx.alienvault.com port 443 after 3 ms: Couldn't connect to server"
+                },
+                {
+                    "slug": "apivoid",
+                    "error_preview": "Class \"BaseApiModule\" not found"
+                },
+                {
+                    "slug": "archive-org",
+                    "error_preview": "cURL error (7): Failed to connect to archive.org port 443 after 2 ms: Couldn't connect to server"
+                }
+            ]
+        },
+        {
+            "iteration": 2,
+            "elapsed_ms": 1011,
+            "result_count": 5,
+            "passed_modules": 0,
+            "failed_modules": 5,
+            "success_rate": 0,
+            "failed_module_preview": [
+                {
+                    "slug": "adblock-check",
+                    "error_preview": "Class \"BaseApiModule\" not found"
+                },
+                {
+                    "slug": "ahmia",
+                    "error_preview": "cURL error (7): Failed to connect to ahmia.fi port 443 after 2 ms: Couldn't connect to server"
+                },
+                {
+                    "slug": "alienvault",
+                    "error_preview": "cURL error (7): Failed to connect to otx.alienvault.com port 443 after 2 ms: Couldn't connect to server"
+                },
+                {
+                    "slug": "apivoid",
+                    "error_preview": "Class \"BaseApiModule\" not found"
+                },
+                {
+                    "slug": "archive-org",
+                    "error_preview": "cURL error (7): Failed to connect to archive.org port 443 after 2 ms: Couldn't connect to server"
+                }
+            ]
+        }
+    ]
+}

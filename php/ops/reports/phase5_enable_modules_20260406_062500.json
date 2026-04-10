@@ -1,0 +1,912 @@
+{
+    "generated_at_utc": "2026-04-06T06:25:00+00:00",
+    "apply_mode": true,
+    "force_all": true,
+    "allow_missing_key": true,
+    "allow_empty_base_url": true,
+    "summary": {
+        "selected": 179,
+        "already_enabled": 51,
+        "eligible_disabled": 128,
+        "would_enable": 0,
+        "enabled": 128,
+        "skipped": 0
+    },
+    "results": [
+        {
+            "slug": "abstractapi",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "abuse-ch",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "abuseipdb",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "abusix",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "account-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "adblock-check",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ahmia",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "alienvault",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "alienvault-ip-rep",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "apivoid",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "archive-org",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "azure-blob-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bad-packets",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "base64-decoder",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "binary-string-extractor",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "binaryedge",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bing",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bing-shared-ips",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bitcoin-whos-who",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "bitcoinabuse",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "blocklist-de",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "botscout",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "botvrij",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "builtwith",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "c99",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "censys",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "certspotter",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "chaos",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "cins-army",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "circl-lu",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "cleantalk",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "clearbit",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "cmseek",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "coinblocker",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "commoncrawl",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "company-name-extractor",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "country-name-extractor",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "crobat",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "cross-referencer",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "crt-sh",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "crxcavator",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "custom-threat-feed",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "cybercrime-tracker",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "darksearch",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dehashed",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dns-bruteforce",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dns-lookaside",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dns-raw",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dns-resolver",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dns-zone-transfer",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dnsdb",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dnsgrep",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dnstwist",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "do-space-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "dronebl",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "duckduckgo",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "emailcrawlr",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "emailrep",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "emerging-threats",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "etherscan",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "file-metadata-extractor",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "flickr",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "focsec",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "fortiguard",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "fraudguard",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "fullcontact",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "fullhunt",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "gcs-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "github",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "google",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "google-maps",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "google-safebrowsing",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "grayhat-warfare",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "greensnow",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "grep-app",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "greynoise",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "hackertarget",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "haveibeenpwned",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "host-io",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "human-name-extractor",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "hunter",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "hybrid-analysis",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "iknowwhatyoudownload",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "intelligencex",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "interesting-file-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ipapi",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ipinfo",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ipqualityscore",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ipregistry",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ipstack",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "isc-sans",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "jsonwhois",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "junk-file-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "koodous",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "leak-lookup",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "leakix",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "maltiverse",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "malwarepatrol",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "metadefender",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "mnemonic-pdns",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "multiproxy",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "nameapi",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "nbtscan",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "networksdb",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "neutrinoapi",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "nmap",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "nuclei",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "numverify",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onesixtyone",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onion-link",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onionsearchengine",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "onyphe",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "open-pdns",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "opencorporates",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "opennic",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "openphish",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "pastebin",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "pgp-keyservers",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "phishstats",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "phishtank",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "port-scanner-tcp",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "project-honeypot",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "pulsedive",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "recon-dev",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "retire-js",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "riddler",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "riskiq",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "robtex",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "s3-finder",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "scylla",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "searchcode",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "securitytrails",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "seon",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "shodan",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "snallygaster",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "snov",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "social-links",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "social-media-finder",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "sorbs",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "spamcop",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "spamhaus-zen",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "spur",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "spyonweb",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "spyse",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "ssl-analyzer",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "stackoverflow",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "steven-black-hosts",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "surbl",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "talos-intelligence",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "testssl",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "textmagic",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "threatcrowd",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "threatfox",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "threatminer",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "tld-searcher",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "tor-exit-nodes",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "torch",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "trashpanda",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "trufflehog",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "twilio",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "uceprotect",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "urlscan",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "viewdns",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "virustotal",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "voipbl",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "vxvault",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wafw00f",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wappalyzer",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "web-spider",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "whatcms",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "whatweb",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "whoisology",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "whoxy",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wigle",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wikileaks",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "wikipedia-edits",
+            "status": "already_enabled",
+            "reason": ""
+        },
+        {
+            "slug": "xforce-exchange",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "zetalytics",
+            "status": "enabled",
+            "reason": ""
+        },
+        {
+            "slug": "zone-h",
+            "status": "already_enabled",
+            "reason": ""
+        }
+    ]
+}
