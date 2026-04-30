@@ -14,12 +14,6 @@ be safe for open-source visibility.
   clearly local examples. Prefer relative paths from the repository root.
 - Do not commit generated cache files such as `__pycache__/`, `.pyc`, runtime
   SQLite databases, temporary payloads, or export downloads.
-- Keep third-party license notices intact. SpiderFoot is used as a reference and
-  bridge target; preserve attribution when comparing behavior or reusing ideas.
-- Do not claim full SpiderFoot parity for a module unless the target type has
-  been tested and marked in `PARITY_VERIFIED_SUPPORT`.
-- Keep security controls enabled. Do not bypass CSRF, authentication, password
-  hashing, session regeneration, or prepared SQL statements to make a quick fix.
 
 ## Project Overview
 
@@ -82,6 +76,52 @@ Equivalent direct test command:
 ```powershell
 python -m unittest discover -s test\python -v
 ```
+
+## Database Import And Export Guide
+
+The project database SQL files are stored in:
+
+```text
+db_sql/
+```
+
+Current local database export:
+
+```text
+db_sql/cti_platform.sql
+```
+
+For XAMPP:
+
+1. Start Apache and MySQL from the XAMPP Control Panel.
+2. Open phpMyAdmin from `http://localhost/phpmyadmin`.
+3. Create a database named `cti_platform` if it does not already exist.
+4. Select the `cti_platform` database.
+5. Open the Import tab.
+6. Choose `db_sql/cti_platform.sql`.
+7. Click Import and wait for phpMyAdmin to finish.
+
+For WAMP:
+
+1. Start all WAMP services.
+2. Open phpMyAdmin from the WAMP tray menu or `http://localhost/phpmyadmin`.
+3. Create or select the `cti_platform` database.
+4. Open the Import tab.
+5. Choose `db_sql/cti_platform.sql`.
+6. Click Import and wait for phpMyAdmin to finish.
+
+To export a fresh local database backup:
+
+1. Open phpMyAdmin.
+2. Select the `cti_platform` database.
+3. Open the Export tab.
+4. Choose SQL format.
+5. Export the file as `cti_platform.sql`.
+6. Place the updated SQL file in `db_sql/`.
+
+Before committing an exported SQL file, review it carefully and remove private
+API keys, real user accounts, session data, scan targets, downloaded reports,
+and any other sensitive local data.
 
 ## Authentication Flow
 
