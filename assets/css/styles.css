@@ -953,6 +953,10 @@ a:hover {
     box-shadow: var(--glow-sm);
 }
 
+.cti-refresh-btn.is-refreshing svg {
+    animation: spin 0.9s linear infinite;
+}
+
 /* Default (dark mode): sun icon shown, moon hidden */
 .theme-icon-moon { display: none; }
 

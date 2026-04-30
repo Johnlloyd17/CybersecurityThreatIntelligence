@@ -16,6 +16,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const CTI_PYTHON_ENGINE_MODULES = new Set(Array.isArray(window.CTI_PYTHON_ENGINE_MODULE_SLUGS)
     ? window.CTI_PYTHON_ENGINE_MODULE_SLUGS.map((slug) => String(slug || '').toLowerCase())
     : []);
+  const CTI_PYTHON_PARITY_VERIFIED_MODULES = new Set(Array.isArray(window.CTI_PYTHON_PARITY_VERIFIED_MODULE_SLUGS)
+    ? window.CTI_PYTHON_PARITY_VERIFIED_MODULE_SLUGS.map((slug) => String(slug || '').toLowerCase())
+    : []);
+  const CTI_PYTHON_PARITY_VERIFIED_TYPES = typeof window.CTI_PYTHON_PARITY_VERIFIED_MODULE_TYPES === 'object' && window.CTI_PYTHON_PARITY_VERIFIED_MODULE_TYPES
+    ? Object.fromEntries(
+      Object.entries(window.CTI_PYTHON_PARITY_VERIFIED_MODULE_TYPES).map(([slug, types]) => [
+        String(slug || '').toLowerCase(),
+        Array.isArray(types) ? types.map((type) => String(type || '').toLowerCase()) : [],
+      ]),
+    )
+    : {};
+  const CTI_PYTHON_MODULE_KEY_REQUIREMENTS = typeof window.CTI_PYTHON_MODULE_KEY_REQUIREMENTS === 'object' && window.CTI_PYTHON_MODULE_KEY_REQUIREMENTS
+    ? Object.fromEntries(
+      Object.entries(window.CTI_PYTHON_MODULE_KEY_REQUIREMENTS).map(([slug, requiresKey]) => [
+        String(slug || '').toLowerCase(),
+        Boolean(requiresKey),
+      ]),
+    )
+    : {};
+  const CTI_PYTHON_MODULE_SUPPORTED_TYPES = typeof window.CTI_PYTHON_MODULE_SUPPORTED_TYPES === 'object' && window.CTI_PYTHON_MODULE_SUPPORTED_TYPES
+    ? Object.fromEntries(
+      Object.entries(window.CTI_PYTHON_MODULE_SUPPORTED_TYPES).map(([slug, types]) => [
+        String(slug || '').toLowerCase(),
+        Array.isArray(types) ? types.map((type) => String(type || '').toLowerCase()) : [],
+      ]),
+    )
+    : {};
   const spiderFootOrderIndex = Object.fromEntries(SPIDERFOOT_MODULE_ORDER.map((slug, index) => [slug, index]));
   const params = new URLSearchParams(window.location.search);
   const cloneScanId = params.get('clone_scan_id');
@@ -55,11 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabContents = document.querySelectorAll('.scan-tab-content');
   const modGrid = document.getElementById('moduleGrid');
   const modSearch = document.getElementById('modSearch');
+  const modKeyFilter = document.getElementById('modKeyFilter');
   const modSelectAll = document.getElementById('modSelectAll');
   const modDeselectAll = document.getElementById('modDeselectAll');
   const modCount = document.getElementById('modCount');
   const implGrid = document.getElementById('implementedGrid');
   const implSearch = document.getElementById('implSearch');
+  const implKeyFilter = document.getElementById('implKeyFilter');
   const implSelectAll = document.getElementById('implSelectAll');
   const implDeselectAll = document.getElementById('implDeselectAll');
   const implCount = document.getElementById('implCount');
@@ -69,7 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const dtCount = document.getElementById('dtCount');
 
   let allModules = [];
+  let implementedModules = [];
   let activeTab = 'usecase';
+  let moduleKeyFilterMode = 'all';
+  let implementedKeyFilterMode = 'all';
 
   const useCaseProfiles = {
     all: { categories: null },
@@ -177,6 +209,232 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  function getModuleDisplayOverrides() {
+    return {
+      'archive-org': {
+        name: 'Web Archive Search',
+        description: 'Search Archive.org snapshots to find historical pages and older URLs related to the target.',
+      },
+      commoncrawl: {
+        name: 'Common Crawl Search',
+        description: 'Search the Common Crawl index for public web pages and URLs related to the target domain.',
+      },
+      crobat: {
+        name: 'Passive DNS Search',
+        description: 'Look up known subdomains and related DNS names from Crobat passive DNS data.',
+      },
+      hackertarget: {
+        name: 'Host Search',
+        description: 'Find discovered hostnames and IP mappings for the target using HackerTarget host search data.',
+      },
+      'isc-sans': {
+        name: 'Internet Storm Center Check',
+        description: 'Check whether an IP address appears in SANS Internet Storm Center reputation data.',
+      },
+      maltiverse: {
+        name: 'Threat Intelligence Lookup',
+        description: 'Enrich a domain, IP, URL, or hash with Maltiverse threat intelligence data.',
+      },
+      'mnemonic-pdns': {
+        name: 'Passive DNS Lookup',
+        description: 'Query Mnemonic passive DNS records to find related hosts and historical DNS answers.',
+      },
+      phishstats: {
+        name: 'Phishing Activity Search',
+        description: 'Search PhishStats for phishing URLs, hosts, or IPs related to the target.',
+      },
+      robtex: {
+        name: 'DNS and Host Intelligence',
+        description: 'Retrieve DNS, passive DNS, and co-hosting intelligence for the target from Robtex.',
+      },
+      threatcrowd: {
+        name: 'ThreatCrowd Lookup',
+        description: 'Search ThreatCrowd for related domains, IPs, hashes, emails, and threat references.',
+      },
+      flickr: {
+        name: 'Flickr Search',
+        description: 'Search public Flickr photos and descriptions for domains, links, and email addresses tied to the target.',
+      },
+      github: {
+        name: 'GitHub Repository Search',
+        description: 'Find public GitHub repositories and profile details connected to the target domain or username.',
+      },
+      onionsearchengine: {
+        name: 'Onion Search Engine',
+        description: 'Search onionsearchengine.com for dark web mentions of the target across Tor-hosted pages.',
+      },
+      'pgp-keyservers': {
+        name: 'PGP Key Servers',
+        description: 'Search public PGP key servers for email addresses and public keys related to the target.',
+      },
+      crxcavator: {
+        name: 'Chrome Extension Search',
+        description: 'Search Crxcavator for Chrome extensions linked to the target domain and extract related sites or publisher data.',
+      },
+      ahmia: {
+        name: 'Dark Web Search',
+        description: 'Search Ahmia for mentions of the target on Tor hidden services and onion sites.',
+      },
+      'dns-bruteforce': {
+        name: 'DNS Bruteforce',
+        description: 'Try common subdomain names to discover live hosts under the target domain.',
+      },
+      'dns-raw': {
+        name: 'Raw DNS Records',
+        description: 'Collect raw DNS data such as MX, NS, TXT, CNAME, and SPF-related records.',
+      },
+      dnsgrep: {
+        name: 'DNSGrep',
+        description: 'Query public passive DNS data to find hostnames linked to the target domain.',
+      },
+      duckduckgo: {
+        name: 'DuckDuckGo',
+        description: 'Pull high-level public summary and category information for the target from DuckDuckGo.',
+      },
+      'grep-app': {
+        name: 'grep.app',
+        description: 'Search public source code for domains, URLs, and emails related to the target.',
+      },
+      searchcode: {
+        name: 'Source Code Search',
+        description: 'Search public code repositories for mentions, links, and emails tied to the target.',
+      },
+      'ssl-analyzer': {
+        name: 'SSL Certificate Check',
+        description: 'Inspect the target\'s HTTPS certificate, issuer, expiry status, and related hostnames.',
+      },
+      'tld-searcher': {
+        name: 'Similar Domain Finder',
+        description: 'Check whether the same base name exists on other top-level domains.',
+      },
+      torch: {
+        name: 'Torch Dark Web Search',
+        description: 'Search the TORCH dark web search engine for onion pages that mention the target.',
+      },
+      voipbl: {
+        name: 'VoIP Abuse Blacklist',
+        description: 'Check whether an IP address or network appears in the VoIP abuse blacklist feed.',
+      },
+      'wikipedia-edits': {
+        name: 'Wikipedia Edit History',
+        description: 'Find Wikipedia contribution links associated with a username or IP address.',
+      },
+      wikileaks: {
+        name: 'Leak Archive Search',
+        description: 'Search WikiLeaks and linked leak archives for references related to the target.',
+      },
+    };
+  }
+
+  function formatFallbackModuleName(slug) {
+    const displayOverrides = getModuleDisplayOverrides();
+    if (displayOverrides[slug]?.name) {
+      return displayOverrides[slug].name;
+    }
+
+    const specialNames = {
+      'abuse-ch': 'abuse.ch',
+      abuseipdb: 'AbuseIPDB',
+      alienvault: 'AlienVault OTX',
+      apivoid: 'APIVoid',
+      bgpview: 'BGPView',
+      certspotter: 'CertSpotter',
+      censys: 'Censys',
+      'crt-sh': 'crt.sh',
+      'dns-resolver': 'DNS Resolver',
+      dnsdumpster: 'DNSDumpster',
+      emailrep: 'EmailRep',
+      greynoise: 'GreyNoise',
+      haveibeenpwned: 'Have I Been Pwned',
+      ipinfo: 'IPInfo',
+      ipqualityscore: 'IPQualityScore',
+      ipregistry: 'IpRegistry',
+      jsonwhois: 'JSONWHOIS',
+      leakix: 'LeakIX',
+      openphish: 'OpenPhish',
+      passivedns: 'PassiveDNS',
+      phishtank: 'PhishTank',
+      securitytrails: 'SecurityTrails',
+      threatfox: 'ThreatFox',
+      urlscan: 'urlscan',
+      virustotal: 'VirusTotal',
+      viewdns: 'ViewDNS',
+      whoisology: 'Whoisology',
+      whoxy: 'Whoxy',
+    };
+
+    if (Object.prototype.hasOwnProperty.call(specialNames, slug)) {
+      return specialNames[slug];
+    }
+
+    return String(slug || '')
+      .split(/[-_\s]+/)
+      .filter(Boolean)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  }
+
+  function inferFallbackCategory(slug, supportedTypes) {
+    if (supportedTypes.includes('email') || supportedTypes.includes('username')) return 'identity';
+    if (supportedTypes.includes('hash')) return 'malware';
+    if (supportedTypes.includes('url')) return 'osint';
+    if (supportedTypes.includes('domain') && supportedTypes.includes('ip')) return 'dns';
+    if (supportedTypes.includes('domain')) return 'dns';
+    if (supportedTypes.includes('ip')) return 'network';
+    if (slug.includes('leak')) return 'leaks';
+    return 'module';
+  }
+
+  function buildFallbackMigratedModules(staticModules) {
+    const knownSlugs = new Set(staticModules.map(module => String(module.slug || '').toLowerCase()));
+    const moduleSummaryOverrides = getModuleSummaryOverrides();
+    const moduleDisplayOverrides = getModuleDisplayOverrides();
+    const fallbackModules = [];
+
+    CTI_PYTHON_ENGINE_MODULES.forEach((slug) => {
+      if (knownSlugs.has(slug)) return;
+
+      const supportedTypes = CTI_PYTHON_MODULE_SUPPORTED_TYPES[slug] || [];
+      const parityVerifiedTypes = CTI_PYTHON_PARITY_VERIFIED_TYPES[slug] || [];
+      const displayOverride = moduleDisplayOverrides[slug] || {};
+      const description = repairVisibleText(
+        displayOverride.description
+        || moduleSummaryOverrides[slug]
+        || `Migrated CTI Python engine module. Static catalog entry is still pending. Supported targets: ${supportedTypes.length ? supportedTypes.join(', ') : 'unknown'}.`,
+      );
+
+      fallbackModules.push({
+        slug,
+        name: repairVisibleText(displayOverride.name || formatFallbackModuleName(slug)),
+        description,
+        category: inferFallbackCategory(slug, supportedTypes),
+        supported_types: supportedTypes.length ? supportedTypes : ['domain'],
+        is_enabled: false,
+        requires_key: Boolean(CTI_PYTHON_MODULE_KEY_REQUIREMENTS[slug]),
+        has_key: false,
+        is_python_migrated: true,
+        has_native_handler: CTI_NATIVE_MODULES.has(slug),
+        is_parity_verified: CTI_PYTHON_PARITY_VERIFIED_MODULES.has(slug),
+        parity_verified_types: parityVerifiedTypes,
+        is_implemented: true,
+      });
+    });
+
+    return fallbackModules.sort(compareModulesBySpiderFootOrder);
+  }
+
+  function buildImplementedModules(staticModules) {
+    const migratedFromStatic = staticModules.filter(module => module.is_python_migrated);
+    const fallbackModules = buildFallbackMigratedModules(staticModules);
+    const implementedBySlug = new Map();
+
+    [...migratedFromStatic, ...fallbackModules].forEach((module) => {
+      implementedBySlug.set(String(module.slug || '').toLowerCase(), module);
+    });
+
+    return [...implementedBySlug.values()].sort(compareModulesBySpiderFootOrder);
+  }
+
   function compareModulesBySpiderFootOrder(left, right) {
     const leftSlug = String(left?.slug || '').toLowerCase();
     const rightSlug = String(right?.slug || '').toLowerCase();
@@ -197,29 +455,43 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildStaticModules() {
     const modules = Array.isArray(window.CTI_STATIC_SETTINGS) ? window.CTI_STATIC_SETTINGS : [];
     const moduleSummaryOverrides = getModuleSummaryOverrides();
+    const moduleDisplayOverrides = getModuleDisplayOverrides();
 
     return modules
       .filter(module => !module.isPlatform)
       .map(module => {
-        const description = repairVisibleText(moduleSummaryOverrides[module.slug] || module.info?.description || '');
+        const normalizedSlug = String(module.slug || '').toLowerCase();
+        const displayOverride = moduleDisplayOverrides[normalizedSlug] || {};
+        const description = repairVisibleText(
+          displayOverride.description
+          || moduleSummaryOverrides[module.slug]
+          || module.info?.description
+          || '',
+        );
         const supportedTypes = Array.isArray(module.apiConfig?.supportedTypes) && module.apiConfig.supportedTypes.length
           ? module.apiConfig.supportedTypes
           : inferSupportedTypes(module);
-        const normalizedSlug = String(module.slug || '').toLowerCase();
         const isPythonMigrated = CTI_PYTHON_ENGINE_MODULES.has(normalizedSlug);
         const hasNativeHandler = CTI_NATIVE_MODULES.has(normalizedSlug);
+        const isParityVerified = CTI_PYTHON_PARITY_VERIFIED_MODULES.has(normalizedSlug);
+        const parityVerifiedTypes = CTI_PYTHON_PARITY_VERIFIED_TYPES[normalizedSlug] || [];
+        const requiresKey = Object.prototype.hasOwnProperty.call(CTI_PYTHON_MODULE_KEY_REQUIREMENTS, normalizedSlug)
+          ? CTI_PYTHON_MODULE_KEY_REQUIREMENTS[normalizedSlug]
+          : Boolean(module.apiConfig?.requiresKey);
 
         return {
           slug: module.slug,
-          name: repairVisibleText(module.name),
+          name: repairVisibleText(displayOverride.name || module.name),
           description,
           category: module.info?.category || 'module',
           supported_types: supportedTypes,
           is_enabled: Boolean(module.apiConfig?.isEnabled ?? true),
-          requires_key: Boolean(module.apiConfig?.requiresKey),
+          requires_key: requiresKey,
           has_key: Boolean(module.apiConfig?.hasKey),
           is_python_migrated: isPythonMigrated,
           has_native_handler: hasNativeHandler,
+          is_parity_verified: isParityVerified,
+          parity_verified_types: parityVerifiedTypes,
           is_implemented: isPythonMigrated || hasNativeHandler,
         };
       })
@@ -227,6 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   allModules = buildStaticModules();
+  implementedModules = buildImplementedModules(allModules);
 
   async function loadClonePayload(scanId) {
     try {
@@ -255,9 +528,44 @@ document.addEventListener('DOMContentLoaded', () => {
     return types.size ? [...types] : ['domain'];
   }
 
-  function detectTargetType(value) {
+  function getSupportedTargetTypesForModules(selectedSlugs) {
+    const types = new Set();
+
+    selectedSlugs.forEach((slug) => {
+      const normalizedSlug = String(slug || '').toLowerCase();
+      const module = allModules.find(item => String(item?.slug || '').toLowerCase() === normalizedSlug)
+        || implementedModules.find(item => String(item?.slug || '').toLowerCase() === normalizedSlug);
+      const supportedTypes = Array.isArray(module?.supported_types) && module.supported_types.length
+        ? module.supported_types
+        : (CTI_PYTHON_MODULE_SUPPORTED_TYPES[normalizedSlug] || []);
+
+      supportedTypes.forEach((type) => {
+        types.add(String(type || '').toLowerCase());
+      });
+    });
+
+    return types;
+  }
+
+  function normalizeScanTargetValue(value, queryType) {
+    let normalized = String(value ?? '').trim();
+
+    if (queryType === 'username') {
+      const hasDoubleQuotes = normalized.startsWith('"') && normalized.endsWith('"');
+      const hasSingleQuotes = normalized.startsWith('\'') && normalized.endsWith('\'');
+      if ((hasDoubleQuotes || hasSingleQuotes) && normalized.length >= 2) {
+        normalized = normalized.slice(1, -1).trim();
+      }
+      normalized = normalized.replace(/^@+/, '').trim();
+    }
+
+    return normalized;
+  }
+
+  function detectTargetType(value, selectedSlugs = []) {
     const input = value.trim();
     if (!input) return 'unknown';
+    const supportedTypes = getSupportedTargetTypesForModules(selectedSlugs);
     if (/^CVE-\d{4}-\d{4,}$/i.test(input)) return 'cve';
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) return 'email';
     if (/^[0-9a-f:]{3,39}$/i.test(input) && input.includes(':')) return 'ip';
@@ -266,7 +574,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (/^[a-f0-9]{32}$/i.test(input) || /^[a-f0-9]{40}$/i.test(input) || /^[a-f0-9]{64}$/i.test(input)) return 'hash';
     if (/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/.test(input) || /^bc1[a-z0-9]{39,59}$/i.test(input)) return 'bitcoin';
     if (/^\+?\d[\d\s\-()]{7,}$/.test(input)) return 'phone';
-    if (/^"[^"]+"$/.test(input)) return 'username';
+    if (/^"[^"]+"$/.test(input) || /^'[^']+'$/.test(input)) return 'username';
+    const normalizedUsername = normalizeScanTargetValue(input, 'username');
+    if (
+      supportedTypes.has('username')
+      && /^[a-z0-9][a-z0-9._-]{1,127}$/i.test(normalizedUsername)
+      && !normalizedUsername.includes('..')
+    ) {
+      return 'username';
+    }
     if (/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z]{2,})+$/i.test(input)) return 'domain';
     return 'domain';
   }
@@ -301,6 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderModuleItem(module, category, { showBackendBadges = false } = {}) {
     const checked = module.is_enabled ? 'checked' : '';
     const types = module.supported_types.join(', ');
+    const keyFilterValue = module.requires_key ? 'requires-key' : 'no-key';
     const keyIcon = module.requires_key
       ? module.has_key
         ? '<span class="mod-key-ok" title="Credential shown as configured">&#9679;</span>'
@@ -308,14 +625,25 @@ document.addEventListener('DOMContentLoaded', () => {
       : '';
 
     const badges = [];
+    if (module.requires_key) {
+      badges.push('<span class="scan-mod-badge scan-mod-badge-keyed">API Key</span>');
+    } else {
+      badges.push('<span class="scan-mod-badge scan-mod-badge-keyless">No Key</span>');
+    }
     if (showBackendBadges && module.is_python_migrated) {
       badges.push('<span class="scan-mod-badge scan-mod-badge-python">CTI Python</span>');
+    }
+    if (showBackendBadges && module.is_parity_verified) {
+      const verifiedLabel = module.parity_verified_types?.length
+        ? `Parity Verified (${module.parity_verified_types.join(', ')})`
+        : 'Parity Verified';
+      badges.push(`<span class="scan-mod-badge scan-mod-badge-verified">${esc(verifiedLabel)}</span>`);
     }
     if (showBackendBadges && module.has_native_handler && !module.is_python_migrated) {
       badges.push('<span class="scan-mod-badge scan-mod-badge-native">CTI Native</span>');
     }
 
-    return `<label class="scan-mod-item" data-slug="${esc(module.slug)}" data-cat="${esc(category)}" data-name="${esc(module.name.toLowerCase())}" data-types="${esc(types)}">
+    return `<label class="scan-mod-item" data-slug="${esc(module.slug)}" data-cat="${esc(category)}" data-name="${esc(module.name.toLowerCase())}" data-types="${esc(types)}" data-key-filter="${esc(keyFilterValue)}">
       <input type="checkbox" value="${esc(module.slug)}" ${checked}>
       <div class="scan-mod-info">
         <span class="scan-mod-name">${keyIcon} ${esc(module.name)}</span>
@@ -360,6 +688,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return html;
   }
 
+  function renderImplementedSection({ label, summary, modules, countLabelClass = '' }) {
+    if (!modules.length) return '';
+
+    return `<section class="scan-impl-section">
+        <div class="scan-impl-section-header ${countLabelClass}">
+          <div class="scan-impl-section-copy">
+            <span class="label accent-text">${esc(label)}</span>
+            <span class="label scan-impl-section-summary">${esc(summary)}</span>
+          </div>
+          <span class="label scan-impl-section-count ${countLabelClass}">${modules.length} modules</span>
+        </div>
+      ${renderCategorySections(modules, { showBackendBadges: true })}
+    </section>`;
+  }
+
   function renderModuleTab() {
     if (!modGrid) return;
     if (!allModules.length) {
@@ -368,49 +711,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     modGrid.innerHTML = renderCategorySections(allModules);
+    applyModuleFilters();
     updateModCount();
   }
 
   function renderImplementedTab() {
     if (!implGrid) return;
 
-    const migratedModules = allModules.filter(module => module.is_python_migrated);
-    const existingModules = allModules.filter(module => module.has_native_handler && !module.is_python_migrated);
+    const migratedModules = implementedModules;
+    const noKeyModules = migratedModules.filter(module => !module.requires_key);
+    const keyRequiredModules = migratedModules.filter(module => module.requires_key);
 
-    if (!migratedModules.length && !existingModules.length) {
-      implGrid.innerHTML = '<p class="label" style="color:var(--destructive);">No implemented CTI modules are available yet.</p>';
+    if (!migratedModules.length) {
+      implGrid.innerHTML = '<p class="label" style="color:var(--destructive);">No CTI Python migrated modules are available yet.</p>';
       return;
     }
 
-    let html = '';
-
-    if (migratedModules.length) {
-      html += `<section class="scan-impl-section">
-        <div class="scan-impl-section-header">
-          <div class="scan-impl-section-copy">
-            <span class="label accent-text">Migrated To CTI Python Engine</span>
-            <span class="label" style="opacity:0.72">These modules already run on the new first-party Python backend.</span>
-          </div>
-          <span class="label" style="opacity:0.75">${migratedModules.length} modules</span>
-        </div>
-        ${renderCategorySections(migratedModules, { showBackendBadges: true })}
-      </section>`;
-    }
-
-    if (existingModules.length) {
-      html += `<section class="scan-impl-section">
-        <div class="scan-impl-section-header">
-          <div class="scan-impl-section-copy">
-            <span class="label accent-text">Existing CTI Modules</span>
-            <span class="label" style="opacity:0.72">These modules already have a real CTI-native handler and do not rely on placeholders.</span>
-          </div>
-          <span class="label" style="opacity:0.75">${existingModules.length} modules</span>
-        </div>
-        ${renderCategorySections(existingModules, { showBackendBadges: true })}
-      </section>`;
-    }
-
-    implGrid.innerHTML = html;
+    implGrid.innerHTML = `
+      ${renderImplementedSection({
+        label: 'No Key Required',
+        summary: 'These migrated modules can run on the CTI Python engine without adding provider credentials.',
+        modules: noKeyModules,
+        countLabelClass: 'scan-impl-section-header-keyless',
+      })}
+      ${renderImplementedSection({
+        label: 'API Key Required',
+        summary: 'These migrated modules need provider credentials before the Python engine can use them successfully.',
+        modules: keyRequiredModules,
+        countLabelClass: 'scan-impl-section-header-keyed',
+      })}
+    `;
+    applyImplementedFilters();
     updateImplementedCount();
   }
 
@@ -420,22 +751,66 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDtCount();
   }
 
-  function filterModuleGrid(gridSelector, query) {
+  function filterModuleGrid(gridSelector, query, keyFilterMode = 'all') {
     document.querySelectorAll(`${gridSelector} .scan-mod-item`).forEach(item => {
-      const matches = !query
+      const matchesQuery = !query
         || (item.dataset.name || '').includes(query)
         || (item.dataset.slug || '').includes(query)
         || (item.dataset.types || '').includes(query);
-      item.style.display = matches ? '' : 'none';
+      const matchesKey = keyFilterMode === 'all' || (item.dataset.keyFilter || 'all') === keyFilterMode;
+      item.style.display = matchesQuery && matchesKey ? '' : 'none';
+    });
+
+    document.querySelectorAll(`${gridSelector} .scan-mod-category`).forEach(section => {
+      const hasVisibleItems = [...section.querySelectorAll('.scan-mod-item')]
+        .some(item => item.style.display !== 'none');
+      section.style.display = hasVisibleItems ? '' : 'none';
+    });
+
+    document.querySelectorAll(`${gridSelector} .scan-impl-section`).forEach(section => {
+      const hasVisibleItems = [...section.querySelectorAll('.scan-mod-item')]
+        .some(item => item.style.display !== 'none');
+      section.style.display = hasVisibleItems ? '' : 'none';
+    });
+  }
+
+  function applyModuleFilters() {
+    filterModuleGrid('#moduleGrid', modSearch?.value.toLowerCase().trim() || '', moduleKeyFilterMode);
+  }
+
+  function applyImplementedFilters() {
+    filterModuleGrid('#implementedGrid', implSearch?.value.toLowerCase().trim() || '', implementedKeyFilterMode);
+  }
+
+  function bindKeyFilter(group, onChange) {
+    if (!group) return;
+
+    group.addEventListener('click', event => {
+      const button = event.target.closest('[data-key-filter]');
+      if (!button) return;
+
+      group.querySelectorAll('[data-key-filter]').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      onChange(String(button.dataset.keyFilter || 'all'));
     });
   }
 
   modSearch?.addEventListener('input', () => {
-    filterModuleGrid('#moduleGrid', modSearch.value.toLowerCase().trim());
+    applyModuleFilters();
   });
 
   implSearch?.addEventListener('input', () => {
-    filterModuleGrid('#implementedGrid', implSearch.value.toLowerCase().trim());
+    applyImplementedFilters();
+  });
+
+  bindKeyFilter(modKeyFilter, value => {
+    moduleKeyFilterMode = value;
+    applyModuleFilters();
+  });
+
+  bindKeyFilter(implKeyFilter, value => {
+    implementedKeyFilterMode = value;
+    applyImplementedFilters();
   });
 
   function syncModuleCheckboxState(slug, checked) {
@@ -721,7 +1096,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const queryType = detectTargetType(target);
+    const queryType = detectTargetType(target, selectedSlugs);
+    const normalizedTarget = normalizeScanTargetValue(target, queryType);
+    if (!normalizedTarget) {
+      showToast('Enter a valid scan target.', 'error');
+      scanTarget?.focus();
+      return;
+    }
     const useCase = document.querySelector('input[name="usecase"]:checked')?.value || 'all';
     const name = scanName?.value.trim() || 'Untitled Scan';
 
@@ -739,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({
             scan_name: name,
             query_type: queryType,
-            query_value: target,
+            query_value: normalizedTarget,
             use_case: useCase,
             apis: selectedSlugs,
             _csrf_token: csrf,
@@ -766,7 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fallback: static preview scan
-    const draft = buildDraftScan(target, queryType, useCase, selectedSlugs);
+    const draft = buildDraftScan(normalizedTarget, queryType, useCase, selectedSlugs);
     sessionStorage.setItem('cti-static-draft-scan', JSON.stringify(draft));
     showToast('Created a local preview scan (backend unavailable).');
 

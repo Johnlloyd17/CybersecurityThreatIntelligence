@@ -1,0 +1,56 @@
+{
+    "scan_id": 363,
+    "user_id": 1,
+    "scan_name": "VirusTotal Test",
+    "query_type": "domain",
+    "query_value": "gmail.com",
+    "selected_cti_modules": [
+        "virustotal"
+    ],
+    "selected_sfp_modules": [
+        "sfp_virustotal"
+    ],
+    "cti_by_sfp": {
+        "sfp_virustotal": "virustotal"
+    },
+    "global_settings": {
+        "debug": "0",
+        "dns_resolver": "",
+        "http_timeout": "5",
+        "generic_usernames": "abuse,admin,billing,compliance,devnull,dns,ftp,hostmaster,inoc,ispfeedback,ispsupport,list-request,list,maildaemon,marketing,noc,no-reply,noreply,null,peering,peering-notify,peering-request,phish,phishing,postmaster,privacy,registrar,registry,root,routing-registry,rr,sales,security,spam,support,sysadmin,tech,undisclosed-recipients,unsubscribe,usenet,uucp,webmaster,www",
+        "tld_list_url": "https://publicsuffix.org/list/effective_tld_names.dat",
+        "tld_cache_hours": "72",
+        "max_concurrent_modules": "3",
+        "socks_type": "",
+        "socks_host": "",
+        "socks_port": "",
+        "socks_username": "",
+        "socks_password": "",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0",
+        "max_bytes_per_element": "1024"
+    },
+    "module_settings": {
+        "virustotal": {
+            "public_key": "1",
+            "check_affiliates": "1",
+            "check_co_hosted": "1",
+            "netblock_size": "24",
+            "subnet_size": "24",
+            "lookup_netblock_ips": "1",
+            "lookup_subnet_ips": "1",
+            "verify_hostnames": "1"
+        }
+    },
+    "api_configs_snapshot": {
+        "virustotal": {
+            "name": "VirusTotal",
+            "api_key": "07c1cb9abab52c3d195406b0a2299403a0f8c74154d4a51b891effb52983f7b2",
+            "requires_key": 1,
+            "is_enabled": 1,
+            "base_url": "https://www.virustotal.com/api/v3",
+            "rate_limit": 4
+        }
+    },
+    "runtime_db_path_windows": "C:\\xampp\\htdocs\\CybersecurityThreatIntelligence\\runtime\\spiderfoot_bridge\\scan_363_spiderfoot.db",
+    "spiderfoot_install_wsl": "~/spiderfoot-4.0"
+}

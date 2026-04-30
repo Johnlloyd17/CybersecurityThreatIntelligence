@@ -2008,6 +2008,49 @@
     flex-wrap: wrap;
 }
 
+.scan-filter-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    padding: 0.2rem 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+
+.scan-filter-group-label {
+    padding-left: 0.35rem;
+    opacity: 0.8;
+}
+
+.scan-filter-pill {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted-fg);
+    border-radius: 999px;
+    padding: 0.36rem 0.72rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.16s ease;
+}
+
+.scan-filter-pill:hover {
+    color: var(--fg);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.scan-filter-pill.active {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 15%, transparent) inset;
+}
+
 .input-sm {
     height: 32px;
     font-size: 0.8rem;
@@ -2170,6 +2213,18 @@
     background: color-mix(in srgb, var(--warning, #f4b942) 12%, transparent);
 }
 
+.scan-mod-badge-keyed {
+    color: #ffb86b;
+    border-color: color-mix(in srgb, #ffb86b 48%, transparent);
+    background: color-mix(in srgb, #ffb86b 12%, transparent);
+}
+
+.scan-mod-badge-keyless {
+    color: #7fb8ff;
+    border-color: color-mix(in srgb, #7fb8ff 48%, transparent);
+    background: color-mix(in srgb, #7fb8ff 12%, transparent);
+}
+
 .scan-impl-note {
     padding: 0.85rem 0.95rem;
     border: 1px solid var(--border);
@@ -2251,6 +2306,11 @@
     .scan-bulk-actions {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .scan-filter-group {
+        width: 100%;
+        justify-content: center;
     }
 
     .scan-bulk-actions .input-sm {
@@ -2639,6 +2699,51 @@
 }
 .scan-filter-opt:hover { background: rgba(0,200,255,0.08); }
 .scan-filter-opt.active { color: var(--accent); font-weight: 600; }
+
+.scan-export-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.scan-export-trigger {
+    gap: 0.35rem;
+}
+
+.scan-export-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 60;
+    min-width: 180px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    padding: 4px 0;
+}
+
+.scan-export-opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 14px;
+    background: none;
+    border: none;
+    color: var(--fg);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: inherit;
+}
+
+.scan-export-opt:hover {
+    background: rgba(0,200,255,0.08);
+}
+
+.scan-bulk-abort-btn:disabled,
+.scan-bulk-abort-btn[disabled] {
+    opacity: 0.72;
+}
 
 /* ── Scan pager ────────────────────────────────────────────────────────────── */
 .scan-pager {

@@ -13,6 +13,7 @@ require_once __DIR__ . '/../SpiderFootModuleMapper.php';
 require_once __DIR__ . '/../OsintEngine.php';
 require_once __DIR__ . '/../ScanExecutor.php';
 require_once __DIR__ . '/../EventResultProjector.php';
+require_once __DIR__ . '/../ScanExportFormatter.php';
 
 SecurityHeaders::init();
 header('Content-Type: application/json; charset=utf-8');
@@ -43,6 +44,7 @@ switch ($action) {
     case 'set_false_positive': handleSetFalsePositive((int)$userId, $userRole); break;
     case 'rerun_correlations': handleRerunCorrelations((int)$userId, $userRole); break;
     case 'abort_scan': handleAbortScan((int)$userId, $userRole); break;
+    case 'multi_abort': handleMultiAbort((int)$userId, $userRole); break;
     case 'replay_scan': handleReplayScan((int)$userId, $userRole); break;
     case 'replay_info': handleReplayInfo((int)$userId, $userRole); break;
     case 'sf_diff_import': handleSfDiffImport((int)$userId, $userRole); break;
@@ -89,7 +91,7 @@ function handleExecute(int $userId): void
         $scanName = substr($scanName, 0, 200);
     }
 
-    $queryValue = trim((string)($input['query_value'] ?? ''));
+    $queryValue = normalizeQueryValue((string)($input['query_value'] ?? ''), $queryType);
     if ($queryValue === '' || strlen($queryValue) > 500) {
         jsonQuery(422, ['error' => 'Query value must be between 1 and 500 characters.']);
     }
@@ -876,7 +878,12 @@ function handleMultiExport(int $userId, ?string $role): void
 
     $isAdmin = strtolower($role ?? '') === 'admin';
     $format = strtolower(trim((string)($_GET['format'] ?? 'csv')));
-    if (!in_array($format, ['csv', 'json'], true)) {
+    $download = !empty($_GET['download']);
+    $jsonProfile = strtolower(trim((string)($_GET['json_profile'] ?? 'bundle')));
+    if (!in_array($jsonProfile, ['bundle', 'spiderfoot'], true)) {
+        $jsonProfile = 'bundle';
+    }
+    if (!in_array($format, ['csv', 'json', 'pdf'], true)) {
         $format = 'csv';
     }
 
@@ -1008,6 +1015,53 @@ function handleMultiExport(int $userId, ?string $role): void
             );
             $handlerStmt->execute($exportScanIds);
             $payload['event_handlers'] = $handlerStmt->fetchAll();
+        }
+    }
+
+    $payload = ScanExportFormatter::sanitizePayload($payload);
+
+    if ($download) {
+        $filename = ScanExportFormatter::buildFilename($scans, $format);
+
+        if ($format === 'csv') {
+            $csv = ScanExportFormatter::buildCsv($scans, $payload['results']);
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="' . addslashes($filename) . '"');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+            echo $csv;
+            exit;
+        }
+
+        if ($format === 'pdf') {
+            $pdf = ScanExportFormatter::buildPdf($scans, $payload['results'], (string)$payload['exported_at']);
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . addslashes($filename) . '"');
+            header('Content-Length: ' . strlen($pdf));
+            header('Pragma: no-cache');
+            header('Expires: 0');
+            echo $pdf;
+            exit;
+        }
+
+        if ($format === 'json') {
+            if ($jsonProfile === 'spiderfoot') {
+                $json = ScanExportFormatter::buildSpiderFootJson($scans, $payload['events'] ?? []);
+                $filename = ScanExportFormatter::buildSpiderFootJsonFilename($scans);
+                header('Content-Type: application/json; charset=utf-8');
+                header('Content-Disposition: attachment; filename="' . addslashes($filename) . '"');
+                header('Pragma: no-cache');
+                header('Expires: 0');
+                echo $json;
+                exit;
+            }
+
+            header('Content-Type: application/json; charset=utf-8');
+            header('Content-Disposition: attachment; filename="' . addslashes($filename) . '"');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+            echo json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit;
         }
     }
 
@@ -1269,6 +1323,56 @@ function handleAbortScan(int $userId, ?string $role): void
     }
 
     jsonQuery(200, ['aborted' => $affected > 0]);
+}
+
+function handleMultiAbort(int $userId, ?string $role): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        jsonQuery(405, ['error' => 'Method not allowed.']);
+    }
+
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+    $csrf = $input[CSRF_TOKEN_NAME] ?? '';
+    if (!SecurityHeaders::validateCsrf($csrf)) {
+        jsonQuery(403, ['error' => 'Invalid CSRF token.']);
+    }
+
+    $scanIds = $input['scan_ids'] ?? [];
+    if (!is_array($scanIds) || empty($scanIds)) {
+        jsonQuery(422, ['error' => 'No scans selected.']);
+    }
+
+    $isAdmin = strtolower($role ?? '') === 'admin';
+    $abortedIds = [];
+    $skippedIds = [];
+
+    foreach ($scanIds as $scanIdRaw) {
+        $scanId = (int)$scanIdRaw;
+        if ($scanId <= 0) {
+            continue;
+        }
+
+        $sql = "UPDATE scans SET status = 'aborted', finished_at = NOW() WHERE id = :id AND status IN ('starting','running')"
+             . ($isAdmin ? '' : ' AND user_id = :uid');
+        $params = $isAdmin ? [':id' => $scanId] : [':id' => $scanId, ':uid' => $userId];
+
+        $affected = DB::execute($sql, $params);
+        if ($affected > 0) {
+            recalculateScanSummaryFromStorage($scanId, true);
+            logScan($scanId, 'warning', null, 'Scan aborted by user.');
+            $abortedIds[] = $scanId;
+            continue;
+        }
+
+        $skippedIds[] = $scanId;
+    }
+
+    jsonQuery(200, [
+        'aborted' => count($abortedIds) > 0,
+        'aborted_count' => count($abortedIds),
+        'aborted_ids' => $abortedIds,
+        'skipped_ids' => $skippedIds,
+    ]);
 }
 
 function handleDeleteHistory(): void
@@ -1883,6 +1987,23 @@ function loadSelectedApiConfigSnapshot(array $selectedApis): array
     }
 
     return $snapshot;
+}
+
+function normalizeQueryValue(string $value, string $queryType): string
+{
+    $normalized = trim($value);
+
+    if ($queryType !== 'username') {
+        return $normalized;
+    }
+
+    $hasDoubleQuotes = str_starts_with($normalized, '"') && str_ends_with($normalized, '"');
+    $hasSingleQuotes = str_starts_with($normalized, "'") && str_ends_with($normalized, "'");
+    if (($hasDoubleQuotes || $hasSingleQuotes) && strlen($normalized) >= 2) {
+        $normalized = trim(substr($normalized, 1, -1));
+    }
+
+    return trim(ltrim($normalized, "@ \t\n\r\0\x0B"));
 }
 
 function normalizeSettingValue(mixed $value, string $type): string

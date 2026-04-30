@@ -21,7 +21,7 @@ class ApiVoidModule(BaseModule):
         "internet_name",
         "email",
         "linked_url_internal",
-        "malicious_domain",
+        "malicious_internet_name",
         "malicious_ip",
         "malicious_url",
     }
@@ -248,7 +248,7 @@ class ApiVoidModule(BaseModule):
         events: list[ScanEvent] = []
         if hits >= min_hits:
             events.append(ScanEvent(
-                event_type="malicious_domain",
+                event_type="malicious_internet_name",
                 value=parent_event.value,
                 source_module=self.slug,
                 root_target=ctx.root_target,
@@ -256,7 +256,7 @@ class ApiVoidModule(BaseModule):
                 confidence=min(99, 60 + min(39, hits * 10)),
                 visibility=100,
                 risk_score=self._risk_from_blacklist_hits(hits),
-                tags=["apivoid", "domain", "blacklisted"],
+                tags=["apivoid", "internet_name", "blacklisted"],
                 raw_payload={
                     "detection_hits": hits,
                     "detection_total": total,

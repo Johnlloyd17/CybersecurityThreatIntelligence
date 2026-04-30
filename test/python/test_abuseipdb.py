@@ -10,7 +10,7 @@ from python.cti_engine.targets import normalize_target
 
 
 class AbuseIpDbModuleTests(unittest.TestCase):
-    def test_payload_parsing_emits_expected_events(self) -> None:
+    def test_blacklist_parsing_emits_expected_events(self) -> None:
         module = AbuseIpDbModule()
         request = ScanRequest(
             scan_id=6,
@@ -28,21 +28,12 @@ class AbuseIpDbModuleTests(unittest.TestCase):
             root_target="118.25.6.39",
         )
 
-        payload = {
-            "abuseConfidenceScore": 100,
-            "totalReports": 26,
-            "domain": "example-abusive.test",
-            "isp": "Example ISP",
-            "usageType": "Data Center/Web Hosting/Transit",
-            "lastReportedAt": "2026-04-10T00:00:00+00:00",
-        }
-
-        events = module._events_from_payload(payload, parent, ctx)
+        events = module._events_from_blacklist({"118.25.6.39", "203.0.113.10"}, parent, ctx)
         event_types = [event.event_type for event in events]
         self.assertIn("malicious_ip", event_types)
-        self.assertIn("internet_name", event_types)
+        self.assertIn("blacklisted_ip", event_types)
 
-    def test_clean_payload_without_domain_emits_no_events(self) -> None:
+    def test_non_blacklisted_ip_emits_no_events(self) -> None:
         module = AbuseIpDbModule()
         request = ScanRequest(
             scan_id=7,
@@ -60,14 +51,13 @@ class AbuseIpDbModuleTests(unittest.TestCase):
             root_target="8.8.8.8",
         )
 
-        payload = {
-            "abuseConfidenceScore": 0,
-            "totalReports": 0,
-            "domain": "",
-        }
-
-        events = module._events_from_payload(payload, parent, ctx)
+        events = module._events_from_blacklist({"118.25.6.39"}, parent, ctx)
         self.assertEqual([], events)
+
+    def test_parse_blacklist_ignores_comments(self) -> None:
+        module = AbuseIpDbModule()
+        blacklist = module._parse_blacklist("# Comment\n118.25.6.39\n\n203.0.113.10\n")
+        self.assertEqual({"118.25.6.39", "203.0.113.10"}, blacklist)
 
 
 if __name__ == "__main__":

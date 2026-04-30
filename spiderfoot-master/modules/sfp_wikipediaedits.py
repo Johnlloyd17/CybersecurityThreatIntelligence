@@ -16,7 +16,7 @@ import re
 import urllib.error
 import urllib.parse
 import urllib.request
-from html.parser import HTMLParser
+from html import unescape
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
@@ -95,14 +95,12 @@ class sfp_wikipediaedits(SpiderFootPlugin):
         links = list()
 
         try:
-            parser = HTMLParser()
-
             for line in res['content'].split("\n"):
                 matches = re.findall("<link>(.*?)</link>", line, re.IGNORECASE)
                 for m in matches:
                     if "Special:Contributions" in m:
                         continue
-                    d = parser.unescape(m)
+                    d = unescape(m)
                     links.append(d)
             return set(links)
         except Exception as e:

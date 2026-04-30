@@ -10,6 +10,35 @@ from python.cti_engine.targets import normalize_target
 
 
 class AbuseChModuleTests(unittest.TestCase):
+    def test_blacklist_matches_emit_spiderfoot_style_malicious_domain_events(self) -> None:
+        module = AbuseChModule()
+        request = ScanRequest(
+            scan_id=7,
+            user_id=1,
+            scan_name="abuse.ch SpiderFoot Domain Test",
+            target=normalize_target("bad.example", "domain"),
+            selected_modules=["abuse-ch"],
+            settings=SettingsSnapshot(),
+        )
+        ctx = ScanContext(request=request)
+        parent = ScanEvent(
+            event_type="domain",
+            value="bad.example",
+            source_module="seed",
+            root_target="bad.example",
+        )
+
+        events = module._blacklist_match_events([
+            {
+                "name": "Abuse.ch URL Haus Blacklist",
+                "url": "https://urlhaus.abuse.ch/downloads/csv_recent/",
+                "tag": "urlhaus",
+            }
+        ], parent, ctx)
+        self.assertEqual(1, len(events))
+        self.assertEqual("malicious_internet_name", events[0].event_type)
+        self.assertIn("bad.example", events[0].value)
+
     def test_host_payload_emits_expected_events(self) -> None:
         module = AbuseChModule()
         request = ScanRequest(
@@ -40,7 +69,7 @@ class AbuseChModuleTests(unittest.TestCase):
 
         events = module._events_from_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("malicious_domain", event_types)
+        self.assertIn("malicious_internet_name", event_types)
         self.assertIn("linked_url_internal", event_types)
 
     def test_url_payload_emits_malicious_url_and_hostname(self) -> None:

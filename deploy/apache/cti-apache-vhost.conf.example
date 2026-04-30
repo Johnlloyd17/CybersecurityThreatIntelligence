@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+    ServerName your-domain.example
+    ServerAdmin admin@your-domain.example
+
+    DocumentRoot /var/www/cybersecurity-threat-intelligence
+
+    <Directory /var/www/cybersecurity-threat-intelligence>
+        AllowOverride All
+        Require all granted
+        Options FollowSymLinks
+        DirectoryIndex index.php index.html
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php8.2-fpm.sock|fcgi://localhost/"
+    </FilesMatch>
+
+    ErrorLog ${APACHE_LOG_DIR}/cti-error.log
+    CustomLog ${APACHE_LOG_DIR}/cti-access.log combined
+</VirtualHost>

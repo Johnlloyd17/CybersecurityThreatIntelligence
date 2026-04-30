@@ -10,36 +10,35 @@ from python.cti_engine.targets import normalize_target
 
 
 class WhoxyModuleTests(unittest.TestCase):
-    def test_payload_emits_summary_and_nameservers(self) -> None:
+    def test_payload_emits_reverse_whois_affiliate_domains(self) -> None:
         module = WhoxyModule()
         request = ScanRequest(
             scan_id=17,
             user_id=1,
             scan_name="Whoxy Test",
-            target=normalize_target("example.com", "domain"),
+            target=normalize_target("admin@example.com", "email"),
             selected_modules=["whoxy"],
             settings=SettingsSnapshot(),
         )
         ctx = ScanContext(request=request)
         parent = ScanEvent(
-            event_type="domain",
-            value="example.com",
+            event_type="email",
+            value="admin@example.com",
             source_module="seed",
-            root_target="example.com",
+            root_target="admin@example.com",
         )
 
-        payload = {
-            "status": 1,
-            "registrar_name": "Whoxy Registrar",
-            "create_date": "2023-01-01",
-            "expiry_date": "2027-01-01",
-            "name_servers": ["ns1.example.net", "ns2.example.net"],
-        }
+        payload = [
+            {"domain_name": "related-one.com"},
+            {"domain_name": "related-two.com"},
+            {"domain_name": "related-one.com"},
+            {"domain_name": "not-a-domain-value"},
+        ]
 
         events = module._events_from_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("whois_record", event_types)
-        self.assertEqual(2, event_types.count("internet_name"))
+        self.assertEqual(3, event_types.count("affiliate_internet_name"))
+        self.assertEqual(2, event_types.count("affiliate_domain_name"))
 
 
 if __name__ == "__main__":

@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const rerunBtn = document.getElementById('rerunSelected');
   const stopBtn = document.getElementById('stopSelected');
   const exportBtn = document.getElementById('exportSelected');
-  const exportJsonBtn = document.getElementById('exportJsonSelected');
+  const exportMenu = document.getElementById('exportMenu');
   const pagerFirst = document.getElementById('pagerFirst');
   const pagerPrev = document.getElementById('pagerPrev');
   const pagerNext = document.getElementById('pagerNext');
@@ -313,10 +313,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filterBtn?.addEventListener('click', (event) => {
     event.stopPropagation();
+    exportMenu?.classList.add('hidden');
     filterMenu?.classList.toggle('hidden');
   });
 
-  document.addEventListener('click', () => filterMenu?.classList.add('hidden'));
+  exportBtn?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (exportBtn.disabled) return;
+    filterMenu?.classList.add('hidden');
+    exportMenu?.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.scan-filter-wrap')) {
+      filterMenu?.classList.add('hidden');
+    }
+    if (!event.target.closest('.scan-export-wrap')) {
+      exportMenu?.classList.add('hidden');
+    }
+  });
 
   filterMenu?.addEventListener('click', event => {
     const option = event.target.closest('.scan-filter-opt');
@@ -328,6 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
     filterMenu.classList.add('hidden');
     currentPage = 1;
     refreshVisibleScans();
+  });
+
+  exportMenu?.addEventListener('click', event => {
+    const option = event.target.closest('.scan-export-opt');
+    if (!option) return;
+    exportMenu.classList.add('hidden');
+    exportSelectedAs(option.dataset.exportFormat || 'csv');
   });
 
   selectAllCb?.addEventListener('change', () => {
@@ -357,9 +379,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedScans = getSelectedScans();
     const hasSelection = selectedIds.length > 0;
 
-    [deleteBtn, rerunBtn, exportBtn, exportJsonBtn].forEach(button => {
+    [deleteBtn, rerunBtn, exportBtn].forEach(button => {
       if (button) button.disabled = !hasSelection;
     });
+    if (!hasSelection) {
+      exportMenu?.classList.add('hidden');
+    }
 
     if (stopBtn) {
       stopBtn.disabled = !selectedScans.some(scan => isTerminableStatus(scan.status));
@@ -372,6 +397,81 @@ document.addEventListener('DOMContentLoaded', () => {
     link.download = filename;
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  }
+
+  function csvCell(value) {
+    return `"${String(value ?? '').replace(/"/g, '""')}"`;
+  }
+
+  function parseFilename(headerValue, fallback) {
+    if (!headerValue) return fallback;
+
+    const utf8Match = headerValue.match(/filename\*=UTF-8''([^;]+)/i);
+    if (utf8Match?.[1]) {
+      try {
+        return decodeURIComponent(utf8Match[1]);
+      } catch {
+        return utf8Match[1];
+      }
+    }
+
+    const simpleMatch = headerValue.match(/filename="?([^";]+)"?/i);
+    return simpleMatch?.[1] || fallback;
+  }
+
+  function openPreviewPdf(rows) {
+    const printableRows = rows.map(scan => `
+      <tr>
+        <td>${esc(scan.name)}</td>
+        <td>${esc(scan.target)}</td>
+        <td>${esc(scan.started_at || '--')}</td>
+        <td>${esc(scan.finished_at || '--')}</td>
+        <td>${esc(String(scan.status || '').toUpperCase())}</td>
+        <td style="text-align:right;">${Number(scan.total_elements || 0)}</td>
+      </tr>
+    `).join('');
+
+    const win = window.open('', '_blank', 'noopener,noreferrer');
+    if (!win) {
+      showToast('Allow pop-ups to export preview scans as PDF.', 'error');
+      return;
+    }
+
+    win.document.open();
+    win.document.write(`<!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>CTI Preview Export</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 24px; color: #111; }
+          h1 { margin: 0 0 8px; font-size: 20px; }
+          p { margin: 0 0 16px; font-size: 12px; color: #444; }
+          table { width: 100%; border-collapse: collapse; font-size: 12px; }
+          th, td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
+          th { background: #f2f2f2; text-align: left; }
+        </style>
+      </head>
+      <body>
+        <h1>CTI Preview Scan Export</h1>
+        <p>Use your browser's Save as PDF option in the print dialog.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Target</th>
+              <th>Started</th>
+              <th>Finished</th>
+              <th>Status</th>
+              <th>Elements</th>
+            </tr>
+          </thead>
+          <tbody>${printableRows}</tbody>
+        </table>
+        <script>window.onload = () => window.print();<\/script>
+      </body>
+      </html>`);
+    win.document.close();
   }
 
   refreshBtn?.addEventListener('click', () => {
@@ -493,6 +593,68 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('Scan terminated.');
   }
 
+  async function abortSelectedScans() {
+    const terminableScans = getSelectedScans()
+      .filter(scan => isTerminableStatus(scan.status));
+
+    if (!terminableScans.length) {
+      showToast('No running scans selected.', 'error');
+      return;
+    }
+
+    const numericIds = terminableScans
+      .map(scan => String(scan.id))
+      .filter(id => /^\d+$/.test(id))
+      .map(Number);
+
+    if (numericIds.length && useBackend) {
+      try {
+        const csrf = await getCsrfToken();
+        if (!csrf) {
+          showToast('Auth required.', 'error');
+          return;
+        }
+
+        const res = await fetch(`${API_QUERY}?action=multi_abort`, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ scan_ids: numericIds, _csrf_token: csrf }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          showToast(data.error || 'Failed to terminate the selected scans.', 'error');
+          return;
+        }
+
+        if (!data.aborted_count) {
+          showToast(data.error || 'No selected running scans could be terminated.', 'error');
+          return;
+        }
+
+        const skippedCount = Array.isArray(data.skipped_ids) ? data.skipped_ids.length : 0;
+        const message = skippedCount > 0
+          ? `Terminated ${data.aborted_count} scan(s). Skipped ${skippedCount}.`
+          : `Terminated ${data.aborted_count} scan(s).`;
+        showToast(message);
+        refreshVisibleScans();
+        return;
+      } catch {
+        showToast('Failed to terminate the selected scans.', 'error');
+        return;
+      }
+    }
+
+    terminableScans.forEach(scan => {
+      scan.status = 'aborted';
+      scan.finished_at = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      scan.stuck = false;
+    });
+    refreshVisibleScans();
+    showToast(`Terminated ${terminableScans.length} scan(s).`);
+  }
+
   scanTableBody?.addEventListener('click', event => {
     const del = event.target.closest('[data-delete]');
     if (del) {
@@ -562,45 +724,67 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   stopBtn?.addEventListener('click', () => {
-    getSelectedScans()
-      .filter(scan => isTerminableStatus(scan.status))
-      .forEach(scan => abortScan(scan.id));
+    abortSelectedScans();
   });
 
-  async function exportSelectedAs(format = 'csv') {
+  async function exportSelectedAs(exportMode = 'csv') {
     const ids = getSelectedIds();
     if (!ids.length) return;
+
+    let format = 'csv';
+    let jsonProfile = 'bundle';
+    let exportLabel = 'CSV';
+
+    switch (exportMode) {
+      case 'json_bundle':
+        format = 'json';
+        jsonProfile = 'bundle';
+        exportLabel = 'CTI JSON';
+        break;
+      case 'json_compare':
+        format = 'json';
+        jsonProfile = 'spiderfoot';
+        exportLabel = 'CTI JSON Compare';
+        break;
+      case 'pdf':
+        format = 'pdf';
+        exportLabel = 'PDF';
+        break;
+      default:
+        format = 'csv';
+        exportLabel = 'CSV';
+        break;
+    }
 
     const numericIds = ids.filter(id => /^\d+$/.test(id));
     if (numericIds.length) {
       try {
+        const extraParams = format === 'json' ? `&json_profile=${encodeURIComponent(jsonProfile)}` : '';
         const res = await fetch(
-          `${API_QUERY}?action=multi_export&scan_ids=${encodeURIComponent(numericIds.join(','))}&format=${encodeURIComponent(format)}`,
+          `${API_QUERY}?action=multi_export&scan_ids=${encodeURIComponent(numericIds.join(','))}&format=${encodeURIComponent(format)}${extraParams}&download=1`,
           { credentials: 'same-origin' }
         );
-        const data = await res.json();
+        const contentType = res.headers.get('content-type') || '';
         if (!res.ok) {
-          showToast(data.error || 'Failed to export the selected scans.', 'error');
+          if (contentType.includes('application/json')) {
+            const data = await res.json();
+            showToast(data.error || 'Failed to export the selected scans.', 'error');
+          } else {
+            const text = await res.text();
+            showToast(text || 'Failed to export the selected scans.', 'error');
+          }
           return;
         }
 
-        if (format === 'json') {
-          downloadBlob(
-            new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }),
-            'scans_export.json'
-          );
-          showToast('Exported the selected scans as JSON.');
-          return;
-        }
-
-        const csv = 'Scan ID,Scan Name,Target,API Source,Query Type,Query Value,Data Type,Risk Score,Status,False Positive,Queried At\n' +
-          (data.results || []).map(row => {
-            const scan = (data.scans || []).find(item => Number(item.id) === Number(row.scan_id));
-            return `"${row.scan_id}","${scan?.name || ''}","${scan?.target || ''}","${row.api_source || ''}","${row.query_type || ''}","${row.query_value || ''}","${row.data_type || ''}","${row.risk_score || ''}","${row.status || ''}","${row.false_positive ? 'yes' : 'no'}","${row.queried_at || ''}"`;
-          }).join('\n');
-
-        downloadBlob(new Blob([csv], { type: 'text/csv' }), 'scans_export.csv');
-        showToast('Exported the selected scans as CSV.');
+        const blob = await res.blob();
+        const fallback = format === 'pdf'
+          ? 'cti-scans-export.pdf'
+          : format === 'json'
+            ? 'cti-scans-export.json'
+            : 'cti-scans-export.csv';
+        const filename = parseFilename(res.headers.get('content-disposition'), fallback);
+        downloadBlob(blob, filename);
+        showToast(`Exported the selected scans as ${exportLabel}.`);
       } catch {
         showToast('Failed to export the selected scans.', 'error');
       }
@@ -610,28 +794,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (format === 'json') {
       const rows = allScans.filter(scan => ids.includes(String(scan.id)));
       downloadBlob(
-        new Blob([JSON.stringify({ scans: rows }, null, 2)], { type: 'application/json' }),
+        new Blob([JSON.stringify({ format: exportMode, scans: rows }, null, 2)], { type: 'application/json' }),
         'scans_export.json'
       );
-      showToast('Exported the selected preview scans as JSON.');
+      showToast(`Exported the selected preview scans as ${exportLabel}.`);
+      return;
+    }
+
+    if (format === 'pdf') {
+      const rows = allScans.filter(scan => ids.includes(String(scan.id)));
+      openPreviewPdf(rows);
+      showToast('Opened the preview scan export for PDF printing.');
       return;
     }
 
     const rows = allScans.filter(scan => ids.includes(String(scan.id)));
     const csv = 'Name,Target,Started,Finished,Status,Elements\n' +
-      rows.map(scan => `"${scan.name}","${scan.target}","${scan.started_at || ''}","${scan.finished_at || ''}","${scan.status}","${scan.total_elements || 0}"`).join('\n');
+      rows.map(scan => [
+        csvCell(scan.name),
+        csvCell(scan.target),
+        csvCell(scan.started_at || ''),
+        csvCell(scan.finished_at || ''),
+        csvCell(scan.status),
+        csvCell(scan.total_elements || 0),
+      ].join(',')).join('\n');
 
     downloadBlob(new Blob([csv], { type: 'text/csv' }), 'scans_export.csv');
     showToast('Exported the selected preview scans as CSV.');
   }
-
-  exportBtn?.addEventListener('click', () => {
-    exportSelectedAs('csv');
-  });
-
-  exportJsonBtn?.addEventListener('click', () => {
-    exportSelectedAs('json');
-  });
 
   refreshVisibleScans();
 });

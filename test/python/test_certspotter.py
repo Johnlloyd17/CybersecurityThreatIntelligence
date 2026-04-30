@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import unittest
+from unittest.mock import patch
 
 from python.cti_engine.context import ScanContext, ScanRequest
 from python.cti_engine.events import ScanEvent
@@ -10,7 +12,7 @@ from python.cti_engine.targets import normalize_target
 
 
 class CertSpotterModuleTests(unittest.TestCase):
-    def test_payload_emits_certificate_summary_and_dns_names(self) -> None:
+    def test_payload_emits_spiderfoot_style_certificate_and_host_events(self) -> None:
         module = CertSpotterModule()
         request = ScanRequest(
             scan_id=25,
@@ -21,8 +23,8 @@ class CertSpotterModuleTests(unittest.TestCase):
             settings=SettingsSnapshot(
                 module_settings={
                     "certspotter": {
-                        "verify_alt_names": True,
-                        "cert_expiry_days": 30,
+                        "verify": False,
+                        "certexpiringdays": 30,
                     }
                 }
             ),
@@ -39,14 +41,31 @@ class CertSpotterModuleTests(unittest.TestCase):
             {
                 "dns_names": ["example.com", "www.example.com", "*.api.example.com"],
                 "issuer": {"O": "Let's Encrypt"},
+                "not_before": "2026-04-01T00:00:00+00:00",
                 "not_after": "2026-04-20T00:00:00+00:00",
+                "cert": {"data": "MIIBFAKECERT"},
             }
         ]
 
-        events = module._events_from_payload(payload, parent, {"verify_alt_names": True, "cert_expiry_days": 30}, ctx)
+        with patch("python.cti_engine.modules.certspotter.datetime") as fake_datetime:
+            fake_datetime.now.return_value = datetime(2026, 4, 10, tzinfo=timezone.utc)
+            fake_datetime.fromisoformat.side_effect = datetime.fromisoformat
+            fake_datetime.timezone = timezone
+            events = module._events_from_payload(
+                payload,
+                parent,
+                {"verify": False, "certexpiringdays": 30},
+                ctx,
+            )
+
         event_types = [event.event_type for event in events]
-        self.assertIn("certificate_record", event_types)
+        self.assertIn("raw_rir_data", event_types)
+        self.assertIn("ssl_certificate_raw", event_types)
+        self.assertIn("ssl_certificate_issuer", event_types)
+        self.assertIn("ssl_certificate_issued", event_types)
+        self.assertIn("ssl_certificate_expiring", event_types)
         self.assertEqual(2, event_types.count("internet_name"))
+        self.assertEqual(2, event_types.count("domain_name"))
 
 
 if __name__ == "__main__":

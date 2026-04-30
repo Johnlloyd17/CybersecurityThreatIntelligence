@@ -4,6 +4,7 @@
  */
 const Auth = (() => {
   const API_BASE = 'php/api/auth.php';
+  const LOGIN_PANEL_URL = 'index.php#hero-login-panel';
 
   async function fetchJSON(url, opts = {}) {
     const res = await fetch(url, { credentials: 'same-origin', ...opts });
@@ -48,7 +49,7 @@ const Auth = (() => {
   async function requireAuth() {
     const session = await getSession();
     if (!session || !session.user) {
-      window.location.href = 'index.php#login';
+      window.location.href = LOGIN_PANEL_URL;
       return null;
     }
     return session.user;

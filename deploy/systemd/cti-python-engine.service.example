@@ -1,0 +1,18 @@
+[Unit]
+Description=CTI Python Engine Service
+After=network.target mariadb.service
+Wants=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/cybersecurity-threat-intelligence
+EnvironmentFile=-/etc/default/cti-python-engine
+ExecStart=/var/www/cybersecurity-threat-intelligence/.venv/bin/python -m python.cti_service
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

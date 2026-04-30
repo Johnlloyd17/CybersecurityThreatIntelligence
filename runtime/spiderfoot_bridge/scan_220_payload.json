@@ -1,0 +1,45 @@
+{
+    "scan_id": 220,
+    "user_id": 1,
+    "scan_name": "GitHub Test",
+    "query_type": "domain",
+    "query_value": "microsoft.com",
+    "selected_cti_modules": [
+        "github"
+    ],
+    "selected_sfp_modules": [
+        "sfp_github"
+    ],
+    "cti_by_sfp": {
+        "sfp_github": "github"
+    },
+    "global_settings": {
+        "debug": "0",
+        "dns_resolver": "",
+        "http_timeout": "5",
+        "generic_usernames": "abuse,admin,billing,compliance,devnull,dns,ftp,hostmaster,inoc,ispfeedback,ispsupport,list-request,list,maildaemon,marketing,noc,no-reply,noreply,null,peering,peering-notify,peering-request,phish,phishing,postmaster,privacy,registrar,registry,root,routing-registry,rr,sales,security,spam,support,sysadmin,tech,undisclosed-recipients,unsubscribe,usenet,uucp,webmaster,www",
+        "tld_list_url": "https://publicsuffix.org/list/effective_tld_names.dat",
+        "tld_cache_hours": "72",
+        "max_concurrent_modules": "3",
+        "socks_type": "",
+        "socks_host": "",
+        "socks_port": "",
+        "socks_username": "",
+        "socks_password": "",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0",
+        "max_bytes_per_element": "1024"
+    },
+    "module_settings": [],
+    "api_configs_snapshot": {
+        "github": {
+            "name": "Github",
+            "api_key": "",
+            "requires_key": 0,
+            "is_enabled": 1,
+            "base_url": "https://api.github.com",
+            "rate_limit": 60
+        }
+    },
+    "runtime_db_path_windows": "C:\\xampp\\htdocs\\CybersecurityThreatIntelligence\\runtime\\spiderfoot_bridge\\scan_220_spiderfoot.db",
+    "spiderfoot_install_wsl": "~/spiderfoot-4.0"
+}

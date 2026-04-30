@@ -23,45 +23,542 @@ class CtiPythonServiceRunner
 
     /** @var array<string,string> */
     private const CTI_TO_SERVICE = [
+        'adblock-check' => 'adblock',
+        'ahmia' => 'ahmia',
         'apivoid' => 'apivoid',
+        'archive-org' => 'archive-org',
+        'account-finder' => 'account-finder',
         'abuse-ch' => 'abuse-ch',
         'abusech' => 'abuse-ch',
         'abuseipdb' => 'abuseipdb',
         'alienvault' => 'alienvault',
+        'alienvault-ip-rep' => 'alienvault-ip-rep',
+        'azure-blob-finder' => 'azure-blob-finder',
+        'base64-decoder' => 'base64',
+        'binary-string-extractor' => 'binary-string-extractor',
+        'bgpview' => 'bgpview',
+        'blocklist-de' => 'blocklistde',
+        'botvrij' => 'botvrij',
         'certspotter' => 'certspotter',
+        'censys' => 'censys',
+        'cins-army' => 'cinsscore',
+        'cleantalk' => 'cleantalk',
+        'coinblocker' => 'coinblocker',
+        'commoncrawl' => 'commoncrawl',
+        'company-name-extractor' => 'company-name-extractor',
+        'country-name-extractor' => 'country-name-extractor',
+        'crobat' => 'crobat',
         'crt-sh' => 'crt-sh',
+        'cross-referencer' => 'cross-referencer',
+        'custom-threat-feed' => 'custom-threat-feed',
+        'cybercrime-tracker' => 'cybercrimetracker',
+        'cmseek' => 'cmseek',
+        'dns-bruteforce' => 'dns-bruteforce',
+        'dns-lookaside' => 'dns-lookaside',
+        'dnsgrep' => 'dnsgrep',
+        'dnsdumpster' => 'dnsdumpster',
+        'dns-raw' => 'dns-raw',
         'dns-resolver' => 'dnsresolve',
+        'dns-zone-transfer' => 'dns-zone-transfer',
+        'dnstwist' => 'dnstwist',
+        'do-space-finder' => 'do-space-finder',
+        'dronebl' => 'dronebl',
+        'duckduckgo' => 'duckduckgo',
+        'emailrep' => 'emailrep',
+        'emerging-threats' => 'emergingthreats',
+        'file-metadata-extractor' => 'file-metadata-extractor',
+        'flickr' => 'flickr',
+        'fortiguard' => 'fortiguard',
+        'gcs-finder' => 'gcs-finder',
+        'grep-app' => 'grep-app',
+        'greynoise' => 'greynoise',
+        'greensnow' => 'greensnow',
+        'github' => 'github',
+        'hackertarget' => 'hackertarget',
+        'haveibeenpwned' => 'haveibeenpwned',
+        'human-name-extractor' => 'human-name-extractor',
+        'hunter' => 'hunter',
+        'ipinfo' => 'ipinfo',
+        'ipqualityscore' => 'ipqualityscore',
+        'ipregistry' => 'ipregistry',
+        'isc-sans' => 'isc-sans',
+        'interesting-file-finder' => 'interesting-file-finder',
         'jsonwhois' => 'jsonwhois',
+        'junk-file-finder' => 'junk-file-finder',
+        'leakix' => 'leakix',
+        'maltiverse' => 'maltiverse',
+        'malwarepatrol' => 'malwarepatrol',
+        'mnemonic-pdns' => 'mnemonic-pdns',
+        'multiproxy' => 'multiproxy',
+        'nbtscan' => 'nbtscan',
+        'nmap' => 'nmap',
+        'nuclei' => 'nuclei',
+        'onionsearchengine' => 'onionsearchengine',
+        'onesixtyone' => 'onesixtyone',
+        'open-pdns' => 'open-pdns',
+        'opennic' => 'opennic',
+        'openphish' => 'openphish',
+        'passivedns' => 'passivedns',
+        'pgp-keyservers' => 'pgp-keyservers',
+        'phishstats' => 'phishstats',
+        'phishtank' => 'phishtank',
+        'port-scanner-tcp' => 'port-scanner-tcp',
+        'retire-js' => 'retire-js',
+        'robtex' => 'robtex',
+        'crxcavator' => 'crxcavator',
+        's3-finder' => 's3-finder',
+        'scylla' => 'scylla',
+        'searchcode' => 'searchcode',
+        'securitytrails' => 'securitytrails',
         'shodan' => 'shodan',
+        'spamcop' => 'spamcop',
+        'spamhaus-zen' => 'spamhaus',
+        'snallygaster' => 'snallygaster',
+        'sorbs' => 'sorbs',
+        'steven-black-hosts' => 'stevenblackhosts',
+        'surbl' => 'surbl',
+        'ssl-analyzer' => 'ssl-analyzer',
+        'tld-searcher' => 'tld-searcher',
+        'talos-intelligence' => 'talos-intelligence',
+        'threatcrowd' => 'threatcrowd',
+        'threatfox' => 'threatfox',
+        'threatminer' => 'threatminer',
+        'torch' => 'torch',
+        'tor-exit-nodes' => 'torexits',
+        'testssl' => 'testssl',
+        'trufflehog' => 'trufflehog',
+        'uceprotect' => 'uceprotect',
         'urlscan' => 'urlscan',
         'virustotal' => 'virustotal',
+        'voipbl' => 'voipbl',
+        'vxvault' => 'vxvault',
+        'web-spider' => 'web-spider',
+        'viewdns' => 'viewdns',
+        'wafw00f' => 'wafw00f',
+        'wappalyzer' => 'wappalyzer',
+        'wikipedia-edits' => 'wikipedia-edits',
+        'whatweb' => 'whatweb',
         'whoisology' => 'whoisology',
         'whoxy' => 'whoxy',
+        'wikileaks' => 'wikileaks',
+        'zone-h' => 'zoneh',
     ];
 
     /** @var array<string,array<int,string>> */
     private const MODULE_QUERY_SUPPORT = [
+        'adblock-check' => ['domain', 'url'],
+        'ahmia' => ['domain'],
         'apivoid' => ['domain', 'ip', 'url', 'email'],
+        'archive-org' => ['domain', 'url'],
+        'account-finder' => ['domain', 'email', 'username'],
         'abuse-ch' => ['domain', 'ip', 'url', 'hash'],
         'abusech' => ['domain', 'ip', 'url', 'hash'],
         'abuseipdb' => ['ip'],
         'alienvault' => ['domain', 'ip', 'url', 'hash'],
+        'alienvault-ip-rep' => ['ip'],
+        'azure-blob-finder' => ['domain'],
+        'base64-decoder' => ['domain', 'url'],
+        'binary-string-extractor' => ['url'],
+        'bgpview' => ['domain', 'ip'],
+        'blocklist-de' => ['ip'],
+        'botvrij' => ['domain'],
         'certspotter' => ['domain'],
+        'censys' => ['domain', 'ip'],
+        'cins-army' => ['ip'],
+        'cleantalk' => ['domain', 'ip', 'email'],
+        'coinblocker' => ['domain'],
+        'commoncrawl' => ['domain', 'url'],
+        'company-name-extractor' => ['domain', 'url'],
+        'country-name-extractor' => ['domain', 'phone'],
+        'crobat' => ['domain'],
         'crt-sh' => ['domain'],
+        'cross-referencer' => ['domain', 'url'],
+        'custom-threat-feed' => ['domain', 'ip', 'url', 'hash'],
+        'cybercrime-tracker' => ['domain', 'ip'],
+        'cmseek' => ['domain', 'url'],
+        'dns-bruteforce' => ['domain'],
+        'dns-lookaside' => ['domain', 'ip'],
+        'dnsgrep' => ['domain'],
+        'dnsdumpster' => ['domain'],
+        'dns-raw' => ['domain'],
         'dns-resolver' => ['domain'],
+        'dns-zone-transfer' => ['domain'],
+        'dnstwist' => ['domain'],
+        'do-space-finder' => ['domain'],
+        'dronebl' => ['ip'],
+        'duckduckgo' => ['domain'],
+        'emailrep' => ['email'],
+        'emerging-threats' => ['ip'],
+        'file-metadata-extractor' => ['url'],
+        'gcs-finder' => ['domain'],
+        'fortiguard' => ['domain', 'ip', 'url'],
+        'grep-app' => ['domain'],
+        'greynoise' => ['ip'],
+        'greensnow' => ['ip'],
+        'github' => ['domain', 'username'],
+        'hackertarget' => ['domain', 'ip'],
+        'haveibeenpwned' => ['email'],
+        'human-name-extractor' => ['domain', 'url', 'email'],
+        'hunter' => ['domain', 'email'],
+        'ipinfo' => ['ip'],
+        'ipqualityscore' => ['ip', 'email', 'url', 'phone'],
+        'ipregistry' => ['ip'],
+        'isc-sans' => ['ip'],
+        'interesting-file-finder' => ['domain', 'url'],
         'jsonwhois' => ['domain'],
+        'junk-file-finder' => ['domain', 'url'],
+        'leakix' => ['domain', 'ip', 'email'],
+        'maltiverse' => ['domain', 'ip', 'url', 'hash'],
+        'malwarepatrol' => ['domain', 'ip', 'url', 'hash'],
+        'mnemonic-pdns' => ['domain', 'ip'],
+        'multiproxy' => ['ip'],
+        'nbtscan' => ['ip'],
+        'nmap' => ['domain', 'ip'],
+        'nuclei' => ['domain', 'url'],
+        'onionsearchengine' => ['domain', 'email', 'username'],
+        'onesixtyone' => ['ip'],
+        'open-pdns' => ['domain', 'ip'],
+        'opennic' => ['domain'],
+        'openphish' => ['domain', 'url'],
+        'passivedns' => ['domain', 'ip'],
+        'pgp-keyservers' => ['domain', 'email'],
+        'phishstats' => ['domain', 'ip', 'url'],
+        'phishtank' => ['domain', 'url'],
+        'port-scanner-tcp' => ['domain', 'ip'],
+        'retire-js' => ['domain', 'url'],
+        'robtex' => ['domain', 'ip'],
+        'crxcavator' => ['domain'],
+        's3-finder' => ['domain'],
+        'scylla' => ['email', 'username'],
+        'searchcode' => ['domain'],
+        'securitytrails' => ['domain', 'ip', 'email'],
         'shodan' => ['domain', 'ip'],
+        'spamcop' => ['ip'],
+        'spamhaus-zen' => ['ip'],
+        'snallygaster' => ['domain', 'url'],
+        'sorbs' => ['ip'],
+        'steven-black-hosts' => ['domain'],
+        'surbl' => ['domain', 'ip'],
+        'ssl-analyzer' => ['domain'],
+        'tld-searcher' => ['domain'],
+        'talos-intelligence' => ['domain', 'ip'],
+        'threatcrowd' => ['domain', 'ip', 'email', 'hash'],
+        'threatfox' => ['domain', 'ip', 'hash', 'url'],
+        'threatminer' => ['domain', 'ip'],
+        'torch' => ['domain', 'email', 'username'],
+        'tor-exit-nodes' => ['ip'],
+        'testssl' => ['domain', 'url'],
+        'trufflehog' => ['domain', 'url'],
+        'uceprotect' => ['ip'],
         'urlscan' => ['domain', 'url'],
         'virustotal' => ['domain', 'ip'],
-        'whoisology' => ['domain'],
-        'whoxy' => ['domain'],
+        'voipbl' => ['ip'],
+        'vxvault' => ['domain', 'ip'],
+        'web-spider' => ['domain', 'url'],
+        'viewdns' => ['domain', 'ip'],
+        'wafw00f' => ['domain', 'url'],
+        'wappalyzer' => ['domain', 'url'],
+        'wikipedia-edits' => ['ip', 'username'],
+        'whatweb' => ['domain', 'url'],
+        'whoisology' => ['email'],
+        'whoxy' => ['email'],
+        'wikileaks' => ['domain', 'email', 'username'],
+        'zone-h' => ['domain', 'ip'],
+    ];
+
+    /** @var array<string,array<int,string>> Canonical CTI slugs and target types that have passed parity verification. */
+    private const PARITY_VERIFIED_SUPPORT = [
+        'adblock-check' => ['domain', 'url'],
+        'ahmia' => ['domain'],
+        'abuseipdb' => ['ip'],
+        'abuse-ch' => ['domain', 'ip'],
+        'alienvault' => ['domain'],
+        'alienvault-ip-rep' => ['ip'],
+        'azure-blob-finder' => ['domain'],
+        'archive-org' => ['domain', 'url'],
+        'account-finder' => ['domain', 'email', 'username'],
+        'base64-decoder' => ['domain', 'url'],
+        'binary-string-extractor' => ['url'],
+        'blocklist-de' => ['ip'],
+        'botvrij' => ['domain'],
+        'certspotter' => ['domain'],
+        'cins-army' => ['ip'],
+        'cleantalk' => ['domain', 'ip', 'email'],
+        'coinblocker' => ['domain'],
+        'commoncrawl' => ['domain', 'url'],
+        'company-name-extractor' => ['domain', 'url'],
+        'country-name-extractor' => ['domain', 'phone'],
+        'crobat' => ['domain'],
+        'crt-sh' => ['domain'],
+        'cross-referencer' => ['domain', 'url'],
+        'custom-threat-feed' => ['domain', 'ip', 'url', 'hash'],
+        'cybercrime-tracker' => ['domain', 'ip'],
+        'cmseek' => ['domain', 'url'],
+        'dns-bruteforce' => ['domain'],
+        'dns-lookaside' => ['domain', 'ip'],
+        'dnsgrep' => ['domain'],
+        'dns-raw' => ['domain'],
+        'dns-resolver' => ['domain'],
+        'dns-zone-transfer' => ['domain'],
+        'dnstwist' => ['domain'],
+        'do-space-finder' => ['domain'],
+        'dronebl' => ['ip'],
+        'duckduckgo' => ['domain'],
+        'emerging-threats' => ['ip'],
+        'file-metadata-extractor' => ['url'],
+        'flickr' => ['domain'],
+        'fortiguard' => ['domain', 'ip', 'url'],
+        'gcs-finder' => ['domain'],
+        'grep-app' => ['domain'],
+        'greensnow' => ['ip'],
+        'hackertarget' => ['domain', 'ip'],
+        'human-name-extractor' => ['domain', 'url', 'email'],
+        'jsonwhois' => ['domain'],
+        'isc-sans' => ['ip'],
+        'interesting-file-finder' => ['domain', 'url'],
+        'maltiverse' => ['domain', 'ip', 'url', 'hash'],
+        'malwarepatrol' => ['domain', 'ip', 'url', 'hash'],
+        'mnemonic-pdns' => ['domain', 'ip'],
+        'multiproxy' => ['ip'],
+        'nbtscan' => ['ip'],
+        'nmap' => ['domain', 'ip'],
+        'nuclei' => ['domain', 'url'],
+        'open-pdns' => ['domain', 'ip'],
+        'opennic' => ['domain'],
+        'onesixtyone' => ['ip'],
+        'phishstats' => ['domain', 'ip', 'url'],
+        'port-scanner-tcp' => ['domain', 'ip'],
+        'retire-js' => ['domain', 'url'],
+        'robtex' => ['domain', 'ip'],
+        's3-finder' => ['domain'],
+        'scylla' => ['email', 'username'],
+        'searchcode' => ['domain'],
+        'junk-file-finder' => ['domain', 'url'],
+        'spamcop' => ['ip'],
+        'spamhaus-zen' => ['ip'],
+        'snallygaster' => ['domain', 'url'],
+        'sorbs' => ['ip'],
+        'steven-black-hosts' => ['domain'],
+        'surbl' => ['domain', 'ip'],
+        'ssl-analyzer' => ['domain'],
+        'tld-searcher' => ['domain'],
+        'talos-intelligence' => ['domain', 'ip'],
+        'threatcrowd' => ['domain', 'ip', 'email', 'hash'],
+        'threatminer' => ['domain', 'ip'],
+        'tor-exit-nodes' => ['ip'],
+        'testssl' => ['domain', 'url'],
+        'trufflehog' => ['domain', 'url'],
+        'uceprotect' => ['ip'],
+        'urlscan' => ['domain'],
+        'virustotal' => ['domain', 'ip'],
+        'voipbl' => ['ip'],
+        'vxvault' => ['domain', 'ip'],
+        'web-spider' => ['domain', 'url'],
+        'wafw00f' => ['domain', 'url'],
+        'wappalyzer' => ['domain', 'url'],
+        'wikipedia-edits' => ['ip', 'username'],
+        'whatweb' => ['domain', 'url'],
+        'zone-h' => ['domain', 'ip'],
+        'shodan' => ['ip'],
+        'whoisology' => ['email'],
+        'whoxy' => ['email'],
+    ];
+
+    /** @var array<string,bool> Canonical migrated CTI Python modules and whether they require API credentials. */
+    private const MODULE_REQUIRES_KEY = [
+        'adblock-check' => false,
+        'ahmia' => false,
+        'abuse-ch' => false,
+        'abuseipdb' => true,
+        'alienvault' => true,
+        'alienvault-ip-rep' => false,
+        'azure-blob-finder' => false,
+        'apivoid' => true,
+        'archive-org' => false,
+        'account-finder' => false,
+        'base64-decoder' => false,
+        'binary-string-extractor' => false,
+        'bgpview' => false,
+        'blocklist-de' => false,
+        'botvrij' => false,
+        'certspotter' => false,
+        'censys' => true,
+        'cins-army' => false,
+        'cleantalk' => false,
+        'coinblocker' => false,
+        'commoncrawl' => false,
+        'company-name-extractor' => false,
+        'country-name-extractor' => false,
+        'crobat' => false,
+        'crt-sh' => false,
+        'cross-referencer' => false,
+        'custom-threat-feed' => false,
+        'cybercrime-tracker' => false,
+        'cmseek' => false,
+        'dns-bruteforce' => false,
+        'dns-lookaside' => false,
+        'dnsgrep' => false,
+        'dnsdumpster' => false,
+        'dns-raw' => false,
+        'dns-resolver' => false,
+        'dns-zone-transfer' => false,
+        'dnstwist' => false,
+        'do-space-finder' => false,
+        'dronebl' => false,
+        'duckduckgo' => false,
+        'emailrep' => false,
+        'emerging-threats' => false,
+        'file-metadata-extractor' => false,
+        'flickr' => false,
+        'fortiguard' => false,
+        'gcs-finder' => false,
+        'grep-app' => false,
+        'greynoise' => true,
+        'greensnow' => false,
+        'github' => false,
+        'hackertarget' => false,
+        'haveibeenpwned' => true,
+        'human-name-extractor' => false,
+        'hunter' => true,
+        'ipinfo' => true,
+        'ipqualityscore' => true,
+        'ipregistry' => true,
+        'isc-sans' => false,
+        'interesting-file-finder' => false,
+        'jsonwhois' => true,
+        'junk-file-finder' => false,
+        'leakix' => false,
+        'maltiverse' => false,
+        'malwarepatrol' => false,
+        'mnemonic-pdns' => false,
+        'multiproxy' => false,
+        'nbtscan' => false,
+        'nmap' => false,
+        'nuclei' => false,
+        'onionsearchengine' => false,
+        'onesixtyone' => false,
+        'open-pdns' => false,
+        'opennic' => false,
+        'openphish' => false,
+        'passivedns' => false,
+        'pgp-keyservers' => false,
+        'phishstats' => false,
+        'phishtank' => false,
+        'port-scanner-tcp' => false,
+        'retire-js' => false,
+        'robtex' => false,
+        'crxcavator' => false,
+        's3-finder' => false,
+        'scylla' => false,
+        'searchcode' => false,
+        'securitytrails' => true,
+        'shodan' => true,
+        'spamcop' => false,
+        'spamhaus-zen' => false,
+        'snallygaster' => false,
+        'sorbs' => false,
+        'steven-black-hosts' => false,
+        'surbl' => false,
+        'ssl-analyzer' => false,
+        'tld-searcher' => false,
+        'talos-intelligence' => false,
+        'threatcrowd' => false,
+        'threatfox' => false,
+        'threatminer' => false,
+        'torch' => false,
+        'tor-exit-nodes' => false,
+        'testssl' => false,
+        'trufflehog' => false,
+        'uceprotect' => false,
+        'urlscan' => false,
+        'virustotal' => true,
+        'voipbl' => false,
+        'vxvault' => false,
+        'web-spider' => false,
+        'viewdns' => true,
+        'wafw00f' => false,
+        'wappalyzer' => false,
+        'wikipedia-edits' => false,
+        'whatweb' => false,
+        'whoisology' => true,
+        'whoxy' => true,
+        'wikileaks' => false,
+        'zone-h' => false,
     ];
 
     /** @var array<string,string> */
     private const SERVICE_TO_CTI = [
+        'adblock' => 'adblock-check',
+        'ahmia' => 'ahmia',
+        'account-finder' => 'account-finder',
+        'alienvault-ip-rep' => 'alienvault-ip-rep',
+        'azure-blob-finder' => 'azure-blob-finder',
+        'base64' => 'base64-decoder',
+        'binary-string-extractor' => 'binary-string-extractor',
+        'blocklistde' => 'blocklist-de',
+        'cinsscore' => 'cins-army',
+        'cleantalk' => 'cleantalk',
+        'cybercrimetracker' => 'cybercrime-tracker',
+        'company-name-extractor' => 'company-name-extractor',
+        'country-name-extractor' => 'country-name-extractor',
+        'cross-referencer' => 'cross-referencer',
+        'custom-threat-feed' => 'custom-threat-feed',
+        'cmseek' => 'cmseek',
+        'dns-bruteforce' => 'dns-bruteforce',
+        'dns-lookaside' => 'dns-lookaside',
+        'dnsgrep' => 'dnsgrep',
+        'dns-raw' => 'dns-raw',
         'dnsresolve' => 'dns-resolver',
+        'dns-zone-transfer' => 'dns-zone-transfer',
+        'dnstwist' => 'dnstwist',
+        'do-space-finder' => 'do-space-finder',
+        'duckduckgo' => 'duckduckgo',
         'engine' => 'cti-python',
+        'file-metadata-extractor' => 'file-metadata-extractor',
+        'flickr' => 'flickr',
+        'fortiguard' => 'fortiguard',
+        'gcs-finder' => 'gcs-finder',
+        'grep-app' => 'grep-app',
+        'github' => 'github',
+        'human-name-extractor' => 'human-name-extractor',
         'seed' => 'cti-python',
+        'crxcavator' => 'crxcavator',
+        'interesting-file-finder' => 'interesting-file-finder',
+        'junk-file-finder' => 'junk-file-finder',
+        'malwarepatrol' => 'malwarepatrol',
+        'nbtscan' => 'nbtscan',
+        'nmap' => 'nmap',
+        'nuclei' => 'nuclei',
+        'onionsearchengine' => 'onionsearchengine',
+        'onesixtyone' => 'onesixtyone',
+        'open-pdns' => 'open-pdns',
+        'opennic' => 'opennic',
+        'pgp-keyservers' => 'pgp-keyservers',
+        'port-scanner-tcp' => 'port-scanner-tcp',
+        'retire-js' => 'retire-js',
+        's3-finder' => 's3-finder',
+        'scylla' => 'scylla',
+        'searchcode' => 'searchcode',
+        'snallygaster' => 'snallygaster',
+        'sorbs' => 'sorbs',
+        'spamhaus' => 'spamhaus-zen',
+        'ssl-analyzer' => 'ssl-analyzer',
+        'stevenblackhosts' => 'steven-black-hosts',
+        'tld-searcher' => 'tld-searcher',
+        'talos-intelligence' => 'talos-intelligence',
+        'torch' => 'torch',
+        'torexits' => 'tor-exit-nodes',
+        'testssl' => 'testssl',
+        'trufflehog' => 'trufflehog',
+        'voipbl' => 'voipbl',
+        'vxvault' => 'vxvault',
+        'web-spider' => 'web-spider',
+        'wafw00f' => 'wafw00f',
+        'wappalyzer' => 'wappalyzer',
+        'wikipedia-edits' => 'wikipedia-edits',
+        'wikileaks' => 'wikileaks',
+        'whatweb' => 'whatweb',
+        'zoneh' => 'zone-h',
     ];
 
     private int $scanId;
@@ -119,6 +616,15 @@ class CtiPythonServiceRunner
                 return false;
             }
 
+            $canonicalSlug = $slug === 'abusech' ? 'abuse-ch' : $slug;
+            $verifiedQueryTypes = self::PARITY_VERIFIED_SUPPORT[$canonicalSlug] ?? [];
+            if (!$verifiedQueryTypes) {
+                return false;
+            }
+            if (!in_array($queryType, $verifiedQueryTypes, true)) {
+                return false;
+            }
+
             $supportedQueryTypes = self::MODULE_QUERY_SUPPORT[$slug] ?? [];
             if (!in_array($queryType, $supportedQueryTypes, true)) {
                 return false;
@@ -144,6 +650,123 @@ class CtiPythonServiceRunner
         $result = array_keys($slugs);
         sort($result, SORT_STRING);
         return $result;
+    }
+
+    /**
+     * Return canonical migrated slugs that are safe to route by default because
+     * their current CTI Python implementation has already passed parity review.
+     *
+     * @return array<int, string>
+     */
+    public static function getParityVerifiedModuleSlugs(): array
+    {
+        $slugs = array_keys(self::PARITY_VERIFIED_SUPPORT);
+        sort($slugs, SORT_STRING);
+        return $slugs;
+    }
+
+    /**
+     * Return the parity-verified target types per canonical migrated module slug.
+     *
+     * @return array<string,array<int,string>>
+     */
+    public static function getParityVerifiedModuleTypes(): array
+    {
+        return self::PARITY_VERIFIED_SUPPORT;
+    }
+
+    /**
+     * Return canonical migrated slugs mapped to whether the CTI Python module
+     * requires an API key or credential to run its current implementation.
+     *
+     * @return array<string,bool>
+     */
+    public static function getModuleKeyRequirements(): array
+    {
+        return self::MODULE_REQUIRES_KEY;
+    }
+
+    /**
+     * Return canonical migrated slugs mapped to the target types supported by
+     * the current CTI Python implementation.
+     *
+     * @return array<string,array<int,string>>
+     */
+    public static function getModuleSupportedQueryTypes(): array
+    {
+        $result = [];
+
+        foreach (self::MODULE_QUERY_SUPPORT as $slug => $queryTypes) {
+            $canonicalSlug = $slug === 'abusech' ? 'abuse-ch' : $slug;
+            if (!isset($result[$canonicalSlug])) {
+                $result[$canonicalSlug] = [];
+            }
+
+            foreach ($queryTypes as $queryType) {
+                if (!in_array($queryType, $result[$canonicalSlug], true)) {
+                    $result[$canonicalSlug][] = $queryType;
+                }
+            }
+
+            sort($result[$canonicalSlug], SORT_STRING);
+        }
+
+        ksort($result, SORT_STRING);
+        return $result;
+    }
+
+    public static function explainUnsupportedReason(string $queryType, array $selectedApis): string
+    {
+        $queryType = strtolower(trim($queryType));
+        $selectedApis = array_values(array_filter(array_map(
+            static fn($slug) => strtolower(trim((string)$slug)),
+            $selectedApis
+        ), static fn($slug) => $slug !== ''));
+
+        if (empty($selectedApis)) {
+            return 'No modules were selected for CTI Python routing.';
+        }
+
+        $notMigrated = [];
+        $notParityVerified = [];
+        $unsupportedType = [];
+
+        foreach ($selectedApis as $slug) {
+            if (!array_key_exists($slug, self::CTI_TO_SERVICE)) {
+                $notMigrated[] = $slug;
+                continue;
+            }
+
+            $canonicalSlug = $slug === 'abusech' ? 'abuse-ch' : $slug;
+            $verifiedQueryTypes = self::PARITY_VERIFIED_SUPPORT[$canonicalSlug] ?? [];
+            if (!$verifiedQueryTypes) {
+                $notParityVerified[] = $canonicalSlug;
+                continue;
+            }
+            if (!in_array($queryType, $verifiedQueryTypes, true)) {
+                $unsupportedType[] = $canonicalSlug;
+                continue;
+            }
+
+            $supportedQueryTypes = self::MODULE_QUERY_SUPPORT[$slug] ?? [];
+            if (!in_array($queryType, $supportedQueryTypes, true)) {
+                $unsupportedType[] = $canonicalSlug;
+            }
+        }
+
+        if ($notMigrated) {
+            return 'Selected module(s) are not migrated to the CTI Python engine yet: ' . implode(', ', array_values(array_unique($notMigrated))) . '.';
+        }
+
+        if ($notParityVerified) {
+            return 'Selected migrated module(s) are not parity-verified yet, so CTI keeps the proven backend: ' . implode(', ', array_values(array_unique($notParityVerified))) . '.';
+        }
+
+        if ($unsupportedType) {
+            return 'Selected migrated module(s) are not parity-verified for target type "' . $queryType . '" yet, so CTI keeps the proven backend: ' . implode(', ', array_values(array_unique($unsupportedType))) . '.';
+        }
+
+        return 'CTI Python engine routing is not available for the selected scan.';
     }
 
     /**

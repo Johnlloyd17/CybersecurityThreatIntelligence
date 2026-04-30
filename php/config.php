@@ -22,15 +22,27 @@ $_cti_is_local = in_array(strtolower(explode(':', $_cti_host)[0]), ['localhost',
 
 define('APP_ENV', $_cti_is_local ? 'development' : 'production');
 
+if (!function_exists('cti_required_env')) {
+    function cti_required_env(string $key): string {
+        $value = getenv($key);
+        if ($value === false || trim($value) === '') {
+            throw new RuntimeException("Missing required production environment variable: {$key}");
+        }
+        return $value;
+    }
+}
+
 if (APP_ENV === 'production') {
+    // Production values must come from the host environment, not committed defaults.
+    // Set DB_NAME, DB_USER, and DB_PASS in Hostinger/server environment variables.
     // ── Production (Hostinger) ────────────────────────────────────────────────
     define('APP_URL', 'https://' . $_cti_host);   // no trailing slash
 
     define('DB_HOST',    getenv('DB_HOST') ?: 'localhost');
     define('DB_PORT',    getenv('DB_PORT') ?: '3306');
-    define('DB_NAME',    getenv('DB_NAME') ?: 'u907913638_cti_platform');
-    define('DB_USER',    getenv('DB_USER') ?: 'u907913638_u907913638_cti');
-    define('DB_PASS',    getenv('DB_PASS') ?: 'i=$!Jj0/T');
+    define('DB_NAME',    cti_required_env('DB_NAME'));
+    define('DB_USER',    cti_required_env('DB_USER'));
+    define('DB_PASS',    cti_required_env('DB_PASS'));
 } else {
     // ── Local development (XAMPP) ─────────────────────────────────────────────
     define('APP_URL', 'http://localhost/CybersecurityThreatIntelligence');   // no trailing slash

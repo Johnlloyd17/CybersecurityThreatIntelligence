@@ -1,4 +1,6 @@
 # Redirect old .html URLs to .php after migration
+AddDefaultCharset UTF-8
+
 RewriteEngine On
 RewriteBase /CybersecurityThreatIntelligence/
 RewriteRule ^apis\.php$ settings.php [R=301,L]

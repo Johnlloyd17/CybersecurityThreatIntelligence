@@ -7,6 +7,10 @@ $ctiSpiderFootOrder = SpiderFootModuleMapper::getOrderedCtiSlugs();
 $ctiSpiderFootDisplaySlugs = SpiderFootModuleMapper::getDisplaySlugMap();
 $ctiNativeModuleSlugs = OsintEngine::getHandlerSlugs();
 $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
+$ctiPythonParityVerifiedModuleSlugs = CtiPythonServiceRunner::getParityVerifiedModuleSlugs();
+$ctiPythonParityVerifiedModuleTypes = CtiPythonServiceRunner::getParityVerifiedModuleTypes();
+$ctiPythonModuleKeyRequirements = CtiPythonServiceRunner::getModuleKeyRequirements();
+$ctiPythonModuleSupportedTypes = CtiPythonServiceRunner::getModuleSupportedQueryTypes();
 ?>
 <html lang="en">
 <head>
@@ -21,6 +25,10 @@ $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
         window.CTI_SPIDERFOOT_DISPLAY_SLUGS = <?php echo json_encode($ctiSpiderFootDisplaySlugs, JSON_UNESCAPED_SLASHES); ?>;
         window.CTI_NATIVE_MODULE_SLUGS = <?php echo json_encode($ctiNativeModuleSlugs, JSON_UNESCAPED_SLASHES); ?>;
         window.CTI_PYTHON_ENGINE_MODULE_SLUGS = <?php echo json_encode($ctiPythonModuleSlugs, JSON_UNESCAPED_SLASHES); ?>;
+        window.CTI_PYTHON_PARITY_VERIFIED_MODULE_SLUGS = <?php echo json_encode($ctiPythonParityVerifiedModuleSlugs, JSON_UNESCAPED_SLASHES); ?>;
+        window.CTI_PYTHON_PARITY_VERIFIED_MODULE_TYPES = <?php echo json_encode($ctiPythonParityVerifiedModuleTypes, JSON_UNESCAPED_SLASHES); ?>;
+        window.CTI_PYTHON_MODULE_KEY_REQUIREMENTS = <?php echo json_encode($ctiPythonModuleKeyRequirements, JSON_UNESCAPED_SLASHES); ?>;
+        window.CTI_PYTHON_MODULE_SUPPORTED_TYPES = <?php echo json_encode($ctiPythonModuleSupportedTypes, JSON_UNESCAPED_SLASHES); ?>;
     </script>
 </head>
 <body>
@@ -81,6 +89,9 @@ $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
             </div>
             <div class="topbar-right">
                 <span class="label" id="currentTime"></span>
+                <button class="theme-toggle cti-refresh-btn" data-cti-refresh aria-label="Refresh data" title="Refresh data">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
                 <button class="theme-toggle" id="themeToggle" data-theme-toggle aria-label="Toggle theme">
                     <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -209,6 +220,12 @@ $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
                         <div class="scan-bulk-actions mb-3">
                             <button class="btn btn-sm btn-ghost" id="modSelectAll">Select All</button>
                             <button class="btn btn-sm btn-ghost" id="modDeselectAll">Deselect All</button>
+                            <div class="scan-filter-group" id="modKeyFilter" aria-label="Module credential filter">
+                                <span class="label scan-filter-group-label">Credentials</span>
+                                <button type="button" class="scan-filter-pill active" data-key-filter="all">All</button>
+                                <button type="button" class="scan-filter-pill" data-key-filter="no-key">No API Key</button>
+                                <button type="button" class="scan-filter-pill" data-key-filter="requires-key">API Key</button>
+                            </div>
                             <input type="text" class="input input-sm" id="modSearch" placeholder="Filter modules..." style="width:220px;margin-left:auto;">
                             <span class="label ml-2" id="modCount">0 selected</span>
                         </div>
@@ -217,11 +234,17 @@ $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
 
                     <div class="scan-tab-content" id="tabImplemented">
                         <div class="scan-impl-note mb-3">
-                            This view shows only modules already backed by a real CTI implementation. Migrated modules already run on the CTI Python engine, while the rest use existing CTI-native handlers.
+                            This view shows only modules already migrated to the CTI Python engine. They are grouped by whether the current Python implementation needs credentials, and modules marked as parity verified are the ones CTI currently trusts to route through the Python engine by default.
                         </div>
                         <div class="scan-bulk-actions mb-3">
                             <button class="btn btn-sm btn-ghost" id="implSelectAll">Select All</button>
                             <button class="btn btn-sm btn-ghost" id="implDeselectAll">Deselect All</button>
+                            <div class="scan-filter-group" id="implKeyFilter" aria-label="Implemented module credential filter">
+                                <span class="label scan-filter-group-label">Credentials</span>
+                                <button type="button" class="scan-filter-pill active" data-key-filter="all">All</button>
+                                <button type="button" class="scan-filter-pill" data-key-filter="no-key">No API Key</button>
+                                <button type="button" class="scan-filter-pill" data-key-filter="requires-key">API Key</button>
+                            </div>
                             <input type="text" class="input input-sm" id="implSearch" placeholder="Filter implemented modules..." style="width:240px;margin-left:auto;">
                             <span class="label ml-2" id="implCount">0 selected</span>
                         </div>
@@ -245,6 +268,7 @@ $ctiPythonModuleSlugs = CtiPythonServiceRunner::getSupportedModuleSlugs();
     <div class="api-toast hidden" id="pageToast"></div>
 
     <script src="assets/js/theme.js?v=<?php echo filemtime('assets/js/theme.js'); ?>"></script>
+    <script src="assets/js/cti-refresh.js?v=<?php echo filemtime('assets/js/cti-refresh.js'); ?>"></script>
     <script src="assets/js/static-shell.js?v=<?php echo filemtime('assets/js/static-shell.js'); ?>"></script>
     <script src="assets/js/settings.static-data.js?v=<?php echo filemtime('assets/js/settings.static-data.js'); ?>"></script>
     <script src="assets/js/newscan.js?v=<?php echo filemtime('assets/js/newscan.js'); ?>"></script>

@@ -95,6 +95,29 @@ class SpiderFootDiffValidator
         'Leak Site Content'              => 'Leak Site Content',
     ];
 
+    /** @var array<string,string> */
+    private static array $rawCodeNormalization = [
+        'SIMILARDOMAIN' => 'Similar Domain',
+        'LEAKSITE_URL' => 'Leak Site URL',
+        'LEAKSITE_CONTENT' => 'Leak Site Content',
+        'PUBLIC_CODE_REPO' => 'Public Code Repository',
+        'EMAILADDR_GENERIC' => 'Email Address - Generic',
+        'AFFILIATE_EMAILADDR' => 'Affiliate - Email Address',
+        'INTERNET_NAME_UNRESOLVED' => 'Internet Name - Unresolved',
+        'AFFILIATE_INTERNET_NAME_UNRESOLVED' => 'Affiliate - Internet Name - Unresolved',
+        'LINKED_URL_INTERNAL' => 'Linked URL - Internal',
+        'LINKED_URL_EXTERNAL' => 'Linked URL - External',
+        'DARKNET_MENTION_URL' => 'Darknet Mention URL',
+        'DARKNET_MENTION_CONTENT' => 'Darknet Mention Web Content',
+        'WIKIPEDIA_PAGE_EDIT' => 'Wikipedia Page Edit',
+        'APPSTORE_ENTRY' => 'App Store Entry',
+        'SEARCH_ENGINE_WEB_CONTENT' => 'Search Engine Web Content',
+        'RAW_DNS_RECORDS' => 'Raw DNS Records',
+        'DESCRIPTION_ABSTRACT' => 'Description - Abstract',
+        'DESCRIPTION_CATEGORY' => 'Description - Category',
+        'PARENT_DOMAIN' => 'Domain Name (Parent)',
+    ];
+
     public function __construct(int $scanId)
     {
         $this->scanId = $scanId;
@@ -147,7 +170,7 @@ class SpiderFootDiffValidator
             if ($type === '' || $type === 'ROOT') continue;
 
             // Normalize type label
-            $normalizedType = self::$typeNormalization[$type] ?? $type;
+            $normalizedType = self::normalizeType($type);
 
             $this->sfData[] = [
                 'type'           => $normalizedType,
@@ -196,7 +219,7 @@ class SpiderFootDiffValidator
             $type = $event['type'] ?? $event['event_type'] ?? '';
             if ($type === '' || $type === 'ROOT') continue;
 
-            $normalizedType = self::$typeNormalization[$type] ?? $type;
+            $normalizedType = self::normalizeType($type);
 
             $this->sfData[] = [
                 'type'           => $normalizedType,
@@ -385,6 +408,33 @@ class SpiderFootDiffValidator
             $buckets[$type][] = $row[$valueField] ?? '';
         }
         return $buckets;
+    }
+
+    private static function normalizeType(string $type): string
+    {
+        $trimmed = trim($type);
+        if ($trimmed === '') {
+            return $trimmed;
+        }
+
+        if (isset(self::$typeNormalization[$trimmed])) {
+            return self::$typeNormalization[$trimmed];
+        }
+
+        $raw = strtoupper($trimmed);
+        if (isset(self::$rawCodeNormalization[$raw])) {
+            return self::$rawCodeNormalization[$raw];
+        }
+
+        $constant = EventTypes::class . '::' . $raw;
+        if (defined($constant)) {
+            $value = constant($constant);
+            if (is_string($value) && $value !== '') {
+                return $value;
+            }
+        }
+
+        return $trimmed;
     }
 
     /**

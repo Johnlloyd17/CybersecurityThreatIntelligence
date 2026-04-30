@@ -52,18 +52,51 @@ class ShodanModuleTests(unittest.TestCase):
         )
 
         payload = {
-            "ports": [53, 22, 443],
-            "vulns": {"CVE-2024-1111": {}, "CVE-2024-2222": {}},
-            "hostnames": ["dns.google"],
-            "domains": ["google.com"],
+            "os": "Linux",
+            "devtype": "router",
+            "city": "Mountain View",
+            "country_name": "United States",
+            "data": [
+                {
+                    "port": 53,
+                    "banner": "DNS service banner",
+                    "product": "dnsmasq",
+                    "asn": "AS15169",
+                    "vulns": {
+                        "CVE-2024-1111": {"cvss": 9.8},
+                        "CVE-2024-2222": {"cvss": 6.5},
+                    },
+                },
+                {
+                    "port": 443,
+                    "banner": "HTTPS banner",
+                    "product": "nginx",
+                    "asn": "AS15169",
+                },
+            ],
         }
 
         events = module._events_from_host_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("malicious_ip", event_types)
-        self.assertIn("internet_name", event_types)
+        self.assertIn("raw_rir_data", event_types)
+        self.assertIn("operating_system", event_types)
+        self.assertIn("device_type", event_types)
+        self.assertIn("physical_location", event_types)
         self.assertIn("open_port", event_types)
-        self.assertIn("cve", event_types)
+        self.assertIn("open_port_banner", event_types)
+        self.assertIn("software_used", event_types)
+        self.assertIn("bgp_as_member", event_types)
+        self.assertIn("vulnerability_cve_critical", event_types)
+        self.assertIn("vulnerability_cve_medium", event_types)
+
+    def test_vuln_event_type_maps_cvss_bands(self) -> None:
+        module = ShodanModule()
+
+        self.assertEqual("vulnerability_cve_critical", module._vuln_event_type("CVE-2024-0001", {"cvss": 9.5}))
+        self.assertEqual("vulnerability_cve_high", module._vuln_event_type("CVE-2024-0002", {"cvss": 8.1}))
+        self.assertEqual("vulnerability_cve_medium", module._vuln_event_type("CVE-2024-0003", {"cvss": 5.2}))
+        self.assertEqual("vulnerability_cve_low", module._vuln_event_type("CVE-2024-0004", {"cvss": 2.3}))
+        self.assertEqual("vulnerability_general", module._vuln_event_type("CVE-2024-0005", {}))
 
 
 if __name__ == "__main__":

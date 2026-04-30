@@ -10,13 +10,14 @@ from typing import Any, AsyncIterator
 
 from ..events import ScanEvent
 from ..module_base import BaseModule
+from ..targets import DOMAIN_RX
 
 
 class WhoisologyModule(BaseModule):
     slug = "whoisology"
     name = "Whoisology"
-    watched_types = {"domain"}
-    produced_types = {"whois_record", "internet_name"}
+    watched_types = {"email"}
+    produced_types = {"affiliate_internet_name", "affiliate_domain_name"}
     requires_key = True
 
     DEFAULT_BASE_URL = "https://whoisology.com/api"
@@ -39,24 +40,25 @@ class WhoisologyModule(BaseModule):
 
     def _fetch_payload(
         self,
-        domain: str,
+        email: str,
         api_key: str,
         base_url: str,
         timeout: int,
         ctx,
-    ) -> dict[str, Any] | None:
+    ) -> list[dict[str, Any]] | None:
         params = {
             "auth": api_key,
             "request": "flat",
-            "value": domain,
-            "level": "basic",
+            "field": "email",
+            "value": email,
+            "level": "Registrant|Admin|Tec|Billing|Other",
         }
         endpoint = f"{base_url.rstrip('/')}?{urllib.parse.urlencode(params)}"
         headers = {
             "Accept": "application/json",
             "User-Agent": "CTI Engine",
         }
-        ctx.info(f"Fetching Whoisology data for {domain}.", self.slug)
+        ctx.info(f"Fetching Whoisology data for {email}.", self.slug)
         request = urllib.request.Request(endpoint, headers=headers, method="GET")
 
         try:
@@ -65,22 +67,22 @@ class WhoisologyModule(BaseModule):
                 content = response.read().decode("utf-8", errors="replace")
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
-                ctx.info(f"Whoisology has no data for {domain}.", self.slug)
+                ctx.info(f"Whoisology has no data for {email}.", self.slug)
                 return None
             if exc.code == 429:
                 ctx.error("Your request to Whoisology was throttled.", self.slug)
                 return None
-            if exc.code in (401, 403):
-                ctx.error("Whoisology rejected the API key or access token.", self.slug)
+            if exc.code in (400, 401, 403, 500):
+                ctx.error("Whoisology rejected the API key or usage limit was exceeded.", self.slug)
                 return None
-            ctx.warning(f"Whoisology request failed for {domain}: HTTP {exc.code}", self.slug)
+            ctx.warning(f"Whoisology request failed for {email}: HTTP {exc.code}", self.slug)
             return None
         except Exception as exc:
-            ctx.warning(f"Whoisology request failed for {domain}: {exc}", self.slug)
+            ctx.warning(f"Whoisology request failed for {email}: {exc}", self.slug)
             return None
 
         if status >= 400:
-            ctx.warning(f"Whoisology returned HTTP {status} for {domain}.", self.slug)
+            ctx.warning(f"Whoisology returned HTTP {status} for {email}.", self.slug)
             return None
 
         try:
@@ -89,53 +91,58 @@ class WhoisologyModule(BaseModule):
             ctx.error(f"Whoisology returned invalid JSON: {exc}", self.slug)
             return None
 
-        return decoded if isinstance(decoded, dict) else None
+        if not isinstance(decoded, dict):
+            return None
+
+        domains = decoded.get("domains")
+        if domains is None:
+            status_reason = str(decoded.get("status_reason", "Unknown") or "Unknown")
+            ctx.warning(f"Whoisology returned an unexpected response: {status_reason}", self.slug)
+            return None
+
+        if not isinstance(domains, list) or not domains:
+            ctx.info(f"Whoisology returned no domains for {email}.", self.slug)
+            return None
+
+        return [row for row in domains if isinstance(row, dict)]
 
     def _events_from_payload(
         self,
-        payload: dict[str, Any],
+        payload: list[dict[str, Any]],
         parent_event: ScanEvent,
         ctx,
     ) -> list[ScanEvent]:
-        records = payload.get("result") or payload
-        if isinstance(records, dict):
-            records = [records]
-        if not isinstance(records, list) or not records:
-            return []
+        events: list[ScanEvent] = []
+        seen: set[str] = set()
+        for row in payload:
+            domain_name = str(row.get("domain_name", "") or "").strip().lower().rstrip(".")
+            if not domain_name or domain_name in seen:
+                continue
+            seen.add(domain_name)
 
-        related_domains = []
-        for record in records[:25]:
-            domain_name = str((record or {}).get("domain_name", "") or "").strip().lower()
-            if domain_name and domain_name != parent_event.value.strip().lower():
-                related_domains.append(domain_name)
-
-        events: list[ScanEvent] = [
-            ScanEvent(
-                event_type="whois_record",
-                value=f"Domain {parent_event.value}: {len(records)} related WHOIS record(s) found",
+            events.append(ScanEvent(
+                event_type="affiliate_internet_name",
+                value=domain_name,
                 source_module=self.slug,
                 root_target=ctx.root_target,
                 parent_event_id=parent_event.event_id,
                 confidence=78,
                 visibility=100,
-                risk_score=min(25, len(records) * 3),
-                tags=["whois", "whoisology", "related_domains"],
-                raw_payload={"record_count": len(records)},
-            )
-        ]
-
-        for domain_name in related_domains[:15]:
-            events.append(ScanEvent(
-                event_type="internet_name",
-                value=domain_name,
-                source_module=self.slug,
-                root_target=ctx.root_target,
-                parent_event_id=parent_event.event_id,
-                confidence=74,
-                visibility=100,
                 risk_score=8,
-                tags=["whois", "whoisology", "related_domain"],
-                raw_payload={"source_domain": parent_event.value},
+                tags=["whoisology", "reverse_whois", "email"],
+                raw_payload={"source_email": parent_event.value},
             ))
-
+            if DOMAIN_RX.match(domain_name):
+                events.append(ScanEvent(
+                    event_type="affiliate_domain_name",
+                    value=domain_name,
+                    source_module=self.slug,
+                    root_target=ctx.root_target,
+                    parent_event_id=parent_event.event_id,
+                    confidence=78,
+                    visibility=100,
+                    risk_score=8,
+                    tags=["whoisology", "reverse_whois", "email", "domain"],
+                    raw_payload={"source_email": parent_event.value},
+                ))
         return events

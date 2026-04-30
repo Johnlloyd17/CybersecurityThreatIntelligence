@@ -1,8 +1,12 @@
-"""AbuseIPDB module for the first-party CTI engine."""
+"""AbuseIPDB module for the first-party CTI engine.
+
+This implementation intentionally follows SpiderFoot's blacklist-first path for
+IP reputation checks, rather than using the richer single-IP `check` endpoint.
+That keeps the default routed behavior closer to what SpiderFoot itself emits.
+"""
 
 from __future__ import annotations
 
-import json
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -17,7 +21,7 @@ class AbuseIpDbModule(BaseModule):
     name = "AbuseIPDB"
     watched_types = {"ip"}
     produced_types = {
-        "internet_name",
+        "blacklisted_ip",
         "malicious_ip",
     }
     requires_key = True
@@ -29,36 +33,69 @@ class AbuseIpDbModule(BaseModule):
             ctx.error("AbuseIPDB module requires an API key.", self.slug)
             return
 
+        module_settings = ctx.module_settings_for(self.slug)
         base_url = str(api_config.get("base_url", "")).strip() or "https://api.abuseipdb.com/api/v2"
-        timeout = int(ctx.request.settings.global_settings.get("http_timeout", 15) or 15)
-        payload = self._fetch_payload(base_url, event.value, api_key, timeout, ctx)
-        if payload is None:
+        timeout = max(15, int(ctx.request.settings.global_settings.get("http_timeout", 15) or 15))
+        confidence_minimum = max(
+            1,
+            min(
+                100,
+                int(
+                    module_settings.get("min_confidence")
+                    or module_settings.get("confidenceminimum")
+                    or 90
+                ),
+            ),
+        )
+        limit = max(
+            1,
+            min(
+                10000,
+                int(
+                    module_settings.get("max_results")
+                    or module_settings.get("limit")
+                    or 10000
+                ),
+            ),
+        )
+
+        blacklist = self._fetch_blacklist(
+            base_url=base_url,
+            api_key=api_key,
+            timeout=timeout,
+            confidence_minimum=confidence_minimum,
+            limit=limit,
+            ctx=ctx,
+        )
+        if blacklist is None:
             return
 
-        for child in self._events_from_payload(payload, event, ctx):
+        for child in self._events_from_blacklist(blacklist, event, ctx):
             yield child
 
-    def _fetch_payload(
+    def _fetch_blacklist(
         self,
+        *,
         base_url: str,
-        ip_value: str,
         api_key: str,
         timeout: int,
+        confidence_minimum: int,
+        limit: int,
         ctx,
-    ) -> dict[str, Any] | None:
+    ) -> set[str] | None:
         params = urllib.parse.urlencode({
-            "ipAddress": ip_value,
-            "maxAgeInDays": 90,
-            "verbose": "",
+            "confidenceMinimum": confidence_minimum,
+            "limit": limit,
+            "plaintext": "1",
         })
-        endpoint = f"{base_url.rstrip('/')}/check?{params}"
+        endpoint = f"{base_url.rstrip('/')}/blacklist?{params}"
         headers = {
             "Key": api_key,
-            "Accept": "application/json",
+            "Accept": "text/plain",
             "User-Agent": "CTI Engine",
         }
 
-        ctx.info(f"Fetching AbuseIPDB data for {ip_value}.", self.slug)
+        ctx.info("Fetching AbuseIPDB blacklist data.", self.slug)
         request = urllib.request.Request(endpoint, headers=headers, method="GET")
 
         try:
@@ -66,97 +103,71 @@ class AbuseIpDbModule(BaseModule):
                 status = int(getattr(response, "status", 200) or 200)
                 content = response.read().decode("utf-8", errors="replace")
         except urllib.error.HTTPError as exc:
-            if exc.code == 404:
-                ctx.info(f"AbuseIPDB has no data for {ip_value}.", self.slug)
-                return None
             if exc.code == 429:
                 ctx.error("Your request to AbuseIPDB was throttled.", self.slug)
                 return None
             if exc.code in (401, 403):
                 ctx.error("AbuseIPDB rejected the API key or access token.", self.slug)
                 return None
-            ctx.warning(f"AbuseIPDB request failed for {ip_value}: HTTP {exc.code}", self.slug)
+            ctx.warning(f"AbuseIPDB request failed: HTTP {exc.code}", self.slug)
             return None
         except Exception as exc:
-            ctx.warning(f"AbuseIPDB request failed for {ip_value}: {exc}", self.slug)
+            ctx.warning(f"AbuseIPDB request failed: {exc}", self.slug)
             return None
 
         if status >= 400:
-            ctx.warning(f"AbuseIPDB returned HTTP {status} for {ip_value}.", self.slug)
+            ctx.warning(f"AbuseIPDB returned HTTP {status}.", self.slug)
             return None
 
-        try:
-            decoded = json.loads(content)
-        except json.JSONDecodeError as exc:
-            ctx.error(f"AbuseIPDB returned invalid JSON: {exc}", self.slug)
-            return None
+        return self._parse_blacklist(content)
 
-        payload = decoded.get("data")
-        if not isinstance(payload, dict):
-            ctx.info(f"AbuseIPDB returned no check payload for {ip_value}.", self.slug)
-            return None
+    def _parse_blacklist(self, plaintext: str) -> set[str]:
+        entries: set[str] = set()
+        for line in str(plaintext or "").splitlines():
+            value = line.strip()
+            if not value or value.startswith("#"):
+                continue
+            entries.add(value)
+        return entries
 
-        return payload
-
-    def _events_from_payload(
+    def _events_from_blacklist(
         self,
-        payload: dict[str, Any],
+        blacklist: set[str],
         parent_event: ScanEvent,
         ctx,
     ) -> list[ScanEvent]:
-        events: list[ScanEvent] = []
+        if parent_event.value not in blacklist:
+            return []
 
-        abuse_score = int(payload.get("abuseConfidenceScore", 0) or 0)
-        total_reports = int(payload.get("totalReports", 0) or 0)
-        domain = str(payload.get("domain", "") or "").strip().lower()
-        isp = str(payload.get("isp", "") or "").strip()
-        usage_type = str(payload.get("usageType", "") or "").strip()
-        last_reported = str(payload.get("lastReportedAt", "") or "").strip()
+        shared_payload = {
+            "provider": "abuseipdb",
+            "lookup_mode": "blacklist",
+            "check_url": f"https://www.abuseipdb.com/check/{parent_event.value}",
+        }
 
-        if abuse_score > 0 or total_reports > 0:
-            tags = ["abuseipdb", "reported"]
-            if usage_type:
-                tags.append(usage_type.lower().replace(" ", "_"))
-
-            raw_payload = {
-                "abuse_confidence_score": abuse_score,
-                "total_reports": total_reports,
-            }
-            if isp:
-                raw_payload["isp"] = isp
-            if last_reported:
-                raw_payload["last_reported_at"] = last_reported
-
-            events.append(ScanEvent(
+        return [
+            ScanEvent(
                 event_type="malicious_ip",
                 value=parent_event.value,
                 source_module=self.slug,
                 root_target=ctx.root_target,
                 parent_event_id=parent_event.event_id,
-                confidence=self._confidence_from_reports(total_reports),
+                confidence=95,
                 visibility=100,
-                risk_score=max(0, min(100, abuse_score)),
-                tags=tags,
-                raw_payload=raw_payload,
-            ))
-
-        if domain and domain not in {"unknown", "n/a"} and domain != parent_event.value.strip().lower():
-            events.append(ScanEvent(
-                event_type="internet_name",
-                value=domain,
+                risk_score=90,
+                tags=["abuseipdb", "malicious"],
+                raw_payload=shared_payload,
+            ),
+            ScanEvent(
+                event_type="blacklisted_ip",
+                value=parent_event.value,
                 source_module=self.slug,
                 root_target=ctx.root_target,
                 parent_event_id=parent_event.event_id,
-                confidence=75,
+                confidence=95,
                 visibility=100,
-                risk_score=10,
-                tags=["abuseipdb", "domain"],
-                raw_payload={"source_ip": parent_event.value},
-            ))
-
-        return events
-
-    def _confidence_from_reports(self, total_reports: int) -> int:
-        if total_reports <= 0:
-            return 50
-        return min(99, 60 + min(39, total_reports))
+                risk_score=85,
+                tags=["abuseipdb", "blacklist"],
+                raw_payload=shared_payload,
+            ),
+        ]

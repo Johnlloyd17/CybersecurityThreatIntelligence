@@ -6,7 +6,7 @@ $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scans â€” CTI Platform</title>
+    <title>Scans &mdash; CTI Platform</title>
     <link rel="stylesheet" href="assets/css/styles.css?v=<?php echo filemtime('assets/css/styles.css'); ?>">
     <link rel="stylesheet" href="assets/css/dashboard.css?v=<?php echo filemtime('assets/css/dashboard.css'); ?>">
     <script>document.documentElement.setAttribute('data-theme',localStorage.getItem('cti-theme')||'dark');</script>
@@ -70,6 +70,9 @@ $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1';
             </div>
             <div class="topbar-right">
                 <span class="label" id="currentTime"></span>
+                <button class="theme-toggle cti-refresh-btn" data-cti-refresh aria-label="Refresh data" title="Refresh data">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
                 <button class="theme-toggle" id="themeToggle" data-theme-toggle aria-label="Toggle theme">
                     <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -109,18 +112,22 @@ $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1';
                             <button class="btn btn-sm btn-ghost" id="refreshScans" title="Refresh">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                             </button>
-                            <button class="btn btn-sm btn-ghost" id="stopSelected" title="Terminate Selected" disabled>
+                            <button class="btn btn-sm btn-destructive scan-bulk-abort-btn" id="stopSelected" title="Abort Selected" disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12"/></svg>
                             </button>
                             <button class="btn btn-sm btn-accent" id="rerunSelected" title="Re-run Selected" disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                             </button>
-                            <button class="btn btn-sm btn-accent" id="exportSelected" title="Export Selected" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            </button>
-                            <button class="btn btn-sm btn-outline" id="exportJsonSelected" title="Export Selected as JSON" disabled>
-                                JSON
-                            </button>
+                            <div class="scan-export-wrap">
+                                <button class="btn btn-sm btn-accent scan-export-trigger" id="exportSelected" title="Export Selected" disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                                </button>
+                                <div class="scan-export-menu hidden" id="exportMenu">
+                                    <button class="scan-export-opt" type="button" data-export-format="json_compare" title="Export selected scans as CTI JSON for comparison with SpiderFoot">JSON</button>
+                                    <button class="scan-export-opt" type="button" data-export-format="pdf" title="Export selected scans as a CTI PDF report">PDF</button>
+                                </div>
+                            </div>
                             <button class="btn btn-sm" id="deleteSelected" title="Delete Selected" disabled style="background:var(--destructive);color:#fff;border-color:var(--destructive);">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                             </button>
@@ -187,6 +194,7 @@ $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1';
     <div class="api-toast hidden" id="pageToast"></div>
 
     <script src="assets/js/theme.js?v=<?php echo filemtime('assets/js/theme.js'); ?>"></script>
+    <script src="assets/js/cti-refresh.js?v=<?php echo filemtime('assets/js/cti-refresh.js'); ?>"></script>
     <?php if ($previewMode): ?>
     <script src="assets/js/static-shell.js?v=<?php echo filemtime('assets/js/static-shell.js'); ?>"></script>
     <script src="assets/js/scans.static-data.js?v=<?php echo filemtime('assets/js/scans.static-data.js'); ?>"></script>

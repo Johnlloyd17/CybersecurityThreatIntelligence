@@ -18,14 +18,21 @@ class ShodanModule(BaseModule):
     watched_types = {"domain", "ip"}
     produced_types = {
         "ip",
-        "internet_name",
         "open_port",
-        "cve",
-        "malicious_ip",
+        "open_port_banner",
+        "software_used",
+        "bgp_as_member",
+        "operating_system",
+        "device_type",
+        "physical_location",
+        "raw_rir_data",
+        "vulnerability_cve_critical",
+        "vulnerability_cve_high",
+        "vulnerability_cve_medium",
+        "vulnerability_cve_low",
+        "vulnerability_general",
     }
     requires_key = True
-
-    _RISKY_PORTS = {21, 22, 23, 445, 3389, 5900, 8080, 8443}
 
     async def handle(self, event: ScanEvent, ctx) -> AsyncIterator[ScanEvent]:
         api_config = ctx.api_config_for(self.slug)
@@ -162,124 +169,209 @@ class ShodanModule(BaseModule):
     ) -> list[ScanEvent]:
         events: list[ScanEvent] = []
 
-        ports = self._normalize_int_list(payload.get("ports") or [])
-        vulns = self._extract_vulns(payload.get("vulns") or {})
-        hostnames = self._normalize_string_list(payload.get("hostnames") or [])
-        domains = self._normalize_string_list(payload.get("domains") or [])
+        events.append(ScanEvent(
+            event_type="raw_rir_data",
+            value=json.dumps(payload, separators=(",", ":"), sort_keys=True),
+            source_module=self.slug,
+            root_target=ctx.root_target,
+            parent_event_id=parent_event.event_id,
+            confidence=85,
+            visibility=100,
+            risk_score=0,
+            tags=["shodan", "raw"],
+            raw_payload={"ip": parent_event.value},
+        ))
 
-        risky_ports = [port for port in ports if port in self._RISKY_PORTS]
-        if vulns or risky_ports:
+        operating_system = str(payload.get("os", "")).strip()
+        if operating_system:
             events.append(ScanEvent(
-                event_type="malicious_ip",
-                value=parent_event.value,
+                event_type="operating_system",
+                value=f"{operating_system} ({parent_event.value})",
                 source_module=self.slug,
                 root_target=ctx.root_target,
                 parent_event_id=parent_event.event_id,
-                confidence=min(99, 60 + (len(vulns) * 8) + (len(risky_ports) * 4)),
+                confidence=85,
                 visibility=100,
-                risk_score=self._host_risk_score(len(vulns), len(risky_ports), len(ports)),
-                tags=["shodan", "host", "risky"],
-                raw_payload={
-                    "vulnerability_count": len(vulns),
-                    "risky_port_count": len(risky_ports),
-                    "open_port_count": len(ports),
-                },
+                risk_score=0,
+                tags=["shodan", "os"],
+                raw_payload={"ip": parent_event.value},
             ))
 
-        for name in hostnames + domains:
-            if name.strip().lower() == parent_event.value.strip().lower():
-                continue
+        device_type = str(payload.get("devtype", "")).strip()
+        if device_type:
             events.append(ScanEvent(
-                event_type="internet_name",
-                value=name,
+                event_type="device_type",
+                value=f"{device_type} ({parent_event.value})",
+                source_module=self.slug,
+                root_target=ctx.root_target,
+                parent_event_id=parent_event.event_id,
+                confidence=85,
+                visibility=100,
+                risk_score=0,
+                tags=["shodan", "device"],
+                raw_payload={"ip": parent_event.value},
+            ))
+
+        location = self._format_location(payload)
+        if location:
+            events.append(ScanEvent(
+                event_type="physical_location",
+                value=location,
                 source_module=self.slug,
                 root_target=ctx.root_target,
                 parent_event_id=parent_event.event_id,
                 confidence=80,
                 visibility=100,
-                risk_score=10,
-                tags=["shodan", "hostname"],
-                raw_payload={"parent_ip": parent_event.value},
-            ))
-
-        for port in ports:
-            is_risky = port in self._RISKY_PORTS
-            events.append(ScanEvent(
-                event_type="open_port",
-                value=f"{parent_event.value}:{port}",
-                source_module=self.slug,
-                root_target=ctx.root_target,
-                parent_event_id=parent_event.event_id,
-                confidence=90,
-                visibility=100,
-                risk_score=25 if is_risky else 5,
-                tags=["shodan", "port", f"port-{port}"] + (["risky-port"] if is_risky else []),
-                raw_payload={"ip": parent_event.value, "port": port},
-            ))
-
-        for vuln in vulns:
-            events.append(ScanEvent(
-                event_type="cve",
-                value=vuln,
-                source_module=self.slug,
-                root_target=ctx.root_target,
-                parent_event_id=parent_event.event_id,
-                confidence=90,
-                visibility=100,
-                risk_score=70,
-                tags=["shodan", "cve"],
+                risk_score=0,
+                tags=["shodan", "geo"],
                 raw_payload={"ip": parent_event.value},
             ))
 
+        data_rows = payload.get("data")
+        if not isinstance(data_rows, list) or not data_rows:
+            data_rows = [payload]
+
+        seen_ports: set[str] = set()
+        seen_banners: set[str] = set()
+        seen_products: set[str] = set()
+        seen_asns: set[str] = set()
+        seen_vulns: set[str] = set()
+
+        for row in data_rows:
+            if not isinstance(row, dict):
+                continue
+
+            port = self._normalize_port(row.get("port"))
+            if port is not None:
+                port_value = f"{parent_event.value}:{port}"
+                if port_value not in seen_ports:
+                    seen_ports.add(port_value)
+                    events.append(ScanEvent(
+                        event_type="open_port",
+                        value=port_value,
+                        source_module=self.slug,
+                        root_target=ctx.root_target,
+                        parent_event_id=parent_event.event_id,
+                        confidence=90,
+                        visibility=100,
+                        risk_score=5,
+                        tags=["shodan", "port", f"port-{port}"],
+                        raw_payload={"ip": parent_event.value, "port": port},
+                    ))
+
+            banner = str(row.get("banner", "")).strip()
+            if banner and banner not in seen_banners:
+                seen_banners.add(banner)
+                events.append(ScanEvent(
+                    event_type="open_port_banner",
+                    value=banner,
+                    source_module=self.slug,
+                    root_target=ctx.root_target,
+                    parent_event_id=parent_event.event_id,
+                    confidence=80,
+                    visibility=100,
+                    risk_score=0,
+                    tags=["shodan", "banner"],
+                    raw_payload={"ip": parent_event.value, "port": port},
+                ))
+
+            product = str(row.get("product", "")).strip()
+            if product and product not in seen_products:
+                seen_products.add(product)
+                events.append(ScanEvent(
+                    event_type="software_used",
+                    value=product,
+                    source_module=self.slug,
+                    root_target=ctx.root_target,
+                    parent_event_id=parent_event.event_id,
+                    confidence=80,
+                    visibility=100,
+                    risk_score=0,
+                    tags=["shodan", "software"],
+                    raw_payload={"ip": parent_event.value},
+                ))
+
+            asn = str(row.get("asn", "")).strip().upper()
+            if asn.startswith("AS"):
+                asn = asn[2:]
+            if asn and asn not in seen_asns:
+                seen_asns.add(asn)
+                events.append(ScanEvent(
+                    event_type="bgp_as_member",
+                    value=asn,
+                    source_module=self.slug,
+                    root_target=ctx.root_target,
+                    parent_event_id=parent_event.event_id,
+                    confidence=80,
+                    visibility=100,
+                    risk_score=0,
+                    tags=["shodan", "asn"],
+                    raw_payload={"ip": parent_event.value},
+                ))
+
+            for vuln_name, vuln_payload in self._extract_vuln_entries(row.get("vulns")):
+                normalized = vuln_name.strip().upper()
+                if not normalized or normalized in seen_vulns:
+                    continue
+                seen_vulns.add(normalized)
+                events.append(ScanEvent(
+                    event_type=self._vuln_event_type(normalized, vuln_payload),
+                    value=normalized,
+                    source_module=self.slug,
+                    root_target=ctx.root_target,
+                    parent_event_id=parent_event.event_id,
+                    confidence=90,
+                    visibility=100,
+                    risk_score=70,
+                    tags=["shodan", "cve"],
+                    raw_payload={"ip": parent_event.value, "details": vuln_payload},
+                ))
+
         return events
 
-    def _normalize_int_list(self, values: list[Any]) -> list[int]:
-        normalized: list[int] = []
-        seen: set[int] = set()
-        for value in values:
-            try:
-                port = int(value)
-            except (TypeError, ValueError):
-                continue
-            if port <= 0 or port in seen:
-                continue
-            seen.add(port)
-            normalized.append(port)
-        normalized.sort()
-        return normalized
+    def _normalize_port(self, value: Any) -> int | None:
+        try:
+            port = int(value)
+        except (TypeError, ValueError):
+            return None
+        if port <= 0:
+            return None
+        return port
 
-    def _normalize_string_list(self, values: list[Any]) -> list[str]:
-        normalized: list[str] = []
-        seen: set[str] = set()
-        for value in values:
-            item = str(value or "").strip().lower()
-            if not item or item in seen:
-                continue
-            seen.add(item)
-            normalized.append(item)
-        return normalized
+    def _format_location(self, payload: dict[str, Any]) -> str:
+        city = str(payload.get("city", "")).strip()
+        country = str(payload.get("country_name", "")).strip()
+        parts = [part for part in [city, country] if part]
+        return ", ".join(parts)
 
-    def _extract_vulns(self, payload: Any) -> list[str]:
-        values: list[str] = []
+    def _extract_vuln_entries(self, payload: Any) -> list[tuple[str, Any]]:
+        entries: list[tuple[str, Any]] = []
         if isinstance(payload, dict):
-            source = payload.keys()
-        elif isinstance(payload, list):
-            source = payload
-        else:
-            source = []
+            for name, details in payload.items():
+                entries.append((str(name or ""), details))
+            return entries
+        if isinstance(payload, list):
+            for item in payload:
+                entries.append((str(item or ""), None))
+        return entries
 
-        seen: set[str] = set()
-        for value in source:
-            vuln = str(value or "").strip().upper()
-            if not vuln or vuln in seen:
-                continue
-            seen.add(vuln)
-            values.append(vuln)
-        values.sort()
-        return values
+    def _vuln_event_type(self, vuln_name: str, details: Any) -> str:
+        cvss = None
+        if isinstance(details, dict):
+            raw_cvss = details.get("cvss")
+            try:
+                cvss = float(raw_cvss)
+            except (TypeError, ValueError):
+                cvss = None
 
-    def _host_risk_score(self, vuln_count: int, risky_port_count: int, open_port_count: int) -> int:
-        vuln_score = min(70, vuln_count * 15)
-        risky_score = min(20, risky_port_count * 6)
-        exposure_score = min(10, max(0, open_port_count - 5))
-        return max(0, min(100, vuln_score + risky_score + exposure_score))
+        if not vuln_name.startswith("CVE-"):
+            return "vulnerability_general"
+        if cvss is None:
+            return "vulnerability_general"
+        if cvss >= 9.0:
+            return "vulnerability_cve_critical"
+        if cvss >= 7.0:
+            return "vulnerability_cve_high"
+        if cvss >= 4.0:
+            return "vulnerability_cve_medium"
+        return "vulnerability_cve_low"

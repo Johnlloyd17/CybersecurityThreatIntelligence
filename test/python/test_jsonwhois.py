@@ -10,7 +10,7 @@ from python.cti_engine.targets import normalize_target
 
 
 class JsonWhoisModuleTests(unittest.TestCase):
-    def test_payload_emits_summary_and_nameservers(self) -> None:
+    def test_payload_emits_spiderfoot_style_whois_events(self) -> None:
         module = JsonWhoisModule()
         request = ScanRequest(
             scan_id=16,
@@ -18,7 +18,9 @@ class JsonWhoisModuleTests(unittest.TestCase):
             scan_name="JsonWHOIS Test",
             target=normalize_target("example.com", "domain"),
             selected_modules=["jsonwhois"],
-            settings=SettingsSnapshot(),
+            settings=SettingsSnapshot(
+                global_settings={"generic_usernames": "abuse,admin,hostmaster"}
+            ),
         )
         ctx = ScanContext(request=request)
         parent = ScanEvent(
@@ -29,16 +31,39 @@ class JsonWhoisModuleTests(unittest.TestCase):
         )
 
         payload = {
-            "registrar": "Example Registrar",
-            "created_on": "2024-01-01",
-            "expires_on": "2027-01-01",
-            "nameservers": ["ns1.example.net", "ns2.example.net"],
+            "raw": "RAW WHOIS DATA",
+            "registrar": {"name": "Example Registrar"},
+            "nameservers": [{"name": "ns1.example.net"}, {"name": "ns2.example.net"}],
+            "registrant_contacts": [
+                {
+                    "email": "admin@example.com",
+                    "name": "Example Admin",
+                    "phone": "+1 (555) 123-4567",
+                    "address": "123 Main St",
+                    "city": "Metro City",
+                    "state": "State",
+                    "zip": "1000",
+                    "country_code": "US",
+                }
+            ],
+            "admin_contacts": [
+                {
+                    "email": "owner@other.org",
+                    "name": "Outside Owner",
+                }
+            ],
         }
 
         events = module._events_from_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("whois_record", event_types)
-        self.assertEqual(2, event_types.count("internet_name"))
+        self.assertIn("raw_rir_data", event_types)
+        self.assertIn("domain_whois", event_types)
+        self.assertIn("domain_registrar", event_types)
+        self.assertEqual(2, event_types.count("provider_dns"))
+        self.assertIn("email_generic", event_types)
+        self.assertIn("affiliate_email", event_types)
+        self.assertIn("phone_number", event_types)
+        self.assertIn("physical_address", event_types)
 
 
 if __name__ == "__main__":

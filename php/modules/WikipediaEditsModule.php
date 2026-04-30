@@ -2,8 +2,8 @@
 // =============================================================================
 //  CTI — Wikipedia Edits Module
 //  API Docs: https://en.wikipedia.org/w/api.php
-//  Free, no key. Supports: username
-//  Checks if a username has Wikipedia edit history.
+//  Free, no key. Supports: ip, username
+//  Checks if a username or IP address has Wikipedia edit history.
 // =============================================================================
 
 require_once __DIR__ . '/../HttpClient.php';
@@ -14,12 +14,19 @@ class WikipediaEditsModule extends BaseApiModule
 {
     private const API_ID   = 'wikipedia-edits';
     private const API_NAME = 'Wikipedia Edits';
-    private const SUPPORTED = ['username'];
+    private const SUPPORTED = ['ip', 'username'];
 
     public function execute(string $queryType, string $queryValue, string $apiKey, string $baseUrl): OsintResult
     {
         if (!in_array($queryType, self::SUPPORTED, true)) {
             return OsintResult::error(self::API_ID, self::API_NAME, "Unsupported: {$queryType}");
+        }
+
+        if ($queryType === 'username') {
+            $queryValue = self::normalizeUsername($queryValue);
+            if ($queryValue === '') {
+                return OsintResult::error(self::API_ID, self::API_NAME, 'Username is empty after normalization.');
+            }
         }
 
         $url = 'https://en.wikipedia.org/w/api.php?' . http_build_query([
@@ -61,7 +68,8 @@ class WikipediaEditsModule extends BaseApiModule
             if (!$latestEdit && isset($c['timestamp'])) $latestEdit = $c['timestamp'];
         }
 
-        $parts = ["Username '{$queryValue}': {$count} recent Wikipedia edit(s) across " . count($articles) . " article(s)"];
+        $targetLabel = $queryType === 'ip' ? 'IP' : 'Username';
+        $parts = ["{$targetLabel} '{$queryValue}': {$count} recent Wikipedia edit(s) across " . count($articles) . " article(s)"];
         if ($latestEdit) $parts[] = "Latest: {$latestEdit}";
 
         $sampleArticles = array_slice(array_keys($articles), 0, 5);
@@ -71,8 +79,8 @@ class WikipediaEditsModule extends BaseApiModule
             api: self::API_ID, apiName: self::API_NAME,
             score: 5, severity: 'info', confidence: 90,
             responseMs: $resp['elapsed_ms'], summary: implode('. ', $parts) . '.',
-            tags: [self::API_ID, 'username', 'osint', 'clean'],
-            rawData: ['edit_count' => $count, 'articles' => array_keys($articles), 'latest' => $latestEdit],
+            tags: [self::API_ID, $queryType, 'osint', 'clean'],
+            rawData: ['target_type' => $queryType, 'target' => $queryValue, 'edit_count' => $count, 'articles' => array_keys($articles), 'latest' => $latestEdit],
             success: true
         );
     }
@@ -83,5 +91,17 @@ class WikipediaEditsModule extends BaseApiModule
         if ($resp['error'] || $resp['status'] === 0) return ['status' => 'down', 'latency_ms' => $resp['elapsed_ms'], 'error' => $resp['error']];
         if ($resp['status'] === 200) return ['status' => 'healthy', 'latency_ms' => $resp['elapsed_ms'], 'error' => null];
         return ['status' => 'down', 'latency_ms' => $resp['elapsed_ms'], 'error' => "HTTP {$resp['status']}"];
+    }
+
+    private static function normalizeUsername(string $value): string
+    {
+        $normalized = trim($value);
+        $hasDoubleQuotes = str_starts_with($normalized, '"') && str_ends_with($normalized, '"');
+        $hasSingleQuotes = str_starts_with($normalized, "'") && str_ends_with($normalized, "'");
+        if (($hasDoubleQuotes || $hasSingleQuotes) && strlen($normalized) >= 2) {
+            $normalized = trim(substr($normalized, 1, -1));
+        }
+
+        return trim(ltrim($normalized, "@ \t\n\r\0\x0B"));
     }
 }

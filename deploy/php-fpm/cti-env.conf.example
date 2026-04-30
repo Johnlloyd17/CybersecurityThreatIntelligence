@@ -1,0 +1,10 @@
+; PHP-FPM environment values for CTI.
+; Copy this file to your real PHP-FPM pool configuration directory
+; and replace the placeholder values before restarting PHP-FPM.
+
+env[DB_HOST] = localhost
+env[DB_PORT] = 3306
+env[DB_NAME] = cti_platform
+env[DB_USER] = cti_app
+env[DB_PASS] = CHANGE_ME
+env[CTI_PYTHON_ENGINE_URL] = http://127.0.0.1:8765

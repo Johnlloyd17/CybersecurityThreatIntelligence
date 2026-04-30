@@ -18,7 +18,7 @@ class UrlscanModuleTests(unittest.TestCase):
             scan_name="urlscan Domain Test",
             target=normalize_target("example.com", "domain"),
             selected_modules=["urlscan"],
-            settings=SettingsSnapshot(),
+            settings=SettingsSnapshot(module_settings={"urlscan": {"verify_hostnames": False}}),
         )
         ctx = ScanContext(request=request)
         parent = ScanEvent(
@@ -31,19 +31,30 @@ class UrlscanModuleTests(unittest.TestCase):
         payload = {
             "results": [
                 {
-                    "task": {"time": "2026-04-10T03:00:00Z"},
+                    "task": {
+                        "time": "2026-04-10T03:00:00Z",
+                        "url": "https://example.com/login",
+                    },
                     "page": {
                         "url": "https://example.com/login",
                         "domain": "example.com",
-                        "ip": "93.184.216.34",
+                        "asn": "AS64500",
+                        "city": "Pasig",
                         "country": "US",
                         "server": "ExampleServer",
                     },
-                    "verdicts": {
-                        "overall": {
-                            "malicious": True,
-                            "categories": ["phishing"],
-                        }
+                },
+                {
+                    "task": {
+                        "time": "2026-04-10T03:01:00Z",
+                        "url": "https://static.example.com/app.js",
+                    },
+                    "page": {
+                        "domain": "static.example.com",
+                        "asn": "AS64500",
+                        "city": "Pasig",
+                        "country": "US",
+                        "server": "ExampleServer",
                     },
                 }
             ]
@@ -51,9 +62,13 @@ class UrlscanModuleTests(unittest.TestCase):
 
         events = module._events_from_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("malicious_domain", event_types)
+        self.assertIn("raw_rir_data", event_types)
         self.assertIn("linked_url_internal", event_types)
-        self.assertIn("ip", event_types)
+        self.assertIn("internet_name", event_types)
+        self.assertIn("domain_name", event_types)
+        self.assertIn("bgp_as_member", event_types)
+        self.assertIn("webserver_banner", event_types)
+        self.assertIn("physical_location", event_types)
 
     def test_url_payload_emits_expected_events(self) -> None:
         module = UrlscanModule()
@@ -63,7 +78,7 @@ class UrlscanModuleTests(unittest.TestCase):
             scan_name="urlscan URL Test",
             target=normalize_target("https://example.com/path", "url"),
             selected_modules=["urlscan"],
-            settings=SettingsSnapshot(),
+            settings=SettingsSnapshot(module_settings={"urlscan": {"verify_hostnames": False}}),
         )
         ctx = ScanContext(request=request)
         parent = ScanEvent(
@@ -76,17 +91,17 @@ class UrlscanModuleTests(unittest.TestCase):
         payload = {
             "results": [
                 {
-                    "task": {"time": "2026-04-10T03:05:00Z"},
+                    "task": {
+                        "time": "2026-04-10T03:05:00Z",
+                        "url": "https://example.com/path",
+                    },
                     "page": {
                         "url": "https://example.com/path",
                         "domain": "example.com",
-                        "ip": "93.184.216.34",
-                    },
-                    "verdicts": {
-                        "overall": {
-                            "malicious": True,
-                            "categories": ["malware"],
-                        }
+                        "asn": "AS15169",
+                        "city": "Mountain View",
+                        "country": "US",
+                        "server": "ExampleServer",
                     },
                 }
             ]
@@ -94,9 +109,11 @@ class UrlscanModuleTests(unittest.TestCase):
 
         events = module._events_from_payload(payload, parent, ctx)
         event_types = [event.event_type for event in events]
-        self.assertIn("malicious_url", event_types)
+        self.assertIn("raw_rir_data", event_types)
+        self.assertIn("linked_url_internal", event_types)
         self.assertIn("internet_name", event_types)
-        self.assertIn("ip", event_types)
+        self.assertIn("domain_name", event_types)
+        self.assertIn("bgp_as_member", event_types)
 
 
 if __name__ == "__main__":

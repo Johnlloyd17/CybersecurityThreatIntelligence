@@ -43,7 +43,7 @@ class ApiVoidModuleTests(unittest.TestCase):
         self.assertIn("malicious_ip", event_types)
         self.assertIn("internet_name", event_types)
 
-    def test_domain_payload_emits_malicious_domain_and_server_ip(self) -> None:
+    def test_domain_payload_emits_malicious_internet_name_and_server_ip(self) -> None:
         module = ApiVoidModule()
         request = ScanRequest(
             scan_id=13,
@@ -72,7 +72,7 @@ class ApiVoidModuleTests(unittest.TestCase):
 
         events = module._events_from_payload(payload, parent, ctx, {"min_blacklist_detections": 1})
         event_types = [event.event_type for event in events]
-        self.assertIn("malicious_domain", event_types)
+        self.assertIn("malicious_internet_name", event_types)
         self.assertIn("ip", event_types)
 
     def test_url_payload_emits_malicious_url_and_hostname(self) -> None:

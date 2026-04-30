@@ -2,7 +2,8 @@
  * CTI Platform â€” Landing Page
  * Navbar scroll, mobile menu, typewriter effect, smooth scroll, login form.
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await Auth.redirectIfAuth();
   /* â”€â”€ Navbar scroll effect â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   const nav = document.getElementById('nav');
   if (nav) {
@@ -127,18 +128,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* â”€â”€ Login form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    const emailInput   = document.getElementById('loginEmail');
-    const passInput    = document.getElementById('loginPassword');
-    const passToggle   = document.getElementById('toggleLoginPassword');
-    const submitBtn    = document.getElementById('loginBtn');
-    const spinner      = document.getElementById('loginSpinner');
-    const btnText      = document.getElementById('loginBtnText');
-    const errorBox     = document.getElementById('loginError');
-    const errorMsg     = document.getElementById('loginErrorMsg');
-    const showIcon     = passToggle?.querySelector('.password-icon-show');
-    const hideIcon     = passToggle?.querySelector('.password-icon-hide');
+  const bindLoginForm = ({
+    form,
+    emailInput,
+    passInput,
+    passToggle,
+    submitBtn,
+    spinner,
+    btnText,
+    errorBox,
+    errorMsg
+  }) => {
+    if (!form || !emailInput || !passInput || !submitBtn || !spinner || !btnText || !errorBox || !errorMsg) {
+      return;
+    }
+
+    const defaultButtonText = btnText.textContent;
+    const showIcon = passToggle?.querySelector('.password-icon-show');
+    const hideIcon = passToggle?.querySelector('.password-icon-hide');
 
     if (passInput && passToggle) {
       const setPasswordVisibility = (isVisible) => {
@@ -160,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setPasswordVisibility(false);
     }
 
-    loginForm.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorBox.classList.add('hidden');
       submitBtn.disabled = true;
@@ -176,8 +183,20 @@ document.addEventListener('DOMContentLoaded', () => {
       } finally {
         submitBtn.disabled = false;
         spinner.classList.add('hidden');
-        btnText.textContent = 'Access System';
+        btnText.textContent = defaultButtonText;
       }
     });
-  }
+  };
+
+  bindLoginForm({
+    form: document.getElementById('heroLoginForm'),
+    emailInput: document.getElementById('heroLoginEmail'),
+    passInput: document.getElementById('heroLoginPassword'),
+    passToggle: document.getElementById('toggleHeroLoginPassword'),
+    submitBtn: document.getElementById('heroLoginBtn'),
+    spinner: document.getElementById('heroLoginSpinner'),
+    btnText: document.getElementById('heroLoginBtnText'),
+    errorBox: document.getElementById('heroLoginError'),
+    errorMsg: document.getElementById('heroLoginErrorMsg')
+  });
 });

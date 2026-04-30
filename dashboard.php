@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard â€” CTI Platform</title>
+    <title>Dashboard &mdash; CTI Platform</title>
     <link rel="stylesheet" href="assets/css/styles.css?v=<?php echo filemtime('assets/css/styles.css'); ?>">
     <link rel="stylesheet" href="assets/css/dashboard.css?v=<?php echo filemtime('assets/css/dashboard.css'); ?>">
     <!-- Apply saved theme before CSS renders to prevent flash -->
@@ -46,7 +46,7 @@
                 <div class="user-avatar" id="userAvatarInitial">A</div>
                 <div class="user-info">
                     <span class="user-name" id="userName">Loading...</span>
-                    <span class="user-role label" id="userRole">â€”</span>
+                    <span class="user-role label" id="userRole">&mdash;</span>
                 </div>
             </div>
             <button class="btn btn-ghost btn-sm w-full" id="logoutBtn">
@@ -70,6 +70,9 @@
             </div>
             <div class="topbar-right">
                 <span class="label" id="currentTime"></span>
+                <button class="theme-toggle cti-refresh-btn" data-cti-refresh aria-label="Refresh data" title="Refresh data">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
                 <button class="theme-toggle" id="themeToggle" data-theme-toggle aria-label="Toggle theme">
                     <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -86,22 +89,22 @@
             <div class="dash-stats grid grid-4">
                 <div class="card stat-card">
                     <span class="stat-label">Total Queries</span>
-                    <span class="stat-value" id="statTotalQueries">â€”</span>
+                    <span class="stat-value" id="statTotalQueries">&mdash;</span>
                     <span class="label accent-text mt-1" id="statQueriesLabel">Loading...</span>
                 </div>
                 <div class="card stat-card">
                     <span class="stat-label">Threats Found</span>
-                    <span class="stat-value" id="statThreatsFound" style="color: var(--destructive)">â€”</span>
+                    <span class="stat-value" id="statThreatsFound" style="color: var(--destructive)">&mdash;</span>
                     <span class="label destructive-text mt-1" id="statDetectionRate">Loading...</span>
                 </div>
                 <div class="card stat-card">
                     <span class="stat-label">APIs Active</span>
-                    <span class="stat-value neon-text-tertiary" id="statApisActive">â€”</span>
+                    <span class="stat-value neon-text-tertiary" id="statApisActive">&mdash;</span>
                     <span class="label tertiary-text mt-1" id="statApisLabel">Loading...</span>
                 </div>
                 <div class="card stat-card">
                     <span class="stat-label">Avg Response</span>
-                    <span class="stat-value neon-text-secondary" id="statAvgResponse">â€”</span>
+                    <span class="stat-value neon-text-secondary" id="statAvgResponse">&mdash;</span>
                     <span class="label secondary-text mt-1" id="statAvgResponseLabel">Loading...</span>
                 </div>
             </div>
@@ -118,27 +121,27 @@
                         <div class="sev-row">
                             <span class="badge badge-critical">Critical</span>
                             <div class="sev-track"><div class="sev-fill sev-critical" id="sevFillCritical" style="width: 0%"></div></div>
-                            <span class="label" id="sevCountCritical">â€”</span>
+                            <span class="label" id="sevCountCritical">&mdash;</span>
                         </div>
                         <div class="sev-row">
                             <span class="badge badge-high">High</span>
                             <div class="sev-track"><div class="sev-fill sev-high" id="sevFillHigh" style="width: 0%"></div></div>
-                            <span class="label" id="sevCountHigh">â€”</span>
+                            <span class="label" id="sevCountHigh">&mdash;</span>
                         </div>
                         <div class="sev-row">
                             <span class="badge badge-medium">Medium</span>
                             <div class="sev-track"><div class="sev-fill sev-medium" id="sevFillMedium" style="width: 0%"></div></div>
-                            <span class="label" id="sevCountMedium">â€”</span>
+                            <span class="label" id="sevCountMedium">&mdash;</span>
                         </div>
                         <div class="sev-row">
                             <span class="badge badge-low">Low</span>
                             <div class="sev-track"><div class="sev-fill sev-low" id="sevFillLow" style="width: 0%"></div></div>
-                            <span class="label" id="sevCountLow">â€”</span>
+                            <span class="label" id="sevCountLow">&mdash;</span>
                         </div>
                         <div class="sev-row">
                             <span class="badge badge-info">Info</span>
                             <div class="sev-track"><div class="sev-fill sev-info" id="sevFillInfo" style="width: 0%"></div></div>
-                            <span class="label" id="sevCountInfo">â€”</span>
+                            <span class="label" id="sevCountInfo">&mdash;</span>
                         </div>
                     </div>
                 </div>
@@ -227,21 +230,21 @@
                     <div class="status-filter-row" id="apiStatusPills" style="flex-wrap:nowrap;">
                         <button class="status-pill active" data-api-filter="all">
                             <span class="status-pill-dot all"></span> All
-                            <span class="status-pill-count" id="apiPillCountAll">â€”</span>
+                            <span class="status-pill-count" id="apiPillCountAll">&mdash;</span>
                         </button>
                         <button class="status-pill" data-api-filter="configured">
                             <span class="status-pill-dot configured"></span> Configured
-                            <span class="status-pill-count" id="apiPillCountConfigured">â€”</span>
+                            <span class="status-pill-count" id="apiPillCountConfigured">&mdash;</span>
                         </button>
                         <button class="status-pill" data-api-filter="missing">
                             <span class="status-pill-dot missing"></span> No Key
-                            <span class="status-pill-count" id="apiPillCountMissing">â€”</span>
+                            <span class="status-pill-count" id="apiPillCountMissing">&mdash;</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="api-status-grid grid grid-3" id="apiStatusGrid">
-                    <div class="api-status-item"><span class="badge badge-info">&#9651;</span><span>Loading...</span><span class="label">â€”</span></div>
+                    <div class="api-status-item"><span class="badge badge-info">&#9651;</span><span>Loading...</span><span class="label">&mdash;</span></div>
                 </div>
 
                 <!-- Pagination -->
@@ -256,6 +259,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <script src="assets/js/theme.js?v=<?php echo filemtime('assets/js/theme.js'); ?>"></script>
+    <script src="assets/js/cti-refresh.js?v=<?php echo filemtime('assets/js/cti-refresh.js'); ?>"></script>
     <script src="assets/js/auth.js?v=<?php echo filemtime('assets/js/auth.js'); ?>"></script>
     <script src="assets/js/dashboard.js?v=<?php echo filemtime('assets/js/dashboard.js'); ?>"></script>
     <script src="assets/js/dashboard-stats.js?v=<?php echo filemtime('assets/js/dashboard-stats.js'); ?>"></script>

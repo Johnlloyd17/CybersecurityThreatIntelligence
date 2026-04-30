@@ -191,6 +191,10 @@ class ScanExecutor
 {
     /** Keep DNSAudit issue JSON mostly intact; TEXT columns are 64KB max. */
     private const DNSAUDIT_ISSUE_SUMMARY_MAX_BYTES = 60000;
+    /** Modules where CTI's native PHP handler is the safer fallback than the SpiderFoot bridge. */
+    private const PREFER_NATIVE_FALLBACK = [
+        'wikipedia-edits',
+    ];
 
     private static function findingSignature(
         string $apiSlug,
@@ -224,6 +228,41 @@ class ScanExecutor
             'cti-legacy' => 'CTI Native Backend',
             default => ucwords(str_replace(['-', '_'], ' ', trim($backendKey))),
         };
+    }
+
+    /**
+     * When the CTI Python service is unavailable, prefer the native CTI PHP
+     * module over the SpiderFoot bridge for selected modules that already have
+     * a stable first-party implementation.
+     *
+     * @param array<int,string> $selectedApis
+     */
+    private static function shouldPreferNativeFallback(array $selectedApis): bool
+    {
+        $selectedApis = array_values(array_unique(array_filter(array_map(
+            static fn($slug): string => strtolower(trim((string)$slug)),
+            $selectedApis
+        ), static fn(string $slug): bool => $slug !== '')));
+
+        if ($selectedApis === []) {
+            return false;
+        }
+
+        foreach ($selectedApis as $slug) {
+            if ($slug === 'abusech') {
+                $slug = 'abuse-ch';
+            }
+
+            if (!in_array($slug, self::PREFER_NATIVE_FALLBACK, true)) {
+                return false;
+            }
+
+            if (!OsintEngine::hasHandler($slug)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static function persistBackendSelection(int $scanId, string $backendKey): void
@@ -438,9 +477,24 @@ class ScanExecutor
                     'CTI Python engine error; falling back to existing backend: ' . $e->getMessage()
                 );
             }
+        } else {
+            logScan(
+                $scanId,
+                'info',
+                'cti-python',
+                CtiPythonServiceRunner::explainUnsupportedReason($queryType, $selectedApis)
+            );
         }
 
-        if (SpiderFootBridgeRunner::supportsScan($queryType, $selectedApis)) {
+        if (self::shouldPreferNativeFallback($selectedApis)) {
+            logScan(
+                $scanId,
+                'info',
+                'bridge',
+                'SpiderFoot bridge skipped; using the native CTI backend for: '
+                . implode(', ', array_values(array_unique($selectedApis))) . '.'
+            );
+        } elseif (SpiderFootBridgeRunner::supportsScan($queryType, $selectedApis)) {
             try {
                 self::persistBackendSelection($scanId, 'spiderfoot-bridge');
                 logScan($scanId, 'info', 'bridge', 'SpiderFoot Python backend selected for this scan.');
