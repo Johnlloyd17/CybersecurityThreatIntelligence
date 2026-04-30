@@ -33,7 +33,6 @@ Main application areas:
 - `spiderfoot-master/`: vendored SpiderFoot reference/runtime code.
 - `scripts/`: local helper scripts for tests, service startup, and bridge runs.
 - `test/python/`: Python unit tests for the CTI engine and modules.
-- `.github/`: roadmap, contributor guidance, and project planning docs.
 
 ## Local Development Quick Start
 
