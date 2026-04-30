@@ -1,8 +1,5 @@
 ﻿# CTI Platform Copilot Instructions
 
-Use this file as the primary repository guide for GitHub Copilot, code agents,
-and contributors. The repository is intended to be public, so every change must
-be safe for open-source visibility.
 
 ## Public Repository Rules
 
