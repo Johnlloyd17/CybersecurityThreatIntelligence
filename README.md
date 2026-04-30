@@ -173,6 +173,11 @@ A scan can use the CTI Python engine only when:
   `PARITY_VERIFIED_SUPPORT`, and
 - the Python service is reachable.
 
+Only modules already listed as implemented/migrated in the CTI platform should
+be tested through the CTI Python engine. Modules that are not implemented yet
+should not be expected to run in CTI Python; they must use the available
+fallback backend or wait until migration is complete.
+
 Backend choice is stored in the scan `config_snapshot` using fields such as
 `engine_backend` and `engine_backend_label`.
 
