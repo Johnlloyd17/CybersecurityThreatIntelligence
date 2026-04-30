@@ -249,6 +249,15 @@ engine. It is used in two ways:
   Python.
 - As a behavior reference when tightening CTI Python module parity.
 
+Official SpiderFoot repository:
+
+```text
+https://github.com/smicallef/spiderfoot
+```
+
+Review the upstream repository when studying SpiderFoot's Python scan runner,
+module system, event routing, and module behavior.
+
 When working on SpiderFoot parity:
 
 - Compare against the matching `spiderfoot-master/modules/sfp_*.py` file.
