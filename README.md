@@ -339,17 +339,3 @@ If CTI falls back to SpiderFoot or PHP instead of CTI Python, check:
 
 If a tool-based module returns no results, check whether the local executable is
 installed and available on `PATH`, or configured in that module's settings.
-
-## Agent Behavior Expectations
-
-For Copilot or coding agents working in this repository:
-
-- Read existing patterns before changing architecture.
-- Prefer small, reviewable changes.
-- Keep public-repo safety in mind for every generated file.
-- Do not silently remove user work or unrelated changes.
-- Update tests when behavior changes.
-- Update docs when commands, service behavior, module support, or public setup
-  expectations change.
-- Be honest about module status: implemented, tested, parity-tightened, and
-  fully parity-verified are different states.
