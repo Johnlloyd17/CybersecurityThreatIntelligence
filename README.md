@@ -1,6 +1,5 @@
 ﻿# CTI Platform Copilot Instructions
 
-
 ## Public Repository Rules
 
 - Never commit real API keys, passwords, tokens, cookies, session IDs, database
@@ -258,6 +257,32 @@ https://github.com/smicallef/spiderfoot
 
 Review the upstream repository when studying SpiderFoot's Python scan runner,
 module system, event routing, and module behavior.
+
+## SpiderFoot Copyright And Attribution
+
+Do not describe this CTI project as "copyrighted by SpiderFoot." The correct
+relationship is:
+
+- CTI Platform is an independent project.
+- SpiderFoot is a separate upstream project created by its authors.
+- SpiderFoot is MIT-licensed in the upstream repository.
+- Any SpiderFoot source code, module files, or substantial copied portions keep
+  their original SpiderFoot copyright and MIT license notice.
+- CTI source code that is written specifically for this project belongs to the
+  CTI project authors, unless a file states otherwise.
+
+Recommended public wording:
+
+```text
+This project includes first-party CTI platform code and may reference or bundle
+SpiderFoot components for compatibility and parity testing. SpiderFoot is a
+separate MIT-licensed project. See https://github.com/smicallef/spiderfoot.
+```
+
+If the `spiderfoot-master/` directory is included in a public release, keep the
+SpiderFoot `LICENSE` file with it. If CTI code is only inspired by SpiderFoot
+behavior but does not copy SpiderFoot source code, mention SpiderFoot as a
+reference project rather than as the copyright owner of CTI.
 
 When working on SpiderFoot parity:
 
