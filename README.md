@@ -1,5 +1,9 @@
 ﻿# CTI Platform Copilot Instructions
 
+## Preview
+
+![CTI Platform Login Page](assets/screenshots/cti-login-page.png)
+
 ## Public Repository Rules
 
 - Never commit real API keys, passwords, tokens, cookies, session IDs, database
@@ -414,3 +418,4 @@ If CTI falls back to SpiderFoot or PHP instead of CTI Python, check:
 
 If a tool-based module returns no results, check whether the local executable is
 installed and available on `PATH`, or configured in that module's settings.
+
